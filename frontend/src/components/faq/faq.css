@@ -1,0 +1,12 @@
+.faq {
+    direction: rtl;
+}
+
+.faq button {
+    font-family: "Vazir" !important;
+    font-weight: 500;
+}
+
+.faq div {
+    font-family: "Vazir" !important;
+}

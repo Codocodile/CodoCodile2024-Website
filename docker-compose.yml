@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: codocodile_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - frontend
+    networks:
+      - codocodile_network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: codocodile_frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - codocodile_network
+
+
+networks:
+  codocodile_network:

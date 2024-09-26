@@ -1,0 +1,14 @@
+.header-wrapper {
+  background-image: url("/assets/BackgroundImage.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.header-type-writer {
+  font-family: IBM Plex Mono, monospace !important;
+}
+
+.logos img {
+  max-height: 2.5rem;
+}

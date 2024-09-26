@@ -1,0 +1,7 @@
+.timeline-item div {
+    width: 100%;
+}
+
+.timeline-description {
+    direction: rtl;
+}
