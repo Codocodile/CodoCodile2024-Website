@@ -1,4 +1,4 @@
-version: "3"
+---
 
 services:
   backend:
@@ -9,6 +9,8 @@ services:
       - "8000:8000"
     depends_on:
       - frontend
+    volumes:
+      - data:/app/data:rw
     networks:
       - codocodile_network
 
@@ -24,3 +26,6 @@ services:
 
 networks:
   codocodile_network:
+
+volumes:
+  data:
