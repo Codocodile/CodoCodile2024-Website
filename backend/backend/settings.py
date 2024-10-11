@@ -9,27 +9,37 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv('local.env')
+
+
+def get_conf(key: str, cast_to_bool: bool = False):
+    value = os.environ.get(key)
+    if value is None:
+        raise EnvironmentError(f'{key} environment variable is not set.')
+    if cast_to_bool:
+        return value in ['true', 'True']
+    return value
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6xvndk!we)@6dhl0!#skhc_htocuez7c(ko9r_a*k@)!u^mw!b'
+SECRET_KEY = get_conf('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_conf('DEBUG', cast_to_bool=True)
 
-ALLOWED_HOSTS = [
-    'codocodile.com',
-    'localhost',
-    '127.0.0.1',
-    '37.152.179.253']
+ALLOWED_HOSTS = [host.strip() for host in get_conf('ALLOWED_HOSTS').split(',')]
 
 
 # Application definition
@@ -116,11 +126,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://codocodile.com',
-    'http://37.152.179.253:5173',
-]
+CORS_ALLOWED_ORIGINS = [origin.strip() for origin in get_conf('CORS_ALLOWED_ORIGINS').split(',')]
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -198,9 +204,10 @@ STATIC_ROOT = "/home/codocodile/Backend/static/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'codocodile.sharif@gmail.com'
-EMAIL_HOST_PASSWORD = 'gamaaodolavhccuw'
-CORS_ALLOW_ALL_ORIGINS = True
+EMAIL_HOST = get_conf('EMAIL_HOST')
+EMAIL_USE_TLS = get_conf('EMAIL_USE_TLS', cast_to_bool=True)
+EMAIL_PORT = get_conf('EMAIL_PORT')
+EMAIL_HOST_USER = get_conf('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_conf('EMAIL_HOST_PASSWORD')
+
+CORS_ALLOW_ALL_ORIGINS = False

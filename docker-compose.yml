@@ -13,6 +13,8 @@ services:
       - data:/app/data:rw
     networks:
       - codocodile_network
+    env_file:
+      - ./backend/local.env
 
   frontend:
     build:
