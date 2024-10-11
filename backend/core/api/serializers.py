@@ -5,7 +5,7 @@ from rest_framework import serializers
 import re
 
 from core import models
-from core.models import Challenger, Membership, Group
+from core.models import Challenger, Membership, Group, Visit
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -204,3 +204,9 @@ class MembershipViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Membership
         fields = ('challenger', 'role', 'status')
+
+
+class VisitCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Visit
+        fields = ('url',)

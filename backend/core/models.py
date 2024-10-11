@@ -63,3 +63,12 @@ class Membership(models.Model):
 
     def __str__(self):
         return f'{self.challenger} {self.group} {self.get_status_display()} {self.get_role_display()}'
+    
+
+class Visit(models.Model):
+    url = models.CharField(max_length=512)
+    date_created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f'{self.url}'
+    

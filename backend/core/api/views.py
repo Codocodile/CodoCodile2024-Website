@@ -5,7 +5,7 @@ from rest_framework import generics, permissions, status, views
 from rest_framework.response import Response
 
 from core.api.serializers import *
-from core.models import Group, Challenger, Membership
+from core.models import Group, Challenger, Membership, Visit
 
 from django.core.mail import send_mail
 from django.db.models.functions import Concat
@@ -252,3 +252,9 @@ class PasswordResetAPIView(views.APIView):
                 'Password reset code is not correct',
                 status=status.HTTP_406_NOT_ACCEPTABLE
             )
+
+
+class VisitCreateAPIView(generics.CreateAPIView):
+    queryset = Visit.objects.all()
+    serializer_class = VisitCreateSerializer
+    permission_classes = [permissions.AllowAny, ]
