@@ -7,7 +7,7 @@ import {
   Textarea,
   // Typography,
 } from "@material-tailwind/react";
-import { API_URL, urls } from "../../global/Variables";
+import { API_URL, urls } from "../../global-constants/Variables";
 import React, { useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { RefreshToken } from "../panel/Panel";

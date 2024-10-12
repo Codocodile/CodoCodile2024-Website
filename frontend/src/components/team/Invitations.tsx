@@ -10,7 +10,7 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ChallengerTeam } from "./TeamList";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL, urls } from "../../global/Variables";
+import { API_URL, urls } from "../../global-constants/Variables";
 import { RefreshToken } from "../panel/Panel";
 
 export interface Invitation {

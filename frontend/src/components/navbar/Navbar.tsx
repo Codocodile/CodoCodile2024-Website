@@ -8,7 +8,7 @@ import {
     // Avatar,
 } from "@material-tailwind/react";
 import {useNavigate} from "react-router-dom";
-import {urls} from "../../global/Variables.ts";
+import {urls} from "../../global-constants/Variables.ts";
 import {HashLink} from "react-router-hash-link";
 import header_logo from '/assets/Header_logo.png';
 
@@ -25,39 +25,33 @@ const Navbar = () => {
 
     const navList = (
         <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <HashLink to="#timeline" smooth={true}>
-                    <a className="flex items-center">Timeline</a>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-black">
+                <HashLink to="/sponsor" smooth={true}>
+                    <a className="flex items-center">Our Sponsor</a>
                 </HashLink>
             </Typography>
-
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <HashLink to="#introduction" smooth={true}>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">
+                <HashLink to="/#staff" smooth={true}>
+                    <a className="flex items-center">Staff</a>
+                </HashLink>
+            </Typography>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">
+                <HashLink to="/#introduction" smooth={true}>
                     <a className="flex items-center">Introduction</a>
                 </HashLink>
             </Typography>
-
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <HashLink to="#faq" smooth={true}>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">
+                <HashLink to="/#timeline" smooth={true}>
+                    <a className="flex items-center">Timeline</a>
+                </HashLink>
+            </Typography>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
+                <HashLink to="/#faq" smooth={true}>
                     <a className="flex items-center">FAQ</a>
                 </HashLink>
             </Typography>
+
+
         </ul>
     );
 
@@ -71,7 +65,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-4">
                     <Typography
                         as="a"
-                        href="#"
+                        href="/"
                         className="mr-4 cursor-pointer py-1.5 font-large font-bold"
                     >
                         <img
