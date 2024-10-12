@@ -10,7 +10,6 @@ import {
 import {useNavigate} from "react-router-dom";
 import {urls} from "../../global-constants/Variables.ts";
 import {HashLink} from "react-router-hash-link";
-import header_logo from '/assets/Header_logo.png';
 
 const Navbar = () => {
     const [openNav, setOpenNav] = useState(false);
@@ -69,7 +68,7 @@ const Navbar = () => {
                         className="mr-4 cursor-pointer py-1.5 font-large font-bold"
                     >
                         <img
-                            src={header_logo}
+                            src={'/assets/Header_logo.png'}
                             alt="header_logo"
                             width={200}
                             height={200}

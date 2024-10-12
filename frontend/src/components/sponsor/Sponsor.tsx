@@ -1,5 +1,6 @@
 import {Footer, Section, TextOnlySection} from "../../containers";
 import {Navbar} from "../";
+import {SPONSOR_INTRODUCTION} from "../../global-constants/LandingConstants.ts";
 
 
 function Landing() {
@@ -40,6 +41,13 @@ function Landing() {
         <>
             <Navbar/>
 
+                <Section nameColor={"#FF5B35"} name="Tapsi ~ Sponsor of Event" side="left" dino={1}
+                         image={"assets/tapsi-logo-fa.png"}>
+                    <TextOnlySection
+                        text={SPONSOR_INTRODUCTION}
+                        font={"font-sans"}/>
+                </Section>
+
             {tapsiSections.map((tapsiSection, key) => (
                 <Section
                     name={tapsiSection.title}
@@ -50,7 +58,7 @@ function Landing() {
                 >
                     <TextOnlySection
                         text={tapsiSection.description}
-                    />
+                     font={"font-dana"}/>
                 </Section>
             ))}
 

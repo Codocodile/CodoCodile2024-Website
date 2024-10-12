@@ -28,7 +28,7 @@ function slugify(str: string) {
 
 const Section = ({name, nameColor, capitalize, children, side, dino, image}: Props) => {
     const [dinoIcon] = useState(dino === undefined ? 1 + Math.floor(Math.random() * 15) : dino);
-
+    console.log(nameColor)
     return (
         <div id={slugify(name)} className="flex bg-gray-900 pt-8">
             <div className="flex flex-col lg:flex-row items-center justify-between mx-auto text-center">
@@ -44,7 +44,7 @@ const Section = ({name, nameColor, capitalize, children, side, dino, image}: Pro
                     <Typography
                         variant="h1"
                         color="white"
-                        className={nameColor !== undefined ? `text-[${nameColor}] mb-6 mt-6 section-title` : "text-white mb-6 mt-6 section-title"}
+                        className={nameColor !== undefined ? `text-[#FF5B35] mb-6 mt-6 section-title` : "text-white mb-6 mt-6 section-title"}
                     >
                         {capitalize ? name.toUpperCase() : titleCase(name)}
                     </Typography>
