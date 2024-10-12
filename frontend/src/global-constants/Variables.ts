@@ -7,8 +7,6 @@ export const urls = {
     panel: '/panel',
     profile: '/panel/profile',
     team: '/panel/team',
-    wildCard: "*"
+    sponsor: '/sponsor',
 }
-
-// export const API_URL = 'https://codocodile.com/api'
-export const API_URL = 'http://37.152.179.253:8000'
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';

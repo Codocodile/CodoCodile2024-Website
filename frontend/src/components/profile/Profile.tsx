@@ -3,7 +3,7 @@ import { Section } from "../../containers";
 import axios from "axios";
 import { RefreshToken } from "../panel/Panel";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { urls, API_URL } from "../../global/Variables";
+import { urls, API_URL } from "../../global-constants/Variables";
 import {
   Checkbox,
   Input,

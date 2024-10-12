@@ -3,23 +3,33 @@
 @tailwind utilities;
 
 body {
-  scroll-behavior: smooth;
-  font-family: 'IBM Plex Mono', monospace;
-  font-family: 'Rubik', sans-serif;
+    scroll-behavior: smooth;
+    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Rubik', sans-serif;
 }
 
 @font-face {
-  font-family: "Vazir";
-  src: url("/assets/Vazir.ttf") format("ttf"),
-       url("/assets/Vazir.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Vazir";
+    src: url("./assets/fonts/Vazir.ttf") format("ttf"),
+    url("./assets/fonts/Vazir.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Dana-DemiBold";
+    src: url("./assets/fonts/Dana-DemiBold.ttf") format("ttf");
+    font-style: bold;
+}
+
+.font-dana{
+    font-family: 'Dana-DemiBold', sans-serif;
 }
 
 .font-sans {
-  font-family: 'Rubik', sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 .rtl-grid {
-  direction: rtl;
+    direction: rtl;
 }

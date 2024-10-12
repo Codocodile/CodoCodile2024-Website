@@ -11,7 +11,7 @@ import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { API_URL, urls } from "../../global/Variables";
+import { API_URL, urls } from "../../global-constants/Variables";
 import { RefreshToken } from "../panel/Panel";
 
 export interface User {

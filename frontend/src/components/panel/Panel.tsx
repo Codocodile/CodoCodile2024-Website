@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import PanelNavbar from "../panel-navbar/PanelNavbar";
 import { useEffect } from "react";
-import { urls, API_URL } from "../../global/Variables";
+import { urls, API_URL } from "../../global-constants/Variables";
 import axios from "axios";
 
 const RefreshToken = () => {

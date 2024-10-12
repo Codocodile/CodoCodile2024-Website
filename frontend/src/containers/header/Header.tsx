@@ -30,9 +30,10 @@ const Header = () => {
           <img src="assets/logo-white.png" alt="logo" className="lg:max-w-[24rem] md:max-w-[22rem] min-w-[16rem]" />
         </div>
       </div>
-      <div className="logos flex items-center gap-4">
-        <img src="assets/SUTLogo.svg" />
-        <img src="assets/SSCLogo.svg" />
+      <div className="logos flex gap-6 items-center justify-center">
+        <img src="assets/SUTLogo.svg" className={"h-16"} />
+        <img src="assets/SSCLogo.svg" className={"h-8"} />
+        <img src="assets/TapsiWhite.svg" className={"h-5"} />
       </div>
     </div>
   );

@@ -1,15 +1,17 @@
-import { Typography } from "@material-tailwind/react";
+import {Typography} from "@material-tailwind/react";
 
-interface Props {
-  text: string;
+interface ITextOnlySectionProps {
+    text: string;
+    font: "font-sans" | "font-dana";
 }
 
-const TextOnlySection = ({ text }: Props) => {
-  return (
-    <Typography variant="h6" color="white" className="text-right" dir="rtl">
-      {text}
-    </Typography>
-  );
+const TextOnlySection = (props: ITextOnlySectionProps) => {
+    return (
+        <Typography variant="h6" color="white"
+                    className={`text-right ${props.font !== undefined ? props.font : "font-sans"}`} dir="rtl">
+            {props.text}
+        </Typography>
+    );
 };
 
 export default TextOnlySection;
