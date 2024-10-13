@@ -33,7 +33,7 @@ const Header = () => {
       <div className="logos flex gap-6 items-center justify-center">
         <img src="assets/SUTLogo.svg" className={"h-16"} />
         <img src="assets/SSCLogo.svg" className={"h-8"} />
-        <img src="assets/TapsiWhite.svg" className={"h-5"} />
+        <img src="assets/sponsor/TapsiWhite.svg" className={"h-5"} />
       </div>
     </div>
   );

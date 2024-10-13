@@ -2,7 +2,7 @@ import {Typography} from "@material-tailwind/react";
 
 interface ITextOnlySectionProps {
     text: string;
-    font: "font-sans" | "font-dana";
+    font: "font-sans" | "font-dana-thin" | "font-dana-regular" | "font-dana-bold";
 }
 
 const TextOnlySection = (props: ITextOnlySectionProps) => {

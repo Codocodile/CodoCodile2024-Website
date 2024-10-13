@@ -10,21 +10,39 @@ body {
 
 @font-face {
     font-family: "Vazir";
-    src: url("./assets/fonts/Vazir.ttf") format("ttf"),
-    url("./assets/fonts/Vazir.woff") format("woff");
+    src: url("/assets/fonts/Vazir.ttf") format('truetype'),
+    url("/assets/fonts/Vazir.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Dana-DemiBold";
-    src: url("./assets/fonts/Dana-DemiBold.ttf") format("ttf");
-    font-style: bold;
+    font-family: "Dana-Thin";
+    src: url("/assets/fonts/Dana-Thin.ttf") format('truetype');
 }
 
-.font-dana{
-    font-family: 'Dana-DemiBold', sans-serif;
+@font-face {
+    font-family: "Dana-Regular";
+    src: url("/assets/fonts/Dana-Regular.ttf") format('truetype');
 }
+
+@font-face {
+    font-family: "Dana-Bold";
+    src: url("/assets/fonts/Dana-Bold.ttf") format('truetype');
+}
+
+.font-dana-regular {
+    font-family: 'Dana-Regular', sans-serif;
+}
+
+.font-dana-thin {
+    font-family: 'Dana-Thin', sans-serif;
+}
+
+.font-dana-bold {
+    font-family: 'Dana-Bold', sans-serif;
+}
+
 
 .font-sans {
     font-family: 'Rubik', sans-serif;
