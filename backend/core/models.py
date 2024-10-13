@@ -21,7 +21,6 @@ class Challenger(models.Model):
         max_length=1, choices=GENDER_CHOICES, default='M')
     status = models.CharField(
         max_length=1, choices=STATUS_CHOICES, default='J')
-    is_workshop_attender = models.BooleanField(default=False)
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
     bio = models.TextField(max_length=500, blank=True)
     university = models.TextField(max_length=100, blank=True)
@@ -29,6 +28,7 @@ class Challenger(models.Model):
     confirmation_code = models.CharField(max_length=5, blank=True)
     is_confirmed = models.BooleanField(default=False)
     password_reset_code = models.CharField(max_length=5, blank=True)
+    cv_file = models.FileField(upload_to='cv_uploads/', blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} {self.get_status_display()}'

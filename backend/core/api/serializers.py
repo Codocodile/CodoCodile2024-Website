@@ -50,7 +50,7 @@ class ChallengerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('user', 'first_name_persian', 'last_name_persian',
-                  'phone_number', 'status', 'gender', 'is_workshop_attender')
+                  'phone_number', 'status', 'gender', 'cv_file')
 
     def validate_phone_number(self, value: str) -> str:
         if re.match(r'^09\d{9}$', value):
@@ -81,7 +81,7 @@ class ChallengerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('id', 'user', 'first_name_persian', 'last_name_persian',
-                  'phone_number', 'status', 'gender', 'is_workshop_attender', 'profile_pic', 'bio', 'is_confirmed', 'national_code', 'university')
+                  'phone_number', 'status', 'gender', 'profile_pic', 'bio', 'is_confirmed', 'national_code', 'university')
 
 
 class ChallengerSearchSerializer(serializers.ModelSerializer):
@@ -99,7 +99,7 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('user', 'first_name_persian', 'last_name_persian',
-                  'status', 'gender', 'is_workshop_attender', 'bio', 'national_code', 'university')
+                  'status', 'gender', 'bio', 'national_code', 'university')
 
     def validate_status(self, value: str) -> str:
         if value in ['J', 'S', 'P']:
@@ -136,7 +136,6 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
         instance.last_name_persian = validated_data['last_name_persian']
         instance.status = validated_data['status']
         instance.gender = validated_data['gender']
-        instance.is_workshop_attender = validated_data['is_workshop_attender']
         instance.bio = validated_data['bio']
         instance.national_code = validated_data['national_code']
         instance.university = validated_data['university']
