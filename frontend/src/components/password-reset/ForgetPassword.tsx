@@ -1,7 +1,13 @@
 import Form from "../../containers/form/Form.tsx";
+import {Navbar} from "../index.ts";
 
 function ForgetPassword() {
-  return <Form headerText={"Forget Password"} />;
+    return (
+        <>
+            <Navbar/>
+            <Form headerText={"Forget Password"}/>
+        </>
+    );
 }
 
 export default ForgetPassword;
