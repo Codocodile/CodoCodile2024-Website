@@ -59,7 +59,7 @@ const Navbar = () => {
         <NavbarComponent
             variant="gradient"
             color="transparent"
-            className="top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 from-green-100 to-green-300"
+            className="top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 from-green-100 to-green-300 bg-white"
         >
             <div className="flex items-center justify-between text-blue-gray-900">
                 <div className="flex items-center gap-4">

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+    background: #111827;
     scroll-behavior: smooth;
     font-family: 'IBM Plex Mono', monospace;
     font-family: 'Rubik', sans-serif;

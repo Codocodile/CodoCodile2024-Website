@@ -23,14 +23,14 @@ function Landing() {
         <>
             <Navbar/>
             <Header/>
-            <Section name="introduction" side="right" dino={crocs[0]} font={"font-sans"}
+            <Section name="Introduction" side="right" dino={crocs[0]} font={"font-sans"}
                      image={"assets/crocs/croc-introduction.png"}>
                 <TextOnlySection
                     text={INTRODUCTION}
                     font={"font-sans"}/>
             </Section>
 
-            <Section name="timeline" side="left" dino={crocs[1]} font={"font-sans"}
+            <Section name="Timeline" side="left" dino={crocs[1]} font={"font-sans"}
                      image={"assets/crocs/croc-timeline.png"}>
                 <EventTimeline events={TIMELINE_DATA}/>
             </Section>

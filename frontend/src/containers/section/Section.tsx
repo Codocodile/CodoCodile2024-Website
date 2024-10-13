@@ -29,35 +29,32 @@ function slugify(str: string) {
 
 const Section = ({name, nameColor, capitalize, children, side, dino, image, font}: Props) => {
     const [dinoIcon] = useState(dino === undefined ? 1 + Math.floor(Math.random() * 15) : dino);
-    console.log(nameColor)
     return (
         <div id={slugify(name)} className="flex bg-gray-900 pt-8">
-            <div className="flex flex-col lg:flex-row items-center justify-between mx-auto text-center">
+            <div
+                className="flex flex-col lg:flex-row items-center justify-between mx-auto text-center ">
                 <img
                     src={image !== undefined ? image : "/assets/crocs/" + dinoIcon + ".png"}
                     height="auto"
                     className={
                         (side == "left" ? "block" : "hidden") +
-                        " lg:mr-40 w-[48rem] md:w-[20rem]"
+                        " lg:mr-40 w-[48rem] md:w-[25rem]"
                     }
                 />
-                <div className="container sm:w-[28rem] md:w-[36rem] lg:w-[48rem] mx-auto text-center pl-4 pr-4">
-                    <Typography
+                <div
+                    className="container sm:w-[28rem] md:w-[36rem] lg:w-[48rem] mx-auto text-center pl-4 pr-4 ">
+                    <Typography style={{ direction: "rtl" }}
                         variant="h1"
                         color="white"
                         className={nameColor !== undefined ? `text-[#FF5B35] mb-6 mt-6 section-title ${font !== undefined ? font : "font-sans"}` : `text-white mb-6 mt-6 section-title ${font !== undefined ? font : "font-sans"}`}
                     >
-                        {capitalize ? name.toUpperCase() : titleCase(name)}
+                        {capitalize ? name.toUpperCase() : name}
                     </Typography>
                     {children}
                 </div>
                 <img
-                    src={image !== undefined ? image : "/assets/crocs/" + dinoIcon + ".png"}
-                    height="auto"
-                    className={
-                        (side == "right" ? "block" : "hidden") +
-                        " lg:ml-40 w-[48rem] md:w-[20rem]"
-                    }
+                    src={image !== undefined ? image : "/assets/crocs/" + dinoIcon + ".png"} height="auto"
+                    className={(side == "right" ? "block" : "hidden") + "  lg:ml-40 w-[48rem] md:w-[25rem]"}
                 />
             </div>
         </div>
