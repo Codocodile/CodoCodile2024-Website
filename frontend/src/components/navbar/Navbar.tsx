@@ -24,11 +24,7 @@ const Navbar = () => {
 
     const navList = (
         <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-black ">
-                <HashLink to="/sponsor" smooth={true}>
-                    <a className="flex items-center">Sponsor</a>
-                </HashLink>
-            </Typography>
+
             {/*<Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">*/}
             {/*    <HashLink to="/#staff" smooth={true}>*/}
             {/*        <a className="flex items-center">Staff</a>*/}
@@ -42,6 +38,11 @@ const Navbar = () => {
             <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">
                 <HashLink to="/#timeline" smooth={true}>
                     <a className="flex items-center">Timeline</a>
+                </HashLink>
+            </Typography>
+            <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal ">
+                <HashLink to="/sponsor" smooth={true}>
+                    <a className="flex items-center">Sponsor</a>
                 </HashLink>
             </Typography>
             <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">

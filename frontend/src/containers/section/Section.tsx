@@ -47,7 +47,7 @@ const Section = ({name, nameColor, capitalize, children, side, dino, image, font
                         color="white"
                         className={nameColor !== undefined ? `text-[#FF5B35] mb-6 mt-6 section-title ${font !== undefined ? font : "font-sans"}` : `text-white mb-6 mt-6 section-title ${font !== undefined ? font : "font-sans"}`}
                     >
-                        {capitalize ? name.toUpperCase() : name}
+                        {capitalize ? name.toUpperCase() : titleCase(name)}
                     </Typography>
                     {children}
                 </div>

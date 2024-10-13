@@ -8,7 +8,7 @@ interface ITextOnlySectionProps {
 const TextOnlySection = (props: ITextOnlySectionProps) => {
     return (
         <Typography variant="h6" color="white"
-                    className={`text-right ${props.font !== undefined ? props.font : "font-sans"}`} dir="rtl">
+                    className={`text-right ${props.font !== undefined ? props.font : "font-sans"} text-justify`} dir="rtl">
             {props.text}
         </Typography>
     );
