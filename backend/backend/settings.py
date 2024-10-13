@@ -128,6 +128,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [origin.strip() for origin in get_conf('CORS_ALLOWED_ORIGINS').split(',')]
 
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in get_conf('CSRF_TRUSTED_ORIGINS').split(',')]
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
