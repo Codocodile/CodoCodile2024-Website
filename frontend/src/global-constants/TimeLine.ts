@@ -2,7 +2,7 @@ export const TIMELINE_DATA = [
     {
         date: "22 Mehr",
         title: "Start Registration",
-        description: "ثبت‌نام انفرادی در سایت شروع می‌شود. تیم‌بندی برای مسابقه در روزهای آتی انجام خواهد شد."
+        description: "شروع ثبت‌نام در سایت رویداد. همچنین پس از ثبت‌نام می‌توانید هم‌تیمی خود را انتخاب کنید."
     },
     {
         date: "26 Mehr - 2 Aban",
