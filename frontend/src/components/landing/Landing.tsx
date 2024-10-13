@@ -1,6 +1,6 @@
 import {Footer, Header, Section, TextOnlySection} from "../../containers";
 import {Navbar, EventTimeline, FAQ} from "../";
-import {CURRENT_YEAR, INTRODUCTION} from "../../global-constants/LandingConstants.ts";
+import {INTRODUCTION} from "../../global-constants/LandingConstants.ts";
 import {TIMELINE_DATA} from "../../global-constants/TimeLine.ts";
 import {FAQ_DATA} from "../../global-constants/FAQ-Data.ts";
 
@@ -23,22 +23,25 @@ function Landing() {
         <>
             <Navbar/>
             <Header/>
-            <Section name="introduction" side="right" dino={crocs[0]}>
+            <Section name="introduction" side="right" dino={crocs[0]} font={"font-sans"}
+                     image={"assets/crocs/croc-introduction.png"}>
                 <TextOnlySection
                     text={INTRODUCTION}
                     font={"font-sans"}/>
             </Section>
 
-            <Section name="timeline" side="left" dino={crocs[1]}>
+            <Section name="timeline" side="left" dino={crocs[1]} font={"font-sans"}
+                     image={"assets/crocs/croc-timeline.png"}>
                 <EventTimeline events={TIMELINE_DATA}/>
             </Section>
             {/*{<Section name="staff">*/}
             {/*    <StaffCarousel staff={staff}/>*/}
             {/*</Section>}*/}
-            <Section name="FAQ" capitalize={true} side="right" dino={crocs[3]}>
+            <Section name="FAQ" capitalize={true} side="right" dino={crocs[3]} font={"font-sans"}
+                     image={"assets/crocs/croc-faq.png"}>
                 <FAQ data={FAQ_DATA}/>
             </Section>
-            <Footer year={CURRENT_YEAR}/>
+            <Footer/>
         </>
     );
 }

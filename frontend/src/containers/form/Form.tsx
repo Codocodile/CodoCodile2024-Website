@@ -375,25 +375,24 @@ function Form({
                             id="sign-in-gender"
                         />
                         <FullWidthCheckbox
+
                             title="Workshops"
                             label={
-                                <Typography color="blue-gray" className="flex font-medium">
-                                    Want to particiapte in&nbsp;
-                                    <Typography
-                                        as="a"
-                                        color="blue"
-                                        className="font-medium transition-colors hover:text-blue-700"
+
+                                <Typography
+                                    as="a"
+                                    color="blue"
+                                    className="font-medium transition-colors hover:text-blue-700"
+                                >
+                                    <HashLink
+                                        to="../sponsor"
+                                        smooth={true}
                                     >
-                                        <HashLink
-                                            to="../#imperfect-minds-(software-engineering-workshop)"
-                                            smooth={true}
-                                        >
-                                            Software Workshops
-                                        </HashLink>
-                                    </Typography>
-                                    ?
+                                        I agree that my registration information will be provided to the Sponsor.
+                                    </HashLink>
                                 </Typography>
                             }
+                            required={true}
                             name="is_workshop_attender"
                             id="sign-in-workshop"
                         />
