@@ -67,13 +67,15 @@ function signUp(
         password: object["password"],
         first_name: object["first_name"],
         last_name: object["last_name"],
-        cvfile: object["cvfile"]
     };
+    if (object["cvfile"].size === 0) {
+        object["cvfile"] = null;
+    }
     delete object["email"];
     delete object["password"];
     delete object["first_name"];
     delete object["last_name"];
-    delete object["cvfile"];
+    console.log(object)
     axios
         .post(API_URL + "/api/create-challenger/", object)
         .then((res) => {
