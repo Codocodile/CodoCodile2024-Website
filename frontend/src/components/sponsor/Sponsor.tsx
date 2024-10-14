@@ -33,7 +33,7 @@ function Landing() {
                 className="flex bg-gray-900 pt-12 pb-4 flex-col lg:flex-row items-center justify-center gap-5 mx-auto text-center ">
                 <a href={SPONSOR_CAREER_LINK} target={"_blank"}>
                     <button
-                        className="font-dana-thin bg-[#FF5B35] hover:bg-[#C74D30FF] text-white font-bold py-2 px-4 border border-[#FF5B35] rounded-lg">
+                        className="font-dana-thin bg-[#FF5B35] hover:bg-[#C74D30FF] text-white font-bold py-2 px-4 border border-[#FF5B35] rounded-lg ">
                         موقعیت‌های شغلی
                     </button>
                 </a>
