@@ -4,10 +4,12 @@ import {eyePassword, eyePasswordUnhide} from '../../../../public/assets/icons/Ey
 interface IFullWidthInputProps {
     label: string;
     name: string;
-    placeholder: string;
+    placeholder?: string;
     id: string;
-    type: 'text' | 'password' | 'email';
+    type: 'text' | 'password' | 'email' | 'file';
     pattern?: string;
+    accept?: string;
+    required?: boolean;
 }
 
 function FullWidthInput(props: IFullWidthInputProps) {
@@ -29,7 +31,7 @@ function FullWidthInput(props: IFullWidthInputProps) {
                 id={props.id}
                 type={showPassword ? 'text' : props.type}
                 placeholder={props.placeholder}
-                required={true}
+                required={props.required}
                 name={props.name}
                 pattern={props.pattern}
             />

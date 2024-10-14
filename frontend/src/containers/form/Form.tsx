@@ -8,10 +8,25 @@ import {Alert, Typography} from "@material-tailwind/react";
 import {useState} from "react";
 import {useNavigate, NavigateFunction} from "react-router-dom";
 import {urls, API_URL} from "../../global-constants/Variables.ts";
-import {HashLink} from "react-router-hash-link";
 import {NavLink} from "react-router-dom";
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+function validateFile(file: File | null): { isValid: boolean; error: string } {
+    if (file?.size === 0 || !file) {
+        return {isValid: true, error: "No file uploaded."};
+    }
+
+    if (file.type !== "application/pdf") {
+        return {isValid: false, error: "Only PDF files are allowed."};
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        return {isValid: false, error: "File size must be less than 10MB."};
+    }
+
+    return {isValid: true, error: ""};
+}
 
 function signUp(
     e: React.FormEvent<HTMLFormElement>,
@@ -23,11 +38,21 @@ function signUp(
     gender: string
 ) {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    const data = new FormData(e.currentTarget)
     const object: any = {};
     data.forEach(function (value, key) {
         object[key] = value;
     });
+    const file = data.get("cvfile") as File | null;
+    const {isValid, error} = validateFile(file);
+
+    if (!isValid) {
+        setFailureResponse(error);
+        setFailureAlert(true);
+        delay(3000).then(() => setFailureAlert(false));
+        return;
+    }
+
     object["is_workshop_attender"] = object["is_workshop_attender"] === "on";
     if (status === "Junior (Highschool)") {
         object["status"] = "J";
@@ -42,11 +67,13 @@ function signUp(
         password: object["password"],
         first_name: object["first_name"],
         last_name: object["last_name"],
+        cvfile: object["cvfile"]
     };
     delete object["email"];
     delete object["password"];
     delete object["first_name"];
     delete object["last_name"];
+    delete object["cvfile"];
     axios
         .post(API_URL + "/api/create-challenger/", object)
         .then((res) => {
@@ -355,7 +382,7 @@ function Form({
                     )}
                 </div>
                 {headerText === "Sign Up" ? (
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="flex flex-wrap -mx-3 mb-6 gap-2">
                         <FullWidthSelect
                             label={"Division"}
                             options={[
@@ -374,22 +401,26 @@ function Form({
                             name="gender"
                             id="sign-in-gender"
                         />
-                        <FullWidthCheckbox
 
-                            title="Workshops"
+                        <FullWidthInput
+                            label={"Upload CV"}
+                            name="cvfile"
+                            id="cvfile "
+                            type={"file"}
+                            accept="application/pdf"
+                            required={false}
+
+                        />
+                        <FullWidthCheckbox
+                            title="Agreement"
                             label={
 
                                 <Typography
                                     as="a"
-                                    color="blue"
-                                    className="font-medium transition-colors hover:text-blue-700"
+                                    color={"blue-gray"}
+                                    className="font-medium transition-colors"
                                 >
-                                    <HashLink
-                                        to="../sponsor"
-                                        smooth={true}
-                                    >
-                                        I agree that my registration information will be provided to the Sponsor.
-                                    </HashLink>
+                                    I agree that my registration information will be provided to the Sponsor.
                                 </Typography>
                             }
                             required={true}
