@@ -9,7 +9,7 @@ interface IVisitURL {
 //         const visitedURL: string = `${props.url}`
 //         console.log(`${API_URL}/api/visit`)
 //         console.log({url: visitedURL})
-//         await axios.post(`${API_URL}/api/visit`, {url: visitedURL});
+//         await axios.post(`${API_URL}/api/visit/`, {url: visitedURL});
 //     } catch (error) {
 //         console.error(error);
 //     }
@@ -18,7 +18,7 @@ interface IVisitURL {
 export const visitUrl = async (props: IVisitURL) => {
     try {
         const visitedURL = `${props.url}`;
-        const response = await fetch(`${API_URL}/api/visit`, {
+        const response = await fetch(`${API_URL}/api/visit/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
