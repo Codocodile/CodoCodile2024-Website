@@ -50,7 +50,7 @@ class ChallengerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('user', 'first_name_persian', 'last_name_persian',
-                  'phone_number', 'status', 'gender', 'cv_file')
+                  'phone_number', 'status', 'gender')
 
     def validate_phone_number(self, value: str) -> str:
         if re.match(r'^09\d{9}$', value):
@@ -73,6 +73,13 @@ class ChallengerCreateSerializer(serializers.ModelSerializer):
         user = User.objects.create(**user_data)
         challenger = Challenger.objects.create(user=user, **validated_data)
         return challenger
+    
+class ChallengerCVSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Challenger
+        fields = ('phone_number','cv_file')
+
 
 
 class ChallengerViewSerializer(serializers.ModelSerializer):

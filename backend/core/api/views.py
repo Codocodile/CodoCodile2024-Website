@@ -30,6 +30,16 @@ class ChallengerViewAPIView(generics.RetrieveAPIView):
         return challenger
 
 
+class ChallengerCVAPIView(generics.UpdateAPIView):
+    queryset = Challenger.objects.all()
+    serializer_class = ChallengerCVSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+
+
+    def get_object(self):
+        challenger = Challenger.objects.get(phone_number=self.request.data['phone_number'])
+        return challenger
+
 class ChallengerUpdateAPIView(generics.UpdateAPIView):
     queryset = Challenger.objects.all()
     serializer_class = ChallengerUpdateSerializer
