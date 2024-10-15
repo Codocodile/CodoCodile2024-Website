@@ -16,14 +16,14 @@ function Landing() {
             <Navbar/>
 
             <Section nameColor={SPONSOR_COLOR} name="درباره تپسی" side="left" dino={1} capitalize={false}
-                     image={"assets/sponsor/tapsi2.png"} font={"font-dana-bold"}>
+                     image={"assets/sponsor/tapsi2.jpg"} font={"font-dana-bold"}>
                 <TextOnlySection
                     text={SPONSOR_INTRODUCTION}
                     font={"font-dana-thin"}/>
             </Section>
 
             <Section nameColor={SPONSOR_COLOR} name="از خودت سبقت بگیر!" side="right" dino={1} capitalize={false}
-                     image={"assets/sponsor/tapsi1.png"} font={"font-dana-bold"}>
+                     image={"assets/sponsor/tapsi1.jpg"} font={"font-dana-bold"}>
                 <TextOnlySection
                     text={SPONSOR_INTRODUCTION2}
                     font={"font-dana-thin"}/>

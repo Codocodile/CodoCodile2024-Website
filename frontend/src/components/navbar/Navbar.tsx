@@ -63,18 +63,16 @@ const Navbar = () => {
         >
             <div className="flex items-center justify-between text-blue-gray-900">
                 <div className="flex items-center gap-4">
-                    <Typography
-                        as="a"
-                        href="/"
+                    <img
                         className="mr-4 cursor-pointer py-1.5 font-large font-bold"
-                    >
-                        <img
-                            src={'/assets/Header_logo.png'}
-                            alt="header_logo"
-                            width={200}
-                            height={200}
-                        />
-                    </Typography>
+                        src={'/assets/Header_logo.png'}
+                        alt="header_logo"
+                        width={200}
+                        height={200}
+                        onClick={() => {
+                            navigate("/")
+                        }}
+                    />
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="mr-4 hidden lg:block">{navList}</div>
