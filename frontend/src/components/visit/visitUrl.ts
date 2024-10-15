@@ -4,17 +4,6 @@ interface IVisitURL {
     url: string
 }
 
-// export const visitUrl = async (props: IVisitURL) => {
-//     try {
-//         const visitedURL: string = `${props.url}`
-//         console.log(`${API_URL}/api/visit`)
-//         console.log({url: visitedURL})
-//         await axios.post(`${API_URL}/api/visit/`, {url: visitedURL});
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
-
 export const visitUrl = async (props: IVisitURL) => {
     try {
         const visitedURL = `${props.url}`;

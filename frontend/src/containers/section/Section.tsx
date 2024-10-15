@@ -54,7 +54,7 @@ const Section = ({name, nameColor, capitalize, children, side, dino, image, font
                 </div>
                 <img
                     src={image !== undefined ? image : "/assets/crocs/" + dinoIcon + ".png"} height="auto"
-                    className={(side == "right" ? "block" : "hidden") + "  lg:ml-40 w-[48rem] md:w-[25rem]"}
+                    className={(side == "right" ? "block" : "hidden") + "  lg:ml-40 w-[48rem] md:w-[25rem] "}
                 />
             </div>
         </div>
