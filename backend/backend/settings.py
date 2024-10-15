@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_standardized_errors',
     "whitenoise.runserver_nostatic",
+    "django_cleanup"
 ]
 
 REST_FRAMEWORK = {
