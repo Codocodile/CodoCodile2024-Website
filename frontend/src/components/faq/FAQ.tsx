@@ -30,12 +30,13 @@ const FAQ = ({data}: Props) => {
                     className="text-right faq"
                 >
                     <AccordionHeader
+
                         onClick={() => handleOpen(index + 1)}
-                        className="text-white hover:text-gray-300 text-right"
+                        className="text-white hover:text-gray-300 text-right "
                     >
                         {qa.question}
                     </AccordionHeader>
-                    <AccordionBody className="text-gray-100">{qa.answer}</AccordionBody>
+                    <AccordionBody className="text-gray-100 ">{qa.answer}</AccordionBody>
                 </Accordion>
             ))}
         </>

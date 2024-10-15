@@ -39,7 +39,7 @@ function Landing() {
             {/*</Section>}*/}
             <Section name="FAQ" capitalize={true} side="right" dino={crocs[3]} font={"font-sans"}
                      image={"assets/crocs/croc-faq.png"}>
-                <FAQ data={FAQ_DATA}/>
+                <FAQ data={FAQ_DATA} />
             </Section>
             <Footer/>
         </>

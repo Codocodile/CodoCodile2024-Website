@@ -1,4 +1,4 @@
-import { Input } from "@material-tailwind/react";
+import {Input} from "@material-tailwind/react";
 
 interface Props {
     placeholder: string;
@@ -6,19 +6,20 @@ interface Props {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const InputText = ({ placeholder, value, onChange }: Props) => {
-  return (
-    <Input
-      type="text"
-      color="light-blue"
-      size="md"
-      placeholder={placeholder}
-      className="text-white"
-      crossOrigin=""
-      value={value}
-      onChange={onChange}
-    />
-  );
+const InputText = ({placeholder, value, onChange}: Props) => {
+    return (
+        <Input
+            label={!value ? "" : placeholder}
+            type="text"
+            color="lightBlue"
+            size="md"
+            placeholder={placeholder}
+            className="text-white"
+            crossOrigin=""
+            value={value}
+            onChange={onChange}
+        />
+    );
 };
 
 export default InputText;
