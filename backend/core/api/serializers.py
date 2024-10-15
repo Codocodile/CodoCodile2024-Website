@@ -82,7 +82,7 @@ class ChallengerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('id', 'user', 'first_name_persian', 'last_name_persian',
-                  'phone_number', 'status', 'gender', 'profile_pic', 'bio', 'is_confirmed', 'national_code', 'university')
+                  'phone_number', 'status', 'gender', 'profile_pic', 'bio', 'is_confirmed', 'national_code', 'university', 'cv_file')
 
 
 class ChallengerSearchSerializer(serializers.ModelSerializer):
