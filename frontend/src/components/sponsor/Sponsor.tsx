@@ -46,10 +46,8 @@ function Landing() {
             </div>
 
             <div className="flex bg-gray-900 flex-col items-center justify-center mx-auto text-center gap-4 pb-8">
-                <SocialIconsWithHeader data={SPONSOR_SOCIALS}/>
+                <SocialIconsWithHeader data={SPONSOR_SOCIALS} showHeader={true} header={"تپسی در شبکه‌های اجتماعی"}/>
             </div>
-
-
             <Footer/>
         </>
     )

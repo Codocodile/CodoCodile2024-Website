@@ -156,14 +156,16 @@ function updateChallenger(
 }
 
 const Profile = () => {
-    const [alertSuccess, setAlertSuccess] = useState(false);
-    const [failureMessage, setFailureMessage] = useState("");
     const [data, setData] = useState({} as any);
+    useEffect(() => loadChallenger(navigate, setData, false), []);
     const [verification, setVerification] = useState(false);
     const navigate = useNavigate();
-
-    useEffect(() => loadChallenger(navigate, setData, false), []);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+
+
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [failureMessage, setFailureMessage] = useState("" );
 
     const handleSubmit = async (e: React.FormEvent) => {
         console.log(data)
@@ -253,7 +255,7 @@ const Profile = () => {
                         value={data?.user?.email}
                     />
                     <Button
-                        color="light-blue"
+                        color="orange"
                         size="md"
                         className={
                             "text-white h-11 " + (data?.is_confirmed ? "hidden" : "block")
@@ -353,7 +355,11 @@ const Profile = () => {
                 <Button
                     variant="gradient"
                     className={`flex items-center w-full justify-center gap-3 ${data.cv_file ? "text-green-400" : "text-gray-200"} outline mb-4`}
-                    onClick={() => fileInputRef.current.click()}
+                    onClick={() => {
+                        if (fileInputRef.current) {
+                            fileInputRef.current.click()
+                        }
+                    }}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -380,7 +386,6 @@ const Profile = () => {
                     accept="application/pdf"
                     required={false}
                 />
-
 
                 <Button
                     variant="gradient"

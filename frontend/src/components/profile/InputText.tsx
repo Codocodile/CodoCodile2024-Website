@@ -11,7 +11,7 @@ const InputText = ({placeholder, value, onChange}: Props) => {
         <Input
             label={!value ? "" : placeholder}
             type="text"
-            color="lightBlue"
+            color="light-blue"
             size="md"
             placeholder={placeholder}
             className="text-white"
