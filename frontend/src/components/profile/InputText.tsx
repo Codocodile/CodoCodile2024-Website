@@ -4,20 +4,22 @@ interface Props {
     placeholder: string;
     value: string;
     onChange: React.ChangeEventHandler<HTMLInputElement>;
+    isValid ?: boolean;
 }
 
-const InputText = ({placeholder, value, onChange}: Props) => {
+const InputText = ({placeholder, value, onChange,isValid}: Props) => {
     return (
         <Input
-            label={!value ? "" : placeholder}
             type="text"
             color="light-blue"
             size="md"
-            placeholder={placeholder}
+            label={placeholder}
+            // placeholder={placeholder}
             className="text-white"
             crossOrigin=""
             value={value}
             onChange={onChange}
+            error={!isValid}
         />
     );
 };
