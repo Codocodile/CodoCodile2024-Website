@@ -280,7 +280,7 @@ const Profile = () => {
                 />
                 <InputText
                     isValid={data?.national_code}
-                    placeholder="National Code"
+                    placeholder="National ID"
                     value={data?.national_code}
                     onChange={(e) => {
                         setData({...data, national_code: e.target.value});
