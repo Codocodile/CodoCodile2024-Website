@@ -52,12 +52,12 @@ function Landing() {
             }}>
                 <Section
                     name={"sponsor"} capitalize={true} font={"font-dana-bold"} side={"left"}
-                    image={"assets/sponsor/tapsi-logo-fa.png"}>
+                    image={"assets/sponsor/croc.png"}>
                     <TextOnlySection
                         text={SPONSOR_LANDING_INTRODUCTION}
                         font={"font-dana-regular"}/>
                     <button
-                        className="font-dana-thin bg-[#FF5B35] hover:bg-[#C74D30FF] text-white font-bold  py-2 px-4 mb-8 mt-4 border border-[#FF5B35] rounded-lg ">
+                        className="font-dana-thin bg-[#C74D30FF] hover:bg-[#FF5B35] text-white font-bold  py-2 px-4 mb-8 mt-6 border border-[#FF5B35] rounded-lg ">
                         آشنایی بیشتر
                     </button>
                 </Section>
