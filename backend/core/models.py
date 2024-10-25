@@ -27,7 +27,7 @@ class Challenger(models.Model):
     national_code = models.TextField(max_length=10, blank=True)
     confirmation_code = models.CharField(max_length=5, blank=True)
     is_confirmed = models.BooleanField(default=False)
-    password_reset_code = models.CharField(max_length=5, blank=True)
+    password_reset_code = models.CharField(max_length=20, blank=True)
     cv_file = models.FileField(upload_to='cv_uploads/', blank=True)
 
     def __str__(self):

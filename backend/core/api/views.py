@@ -234,7 +234,7 @@ class PasswordResetAPIView(views.APIView):
         challenger.save()
         send_mail(
             'Codocodile Password Reset',
-            f'Your Codocodile password reset link is: https://codocodile.com/password-reset/{challenger.password_reset_code}',
+            f'Your Codocodile password reset link is: https://codocodile.ir/password-reset/{challenger.password_reset_code}',
             settings.EMAIL_HOST_USER,
             [challenger.user.email],
         )
