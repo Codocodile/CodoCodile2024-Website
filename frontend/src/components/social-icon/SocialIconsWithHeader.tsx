@@ -2,6 +2,8 @@ import {Typography} from "@material-tailwind/react";
 import SocialIcon from "./SocialIcon.tsx";
 
 interface ISocialIconsWithHeader {
+    header?: string,
+    showHeader: boolean,
     data: {
         name: string;
         link: string;
@@ -12,10 +14,10 @@ interface ISocialIconsWithHeader {
 const SocialIconsWithHeader = (props: ISocialIconsWithHeader) => {
     return (
         <>
-            <Typography variant="h6" className={"text-[#FF5B35]"}>
-                تپسی در شبکه‌های اجتماعی
-            </Typography>
-            <div className={"flex flex-row gap-4"}>
+            {props.showHeader && <Typography variant="h6" className={"text-[#FF5B35]"}>
+                {props.header}
+            </Typography>}
+            <div className={"flex flex-row gap-4 justify-center"}>
                 {props.data.map((value, index) => (
                     <SocialIcon key={index} socialName={value.name} href={value.link}/>
                 ))}

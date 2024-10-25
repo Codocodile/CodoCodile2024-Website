@@ -166,6 +166,7 @@ const Profile = () => {
             <Section name="Profile" side="left" font={"font-sans"} image={"../assets/main-croc.png"}>
                 <InputText
                     placeholder="First Name"
+                    isValid={true}
                     value={data?.user?.first_name}
                     onChange={(e) => {
                         setData({
@@ -176,12 +177,14 @@ const Profile = () => {
                 />
                 <InputText
                     placeholder="First Name Persian"
+                    isValid={true}
                     value={data?.first_name_persian}
                     onChange={(e) => {
                         setData({...data, first_name_persian: e.target.value});
                     }}
                 />
                 <InputText
+                    isValid={true}
                     placeholder="Last Name"
                     value={data?.user?.last_name}
                     onChange={(e) => {
@@ -192,6 +195,7 @@ const Profile = () => {
                     }}
                 />
                 <InputText
+                    isValid={true}
                     placeholder="Last Name Persian"
                     value={data?.last_name_persian}
                     onChange={(e) => {
@@ -214,8 +218,7 @@ const Profile = () => {
                         size="md"
                         className={
                             "text-white h-11 " + (data?.is_confirmed ? "hidden" : "block")
-                        }
-                        onClick={() => confirmChallenger(navigate, setVerification, false)}
+                        } onClick={() => confirmChallenger(navigate, setVerification, false)}
                     >
                         Verify
                     </Button>
@@ -268,6 +271,7 @@ const Profile = () => {
                     }}
                 />
                 <InputText
+                    isValid={data?.university}
                     placeholder="University"
                     value={data?.university}
                     onChange={(e) => {
@@ -275,7 +279,8 @@ const Profile = () => {
                     }}
                 />
                 <InputText
-                    placeholder="National Code"
+                    isValid={data?.national_code}
+                    placeholder="National ID"
                     value={data?.national_code}
                     onChange={(e) => {
                         setData({...data, national_code: e.target.value});
@@ -317,8 +322,7 @@ const Profile = () => {
                 {/*  className="text-white"*/}
                 {/*/>*/}
                 <Input
-                    type="submit"
-                    value="Update"
+                    type="submit" value="Update"
                     color="light-blue"
                     size="lg"
                     className="text-white"

@@ -43,16 +43,6 @@ function signUp(
     data.forEach(function (value, key) {
         object[key] = value;
     });
-    const file = data.get("cvfile") as File | null;
-    const {isValid, error} = validateFile(file);
-
-    if (!isValid) {
-        setFailureResponse(error);
-        setFailureAlert(true);
-        delay(3000).then(() => setFailureAlert(false));
-        return;
-    }
-
     object["is_workshop_attender"] = object["is_workshop_attender"] === "on";
     if (status === "Junior (Highschool)") {
         object["status"] = "J";
@@ -68,14 +58,10 @@ function signUp(
         first_name: object["first_name"],
         last_name: object["last_name"],
     };
-    if (object["cvfile"].size === 0) {
-        object["cvfile"] = null;
-    }
     delete object["email"];
     delete object["password"];
     delete object["first_name"];
     delete object["last_name"];
-    console.log(object)
     axios
         .post(API_URL + "/api/create-challenger/", object)
         .then((res) => {
@@ -404,15 +390,7 @@ function Form({
                             id="sign-in-gender"
                         />
 
-                        <FullWidthInput
-                            label={"Upload CV"}
-                            name="cvfile"
-                            id="cvfile "
-                            type={"file"}
-                            accept="application/pdf"
-                            required={false}
 
-                        />
                         <FullWidthCheckbox
                             title="Agreement"
                             label={

@@ -284,16 +284,19 @@ const Team = () => {
             {team.members.length > 0 ? (
                 <Section image={"../assets/crocs/croc-invite.png"} name="Team" side="left" font={"font-sans"}>
                     <InputText
+                        isValid={true}
                         value={team.name}
                         placeholder={"Team Name"}
                         onChange={(e) => {
                             setTeam({...team, name: e.target.value});
                         }}
                     />
+                    <br/>
                     <Textarea
+                        label={"Description"}
                         color="light-blue"
                         size="md"
-                        placeholder="Description"
+                        // placeholder="Description"
                         className="text-white"
                         value={team.description}
                         onChange={(e) => {
@@ -327,6 +330,7 @@ const Team = () => {
                     />
                     <div className="flex flex-row gap-2 mt-2">
                         <Button
+                            variant={"gradient"}
                             onClick={() => {
                                 updateTeam(setTeam, navigate, false, team);
                             }}
@@ -345,7 +349,8 @@ const Team = () => {
                 </Section>
             ) : (
                 <>
-                    <Section image={"../assets/crocs/croc-invite.png"} name="Invitations" side="left" font={"font-sans"}>
+                    <Section image={"../assets/crocs/croc-invite.png"} name="Invitations" side="left"
+                             font={"font-sans"}>
                         <Alert
                             open={
                                 failureMessage != "" ||

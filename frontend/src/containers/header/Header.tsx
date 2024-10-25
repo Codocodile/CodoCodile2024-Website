@@ -34,11 +34,10 @@ const Header = () => {
                 </div>
             </div>
             <div className="logos flex gap-6 items-center justify-center">
-                <a href={"https://ce.sharif.edu/"} target={"_blank"}><img src="assets/SUTLogo.svg" className={"h-16"}/></a>
-                <a href={"https://ssc.ce.sharif.edu/"} target={"_blank"}><img src="assets/SSCLogo.svg"
-                                                                              className={"h-8"}/></a>
+                <img src="assets/SUTLogo.svg" className={"h-10"}/>
+                <img src="assets/SSCLogo.svg" className={"h-8"}/>
                 <Link to="/sponsor">
-                    <img src="assets/sponsor/TapsiWhite.svg" className="h-5" alt="Sponsor Logo"/>
+                    <img src="assets/sponsor/TapsiWhite.svg" className="h-7 mb-1" alt="Sponsor Logo"/>
                 </Link>
             </div>
         </div>

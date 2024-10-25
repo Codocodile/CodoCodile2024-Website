@@ -3,3 +3,9 @@ export const INTRODUCTION =
 
 
 export const CURRENT_YEAR = "2024"
+
+export const CODOCODILE_SOCIALS: { name: string, link: string }[] = [
+    {name: "telegram", link: "https://t.me/codocodile"},
+    {name: "linkedin", link: "https://www.linkedin.com/company/codocodile"},
+    {name: "twitter", link: "https://twitter.com/codocodile"},
+];
