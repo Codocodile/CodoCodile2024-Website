@@ -20,7 +20,7 @@ function App() {
             <Routes>
                 <Route index element={<Landing/>}/>
                 <Route path={urls.signIn} element={<SignIn/>}/>
-                <Route path={urls.signUp} element={<SignUp/>}/>
+                {/*<Route path={urls.signUp} element={<SignUp/>}/>*/}
                 <Route path={urls.passwordReset} element={<PasswordReset/>}/>
                 <Route path={urls.sponsor} element={<Sponsor/>}/>
                 <Route path={urls.forgetPassword} element={<ForgetPassword/>}/>
