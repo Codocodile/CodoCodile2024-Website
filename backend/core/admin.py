@@ -37,10 +37,10 @@ class VisitModelAdmin(admin.ModelAdmin):
     list_filter = ["url"] 
     
 class MembershipAdmin(admin.ModelAdmin):
-    search_fields = ["challenger", "group"] 
+    search_fields = ["challenger__user__first_name", "challenger__user__last_name", "group__name"] 
     
 class ChallengerAdmin(admin.ModelAdmin):
-    search_fields = ["first_name_persian", "last_name_persian", "phone_number"] 
+    search_fields = ["user__first_name", "user__last_name","first_name_persian", "last_name_persian", "phone_number"] 
 
 
 admin.site.register(models.Challenger, ChallengerAdmin)
