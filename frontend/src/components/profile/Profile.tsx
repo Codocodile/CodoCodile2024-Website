@@ -4,6 +4,8 @@ import axios from "axios";
 import {RefreshToken} from "../panel/Panel";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {urls, API_URL} from "../../global-constants/Variables";
+import {useRef} from "react";
+
 import {
     Input,
     Select,
@@ -161,12 +163,54 @@ const Profile = () => {
     const navigate = useNavigate();
 
     useEffect(() => loadChallenger(navigate, setData, false), []);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        console.log(data)
+        e.preventDefault();
+        if (fileInputRef.current !== null && fileInputRef.current.files && fileInputRef.current.files.length > 0) {
+            const originalFile = fileInputRef.current.files[0] as File;
+            const renamedFile = new File([originalFile], `${data.phone_number}.pdf`, {type: originalFile.type});
+            const formData = new FormData();
+            formData.append("cv_file", renamedFile);
+            formData.append("phone_number", data?.phone_number);
+            try {
+                const response = await fetch(API_URL + "/api/cv/", {
+                    method: "PUT",
+                    body: formData,
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("auth.access")}`
+                    }
+                });
+                if (response.ok) {
+                    console.log("CV successfully uploaded");
+                } else {
+                    console.error("Failed to upload CV");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        updateChallenger(
+            navigate,
+            data,
+            setAlertSuccess,
+            setFailureMessage,
+            false
+        );
+    };
+
+
+    // @ts-ignore
     return (
         <>
             <Section name="Profile" side="left" font={"font-sans"} image={"../assets/main-croc.png"}>
+
+
                 <InputText
-                    placeholder="First Name"
                     isValid={true}
+                    placeholder="First Name"
                     value={data?.user?.first_name}
                     onChange={(e) => {
                         setData({
@@ -176,8 +220,8 @@ const Profile = () => {
                     }}
                 />
                 <InputText
-                    placeholder="First Name Persian"
                     isValid={true}
+                    placeholder="First Name Persian"
                     value={data?.first_name_persian}
                     onChange={(e) => {
                         setData({...data, first_name_persian: e.target.value});
@@ -218,7 +262,8 @@ const Profile = () => {
                         size="md"
                         className={
                             "text-white h-11 " + (data?.is_confirmed ? "hidden" : "block")
-                        } onClick={() => confirmChallenger(navigate, setVerification, false)}
+                        }
+                        onClick={() => confirmChallenger(navigate, setVerification, false)}
                     >
                         Verify
                     </Button>
@@ -280,7 +325,7 @@ const Profile = () => {
                 />
                 <InputText
                     isValid={data?.national_code}
-                    placeholder="National ID"
+                    placeholder="National Code"
                     value={data?.national_code}
                     onChange={(e) => {
                         setData({...data, national_code: e.target.value});
@@ -311,33 +356,53 @@ const Profile = () => {
                     <Option value="M">Male</Option>
                     <Option value="F">Female</Option>
                 </Select>
-                {/*<Checkbox*/}
-                {/*  color="light-blue"*/}
-                {/*  label="Is Workshop attendee"*/}
-                {/*  checked={data?.is_workshop_attender}*/}
-                {/*  onChange={(e) => {*/}
-                {/*    setData({ ...data, is_workshop_attender: e.target.checked });*/}
-                {/*  }}*/}
-                {/*  crossOrigin=""*/}
-                {/*  className="text-white"*/}
-                {/*/>*/}
-                <Input
-                    type="submit" value="Update"
-                    color="light-blue"
-                    size="lg"
-                    className="text-white"
-                    crossOrigin=""
-                    onClick={(e) => {
-                        e.preventDefault();
-                        updateChallenger(
-                            navigate,
-                            data,
-                            setAlertSuccess,
-                            setFailureMessage,
-                            false
-                        );
+
+                <Button
+                    variant="gradient"
+                    className={`flex items-center w-full justify-center gap-3 ${data.cv_file ? "text-green-400" : "text-gray-200"} outline mb-4`}
+                    onClick={() => {
+                        if (fileInputRef.current) {
+                            fileInputRef.current.click()
+                        }
                     }}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                        />
+                    </svg>
+                    {data.cv_file ? "CV Uploaded" : "Upload CV"}
+                </Button>
+
+                <input
+                    ref={fileInputRef}
+                    className="hidden"
+                    id="cvfile"
+                    type="file"
+                    accept="application/pdf"
+                    required={false}
                 />
+
+
+                <Button
+                    variant="gradient"
+                    type="submit"
+                    className={`flex items-center w-full justify-center gap-3 text-gray-200 border-2 border-gray-200 mb-4`}
+                    onClick={handleSubmit}
+
+                >
+                    {"Update Profile"}
+                </Button>
+
                 <Alert color="green" className="text-white" open={alertSuccess}>
                     Your profile is updated successfully!
                 </Alert>

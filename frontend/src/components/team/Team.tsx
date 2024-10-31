@@ -4,7 +4,7 @@ import {
     Alert,
     Button,
     Input,
-    Textarea,
+    Textarea, Typography,
     // Typography,
 } from "@material-tailwind/react";
 import {API_URL, urls} from "../../global-constants/Variables";
@@ -16,6 +16,7 @@ import "./TeamPagination";
 import TeamPagination from "./TeamPagination";
 import InputText from "../profile/InputText";
 import Invitations from "./Invitations";
+import {ClipboardCopyButton} from "../clipboardCopyButton/ClipboardCopyButton.tsx";
 
 let timer: number;
 
@@ -184,6 +185,7 @@ function deleteTeam(
                 name: "",
                 description: "",
                 judge_password: "",
+                judge_username: "",
                 members: [],
             });
         })
@@ -238,6 +240,7 @@ const Team = () => {
         name: "",
         description: "",
         judge_password: "",
+        judge_username: "",
         members: [],
     });
     const [invitations, setInvitations] = useState<Invitation[]>([]);
@@ -291,7 +294,15 @@ const Team = () => {
                             setTeam({...team, name: e.target.value});
                         }}
                     />
-                    <br/>
+
+                    <div className={"flex flex-col justify-start my-4 gap-2"}>
+                        <ClipboardCopyButton key={"judgeUsername"} title={"Judge Username:"}
+                                             text={team.judge_username}></ClipboardCopyButton>
+                        <ClipboardCopyButton key={"judgePassword"} title={"Judge Password:"}
+                                             text={team.judge_password}></ClipboardCopyButton>
+                    </div>
+
+
                     <Textarea
                         label={"Description"}
                         color="light-blue"
@@ -303,31 +314,13 @@ const Team = () => {
                             setTeam({...team, description: e.target.value});
                         }}
                     />
-                    {/* <Typography variant="h2" className="text-white">
-            Division:{" "}
-            {(division == "J" && "Junior") ||
-              (division == "S" && "Senior") ||
-              (division == "P" && "Professional")}
-          </Typography>
-          <Typography variant="h3" className="text-white">
-            Judge Username: {"team-" + String(team.id).padStart(3, "0")}
-          </Typography>
-          <Typography variant="h3" className="text-white">
-            Judge Password: {team.judge_password}
-          </Typography>
-          <Button
-            color="light-blue"
-            onClick={() => {
-              let url = "https://judge.codocodile.com/login";
-              window.open(url, "_blank");
-            }}
-          >
-            Particiapte in Contest
-          </Button> */}
+
                     <TeamList
                         users={team.members.map((m) => m.challenger)}
                         type="members"
                     />
+
+
                     <div className="flex flex-row gap-2 mt-2">
                         <Button
                             variant={"gradient"}
