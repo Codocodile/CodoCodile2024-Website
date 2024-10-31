@@ -20,7 +20,7 @@ def export_to_csv(modeladmin, request, queryset):
     writer.writerow(['name', 'Judge Username', 'Judge Password'])
     
     for group in queryset:
-        writer.writerow([group.id, group.judge_username, group.judge_password])
+        writer.writerow([group.name, group.judge_username, group.judge_password])
     
     return response
 
