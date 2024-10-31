@@ -4,7 +4,7 @@ import {
     Alert,
     Button,
     Input,
-    Textarea, Typography,
+    Textarea,
     // Typography,
 } from "@material-tailwind/react";
 import {API_URL, urls} from "../../global-constants/Variables";
@@ -322,6 +322,7 @@ const Team = () => {
 
 
                     <div className="flex flex-row gap-2 mt-2">
+
                         <Button
                             variant={"gradient"}
                             onClick={() => {
@@ -338,6 +339,16 @@ const Team = () => {
                         >
                             Delete/Leave
                         </Button>
+                        <Button
+                            color="green"
+                            fullWidth={true}
+                            onClick={() => {
+                                window.open("https://judge.codocodile.ir", "_blank");
+                            }}
+                        >
+                            <span>go to online Judge</span>
+                        </Button>
+
                     </div>
                 </Section>
             ) : (
