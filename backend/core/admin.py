@@ -17,10 +17,10 @@ def export_to_csv(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename=group_data.csv'
     
     writer = csv.writer(response)
-    writer.writerow(['name', 'Judge Username', 'Judge Password'])
+    writer.writerow(['name', 'Judge Username', 'Judge Password', 'level'])
     
     for group in queryset:
-        writer.writerow([group.name, group.judge_username, group.judge_password])
+        writer.writerow([group.name, group.judge_username, group.judge_password, group.level])
     
     return response
 
