@@ -9,7 +9,7 @@ from core.api import views
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('create-challenger/', views.ChallengerCreateAPIView.as_view(), name='add-challenger'),
+    # path('create-challenger/', views.ChallengerCreateAPIView.as_view(), name='add-challenger'),
     path('cv/', views.ChallengerCVAPIView.as_view(), name='add-cv'),
     path('confirm-challenger/', views.ChallengerConfirmAPIView.as_view(), name='confirm-challenger'),
     path('update-challenger/', views.ChallengerUpdateAPIView.as_view(), name='update-challenger'),
