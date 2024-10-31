@@ -12,22 +12,6 @@ import {NavLink} from "react-router-dom";
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-function validateFile(file: File | null): { isValid: boolean; error: string } {
-    if (file?.size === 0 || !file) {
-        return {isValid: true, error: "No file uploaded."};
-    }
-
-    if (file.type !== "application/pdf") {
-        return {isValid: false, error: "Only PDF files are allowed."};
-    }
-
-    if (file.size > 10 * 1024 * 1024) {
-        return {isValid: false, error: "File size must be less than 10MB."};
-    }
-
-    return {isValid: true, error: ""};
-}
-
 function signUp(
     e: React.FormEvent<HTMLFormElement>,
     setSuccessAlert: React.Dispatch<React.SetStateAction<boolean>>,
@@ -79,9 +63,9 @@ function signUp(
             }
         })
         .catch((err) => {
-            var errors = err.response.data.errors;
+            const errors = err.response.data.errors;
             if (errors) {
-                var error = errors[0].detail;
+                let error = errors[0].detail;
                 if (error == "UNIQUE constraint failed: auth_user.username") {
                     error = "This phone number is already taken!";
                 }
@@ -130,9 +114,9 @@ function signIn(
             }
         })
         .catch((err) => {
-            var errors = err.response.data.errors;
+            const errors = err.response.data.errors;
             if (errors) {
-                var error = errors[0].detail;
+                let error = errors[0].detail;
                 if (error == "UNIQUE constraint failed: auth_user.username") {
                     error = "This phone number is already taken!";
                 }
@@ -179,9 +163,9 @@ function passwordReset(
             }
         })
         .catch((err) => {
-            var errors = err.response.data.errors;
+            const errors = err.response.data.errors;
             if (errors) {
-                var error = errors[0].detail;
+                const error = errors[0].detail;
                 setFailureResponse(error);
             } else {
                 setFailureResponse("Something went wrong!");
@@ -223,9 +207,9 @@ function forgetPassword(
             }
         })
         .catch((err) => {
-            var errors = err.response.data.errors;
+            const errors = err.response.data.errors;
             if (errors) {
-                var error = errors[0].detail;
+                const error = errors[0].detail;
                 setFailureResponse(error);
             } else {
                 setFailureResponse("Something went wrong!");

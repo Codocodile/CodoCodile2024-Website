@@ -30,7 +30,7 @@ function slugify(str: string) {
 const Section = ({name, nameColor, capitalize, children, side, dino, image, font}: Props) => {
     const [dinoIcon] = useState(dino === undefined ? 1 + Math.floor(Math.random() * 15) : dino);
     return (
-        <div id={slugify(name)} className="flex bg-gray-900 pt-8 ">
+        <div id={slugify(name)} className="flex bg-gray-900 pt-8  ">
             <div
                 className="flex flex-col lg:flex-row items-center justify-between mx-auto text-center gap-5 lg:gap-0 ">
                 <img

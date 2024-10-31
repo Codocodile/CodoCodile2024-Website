@@ -40,6 +40,7 @@ export interface ChallengerTeam {
   id: number;
   name: string;
   description: string;
+  judge_username: string;
   judge_password: string;
   members: Member[];
 }
