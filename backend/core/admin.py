@@ -24,6 +24,10 @@ def export_to_csv(modeladmin, request, queryset):
     
     return response
 
+def update_level(modeladmin, request, queryset):
+    for group in queryset:
+        group.update_level()
+
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'judge_username', 'judge_password']
     actions = [populate_judge_fields, export_to_csv]
