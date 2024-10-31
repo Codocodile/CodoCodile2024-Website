@@ -36,11 +36,16 @@ class VisitModelAdmin(admin.ModelAdmin):
     readonly_fields = ['date_created'] 
     list_filter = ["url"] 
     
+class MembershipAdmin(admin.ModelAdmin):
+    list_filter = ["challenger", "group"] 
     
+class ChallengerAdmin(admin.ModelAdmin):
+    list_filter = ["first_name_persian", "last_name_persian", "phone_number"] 
 
-admin.site.register(models.Challenger)
+
+admin.site.register(models.Challenger, ChallengerAdmin)
 admin.site.register(models.Group, GroupAdmin)
-admin.site.register(models.Membership)
+admin.site.register(models.Membership, MembershipAdmin)
 admin.site.register(models.Visit, VisitModelAdmin)
 
 
