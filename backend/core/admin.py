@@ -29,8 +29,8 @@ def update_level(modeladmin, request, queryset):
         group.update_level()
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description', 'judge_username', 'judge_password']
-    actions = [populate_judge_fields, export_to_csv]
+    list_display = ['name', 'description', 'judge_username', 'level']
+    actions = [populate_judge_fields, export_to_csv, update_level]
 
 class VisitModelAdmin(admin.ModelAdmin):
     readonly_fields = ['date_created'] 
