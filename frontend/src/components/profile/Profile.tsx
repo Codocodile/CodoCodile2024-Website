@@ -164,7 +164,7 @@ const Profile = () => {
 
     useEffect(() => loadChallenger(navigate, setData, false), []);
     const fileInputRef = useRef<HTMLInputElement>(null);
-
+    console.log(data)
     const handleSubmit = async (e: React.FormEvent) => {
         console.log(data)
         e.preventDefault();
@@ -357,9 +357,24 @@ const Profile = () => {
                     <Option value="F">Female</Option>
                 </Select>
 
+                <Select
+                    label="T-Shirt Size"
+                    name="shirt_size"
+                    value={data?.shirt_size}
+                    className="text-white"
+                    onChange={(value) => {
+                        setData({...data, shirt_size: value});
+                    }}
+                >
+                    <Option value="M">Medium</Option>
+                    <Option value="L">Large</Option>
+                    <Option value="XL">X-Large</Option>
+                    <Option value="XXL">XX-Large</Option>
+                </Select>
+
                 <Button
                     variant="gradient"
-                    className={`flex items-center w-full justify-center gap-3 ${data.cv_file ? "text-green-400" : "text-gray-200"} outline mb-4`}
+                    className={`flex h-10 items-center w-full justify-center gap-3 ${data.cv_file ? "text-green-400" : "text-gray-200"} outline mb-4`}
                     onClick={() => {
                         if (fileInputRef.current) {
                             fileInputRef.current.click()
