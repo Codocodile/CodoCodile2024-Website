@@ -49,7 +49,7 @@ class Group(models.Model):
     level = models.CharField(max_length=1, choices=STATUS_CHOICES, default='J')
     
     def update_level(self):
-        members = Membership.objects.filter(group=self)
+        members = Membership.objects.filter(group=self, status='A')
         if members.count() == 2:
 
             levels = {"J": 1, "S": 2, "P": 3}
