@@ -286,13 +286,19 @@ const Team = () => {
         <>
             {team.members.length > 0 ? (
                 <Section image={"../assets/crocs/croc-invite.png"} name="Team" side="left" font={"font-sans"}>
-                    <InputText
-                        isValid={true}
+                    <Input
+                        type="text"
+                        color="light-blue"
+                        size="md"
+                        label={"Team Name"}
+                        className="text-black"
+                        crossOrigin=""
                         value={team.name}
-                        placeholder={"Team Name"}
                         onChange={(e) => {
                             setTeam({...team, name: e.target.value});
                         }}
+                        error={!true}
+                        disabled={true}
                     />
 
                     <div className={"flex flex-col justify-start my-4 gap-2"}>
@@ -304,6 +310,7 @@ const Team = () => {
 
 
                     <Textarea
+                        disabled={true}
                         label={"Description"}
                         color="light-blue"
                         size="md"
@@ -323,27 +330,28 @@ const Team = () => {
 
                     <div className="flex flex-row gap-2 mt-2">
 
-                        <Button
-                            variant={"gradient"}
-                            onClick={() => {
-                                updateTeam(setTeam, navigate, false, team);
-                            }}
-                        >
-                            Update
-                        </Button>
-                        <Button
-                            color="red"
-                            onClick={() => {
-                                deleteTeam(setTeam, navigate, false);
-                            }}
-                        >
-                            Delete/Leave
-                        </Button>
+                        {/*<Button*/}
+                        {/*    variant={"gradient"}*/}
+                        {/*    onClick={() => {*/}
+                        {/*        updateTeam(setTeam, navigate, false, team);*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Update*/}
+                        {/*</Button>*/}
+
+                        {/*<Button*/}
+                        {/*    color="red"*/}
+                        {/*    onClick={() => {*/}
+                        {/*        deleteTeam(setTeam, navigate, false);*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Delete/Leave*/}
+                        {/*</Button>*/}
                         <Button
                             color="green"
                             fullWidth={true}
                             onClick={() => {
-                                window.open("https://judge.codocodile.ir", "_blank");
+                                window.open("https://judge.codocodile.ir/login", "_blank");
                             }}
                         >
                             <span>go to online Judge</span>
@@ -383,56 +391,56 @@ const Team = () => {
                     </Section>
                 </>
             )}
-            {team.members.length < 4 && (
-                <Section image={"../assets/crocs/croc-teams.png"} name="Challengers" side="right" font={"font-sans"}>
-                    <Alert open={searchFailureMessage != ""} color="red">
-                        {searchFailureMessage}
-                    </Alert>
-                    {challenger.national_code != "" && challenger.is_confirmed && (
-                        <>
-                            <Input
-                                type="text"
-                                color="light-blue"
-                                placeholder="Name"
-                                crossOrigin=""
-                                className="text-white"
-                                onChange={(e) => {
-                                    setName(e.target.value);
-                                    debouncedSearchChallenger(
-                                        e.target.value,
-                                        navigate,
-                                        1,
-                                        setUsers,
-                                        setTotalPages,
-                                        false
-                                    );
-                                }}
-                                value={name}
-                            />
-                            <TeamList
-                                users={users}
-                                team={team}
-                                setTeam={setTeam}
-                                setSearchFailureMessage={setSearchFailureMessage}
-                                type="challengers"
-                            />
-                            <TeamPagination
-                                pager={(nextPage) => {
-                                    debouncedSearchChallenger(
-                                        name,
-                                        navigate,
-                                        nextPage,
-                                        setUsers,
-                                        setTotalPages,
-                                        false
-                                    );
-                                }}
-                                totalPages={totalPages}
-                            />
-                        </>
-                    )}
-                </Section>
-            )}
+            {/*{team.members.length < 2 && (*/}
+            {/*    <Section image={"../assets/crocs/croc-teams.png"} name="Challengers" side="right" font={"font-sans"}>*/}
+            {/*        <Alert open={searchFailureMessage != ""} color="red">*/}
+            {/*            {searchFailureMessage}*/}
+            {/*        </Alert>*/}
+            {/*        {challenger.national_code != "" && challenger.is_confirmed && (*/}
+            {/*            <>*/}
+            {/*                <Input*/}
+            {/*                    type="text"*/}
+            {/*                    color="light-blue"*/}
+            {/*                    placeholder="Name"*/}
+            {/*                    crossOrigin=""*/}
+            {/*                    className="text-white"*/}
+            {/*                    onChange={(e) => {*/}
+            {/*                        setName(e.target.value);*/}
+            {/*                        debouncedSearchChallenger(*/}
+            {/*                            e.target.value,*/}
+            {/*                            navigate,*/}
+            {/*                            1,*/}
+            {/*                            setUsers,*/}
+            {/*                            setTotalPages,*/}
+            {/*                            false*/}
+            {/*                        );*/}
+            {/*                    }}*/}
+            {/*                    value={name}*/}
+            {/*                />*/}
+            {/*                <TeamList*/}
+            {/*                    users={users}*/}
+            {/*                    team={team}*/}
+            {/*                    setTeam={setTeam}*/}
+            {/*                    setSearchFailureMessage={setSearchFailureMessage}*/}
+            {/*                    type="challengers"*/}
+            {/*                />*/}
+            {/*                <TeamPagination*/}
+            {/*                    pager={(nextPage) => {*/}
+            {/*                        debouncedSearchChallenger(*/}
+            {/*                            name,*/}
+            {/*                            navigate,*/}
+            {/*                            nextPage,*/}
+            {/*                            setUsers,*/}
+            {/*                            setTotalPages,*/}
+            {/*                            false*/}
+            {/*                        );*/}
+            {/*                    }}*/}
+            {/*                    totalPages={totalPages}*/}
+            {/*                />*/}
+            {/*            </>*/}
+            {/*        )}*/}
+            {/*    </Section>*/}
+            {/*)}*/}
         </>
     );
 };
