@@ -35,11 +35,30 @@ class Challenger(models.Model):
 
 
 class Group(models.Model):
+    STATUS_CHOICES = (
+        ("J", "Junior"),
+        ("S", "Senior"),
+        ("P", "Pro"),
+    )
+    
+    
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=500, blank=True)
     judge_username = models.TextField(max_length=50, blank=True)
     judge_password = models.TextField(max_length=50, blank=True)
+    level = models.CharField(max_length=1, choices=STATUS_CHOICES, default='J')
+    
+    def update_level(self):
+        members = Membership.objects.filter(group=self)
+        if members.count() == 2:
 
+            levels = {"J": 1, "S": 2, "P": 3}
+            if levels.get(members[0].challenger.status, 1) > levels.get(members[1].challenger.status, 1):
+                self.level = members[0].challenger.status
+            else:
+                self.level = members[1].challenger.status
+            self.save()
+    
     def __str__(self):
         return f'{self.name}'
 
