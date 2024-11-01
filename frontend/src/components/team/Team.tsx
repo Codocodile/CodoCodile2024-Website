@@ -286,13 +286,19 @@ const Team = () => {
         <>
             {team.members.length > 0 ? (
                 <Section image={"../assets/crocs/croc-invite.png"} name="Team" side="left" font={"font-sans"}>
-                    <InputText
-                        isValid={true}
+                    <Input
+                        type="text"
+                        color="light-blue"
+                        size="md"
+                        label={"Team Name"}
+                        className="text-black"
+                        crossOrigin=""
                         value={team.name}
-                        placeholder={"Team Name"}
                         onChange={(e) => {
                             setTeam({...team, name: e.target.value});
                         }}
+                        error={!true}
+                        disabled={true}
                     />
 
                     <div className={"flex flex-col justify-start my-4 gap-2"}>
@@ -304,6 +310,7 @@ const Team = () => {
 
 
                     <Textarea
+                        disabled={true}
                         label={"Description"}
                         color="light-blue"
                         size="md"
@@ -323,14 +330,14 @@ const Team = () => {
 
                     <div className="flex flex-row gap-2 mt-2">
 
-                        <Button
-                            variant={"gradient"}
-                            onClick={() => {
-                                updateTeam(setTeam, navigate, false, team);
-                            }}
-                        >
-                            Update
-                        </Button>
+                        {/*<Button*/}
+                        {/*    variant={"gradient"}*/}
+                        {/*    onClick={() => {*/}
+                        {/*        updateTeam(setTeam, navigate, false, team);*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Update*/}
+                        {/*</Button>*/}
 
                         {/*<Button*/}
                         {/*    color="red"*/}
