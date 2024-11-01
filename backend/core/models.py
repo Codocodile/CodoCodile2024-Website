@@ -51,12 +51,14 @@ class Group(models.Model):
     def update_level(self):
         members = Membership.objects.filter(group=self, status='A')
         if members.count() == 2:
-
             levels = {"J": 1, "S": 2, "P": 3}
             if levels.get(members[0].challenger.status, 1) > levels.get(members[1].challenger.status, 1):
                 self.level = members[0].challenger.status
             else:
                 self.level = members[1].challenger.status
+            self.save()
+        if members.count() == 1:
+            self.level = members[0].challenger.status
             self.save()
     
     def __str__(self):
