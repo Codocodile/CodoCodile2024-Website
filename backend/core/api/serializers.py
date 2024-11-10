@@ -82,7 +82,9 @@ class ChallengerViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('id', 'user', 'first_name_persian', 'last_name_persian',
-                  'phone_number', 'status', 'gender', 'profile_pic', 'bio', 'is_confirmed', 'national_code', 'university', 'cv_file')
+                  'phone_number', 'status', 'gender', 'profile_pic', 'bio',
+                  'is_confirmed', 'national_code', 'university', 'cv_file',
+                  'shirt_size')
 
 
 class ChallengerSearchSerializer(serializers.ModelSerializer):
@@ -100,7 +102,7 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Challenger
         fields = ('user', 'first_name_persian', 'last_name_persian',
-                  'status', 'gender', 'bio', 'national_code', 'university')
+                  'status', 'gender', 'bio', 'national_code', 'university', 'shirt_size')
 
     def validate_status(self, value: str) -> str:
         if value in ['J', 'S', 'P']:
@@ -126,6 +128,11 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
                 return value
             raise serializers.ValidationError("National Code is not valid.")
         raise serializers.ValidationError("National Code is not valid.")
+
+    def validate_shirt_size(self, value: str) -> str:
+        if value in ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']:
+            return value
+        raise serializers.ValidationError("Shirt Size is not valid.")
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user')
