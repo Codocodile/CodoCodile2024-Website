@@ -147,6 +147,7 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
         instance.bio = validated_data['bio']
         instance.national_code = validated_data['national_code']
         instance.university = validated_data['university']
+        instance.shirt_size = validated_data['shirt_size']
         instance.save()
         return instance
 
