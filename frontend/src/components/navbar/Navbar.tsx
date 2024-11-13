@@ -134,7 +134,7 @@ const Navbar = () => {
             <Collapse open={openNav}>
                 {navList}
                 <Button
-                    variant="outlined"
+                    variant="gradient"
                     size="sm"
                     fullWidth
                     className="mb-2"
@@ -142,15 +142,15 @@ const Navbar = () => {
                 >
                     <span>Sign In</span>
                 </Button>
-                <Button
-                    variant="gradient"
-                    size="sm"
-                    fullWidth
-                    className="mb-2"
-                    onClick={() => navigate(urls.signUp)}
-                >
-                    <span>Sign Up</span>
-                </Button>
+                {/*<Button*/}
+                {/*    variant="gradient"*/}
+                {/*    size="sm"*/}
+                {/*    fullWidth*/}
+                {/*    className="mb-2"*/}
+                {/*    onClick={() => navigate(urls.signUp)}*/}
+                {/*>*/}
+                {/*    <span>Sign Up</span>*/}
+                {/*</Button>*/}
             </Collapse>
         </NavbarComponent>
     );
