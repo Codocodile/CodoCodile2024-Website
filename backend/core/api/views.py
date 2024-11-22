@@ -1,6 +1,6 @@
 from random import choices
 from django.conf import settings
-from django.http import Http404
+from django.http import Http404, FileResponse
 from rest_framework import generics, permissions, status, views
 from rest_framework.response import Response
 
@@ -12,6 +12,8 @@ from django.db.models.functions import Concat
 from django.db.models import Value as V
 from django.db.models import Q
 from django.db.models import Exists, OuterRef
+
+import os
 
 
 class ChallengerCreateAPIView(generics.CreateAPIView):
@@ -268,3 +270,18 @@ class VisitCreateAPIView(generics.CreateAPIView):
     queryset = Visit.objects.all()
     serializer_class = VisitCreateSerializer
     permission_classes = [permissions.AllowAny, ]
+    
+class CertAPIView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        base_dir = settings.MEDIA_ROOT / 'certs'
+        
+        user_file_name = f"{request.user.id}.jpg"
+        file_path = os.path.join(base_dir, user_file_name)
+        
+        if not os.path.exists(file_path):
+            print(file_path)
+            raise Http404(f"File not found.{file_path}")
+ 
+        return FileResponse(open(file_path, 'rb'), content_type='application/jpg')
