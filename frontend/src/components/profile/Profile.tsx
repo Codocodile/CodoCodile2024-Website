@@ -376,7 +376,7 @@ const Profile = () => {
                     variant="gradient"
                     className={`flex h-10  items-center w-full justify-center gap-3 mt-3 mb-4 bg-blue-900`}
                     onClick={() => {
-                        window.open(`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=2nd+Codocodile+Contest&organizationId=98884196&issueYear=2024&issueMonth=11&certUrl=https://api.codocodile.ir/api/get-cert?user_id=${data.id}`, `_blank`);
+                        window.open(`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=2nd+Codocodile+Contest&organizationId=98884196&issueYear=2024&issueMonth=11&certUrl=https://api.codocodile.ir/api/get-cert?user_id%3d${data.id}`, `_blank`);
                     }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
