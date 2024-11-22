@@ -272,16 +272,21 @@ class VisitCreateAPIView(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny, ]
     
 class CertAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):
         base_dir = settings.MEDIA_ROOT / 'certs'
         
-        user_file_name = f"{request.user.id}.jpg"
+        user_id = request.query_params.get('user_id') or kwargs.get('user_id')
+        if not user_id:
+            raise Http404("User ID not provided.")
+        
+        user_file_name = f"{user_id}.jpg"
         file_path = os.path.join(base_dir, user_file_name)
         
         if not os.path.exists(file_path):
-            print(file_path)
-            raise Http404(f"File not found.{file_path}")
- 
-        return FileResponse(open(file_path, 'rb'), content_type='application/jpg')
+            raise Http404(f"File not found.")
+    
+        response = FileResponse(open(file_path, 'rb'), content_type='image/jpeg')
+        response['Content-Disposition'] = 'inline'
+        return response
