@@ -52,7 +52,7 @@ function Landing() {
             }}>
                 <Section
                     name={"sponsor"} capitalize={true} font={"font-dana-bold"} side={"left"}
-                    image={"assets/sponsor/croc.png"}>
+                    image={"assets/sponsor/main-croc.png"}>
                     <TextOnlySection
                         text={SPONSOR_LANDING_INTRODUCTION}
                         font={"font-dana-regular"}/>
