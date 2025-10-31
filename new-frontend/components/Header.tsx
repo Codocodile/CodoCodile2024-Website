@@ -30,8 +30,8 @@ const Header = () => {
     { name: "درباره مسابقه", href: "/#about" },
     { name: "قوانین", href: "/#rules" },
     { name: "زمان‌بندی", href: "/#timeline" },
-    { name: "تیم", href: "/team" },
     { name: "سوالات متداول", href: "/#faq" },
+    { name: "تیم", href: "/team" },
   ];
 
   return (

@@ -119,23 +119,22 @@ const Faq = () => {
     >
       <div className="container-custom">
         {/* Section Header */}
-        {/* <div
+        <div
           className={`text-center mb-16 ${
             isVisible ? "animate-fade-in-up" : "opacity-0"
           }`}
         >
           <div className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium mb-6">
             <span className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2 animate-pulse"></span>
-            تماس با ما
+            سوالات متداول
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            در <span className="text-gradient">تماس</span> باشید
+            <span className="text-gradient">سوالات</span> متداول
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-            سوالی دارید؟ با تیم کدوکدیل در تماس باشید. ما آماده پاسخگویی به شما
-            هستیم
+            پاسخ سوالات رایج درباره مسابقه کدوکدیل
           </p>
-        </div> */}
+        </div>
 
         {/* <div className="grid lg:grid-cols-2 gap-12 lg:gap-16"> */}
         {/* Contact Information */}
@@ -306,14 +305,14 @@ const Faq = () => {
         <div
           className={`mt-20 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <div className="text-center mb-8">
+          {/* <div className="text-center mb-8">
             <h3 className="text-3xl font-bold text-foreground mb-2">
               سوالات متداول
             </h3>
             <p className="text-lg text-neutral-600">
               پاسخ سوالات رایج درباره مسابقه کدوکدیل
             </p>
-          </div>
+          </div> */}
 
           <div className="max-w-3xl mx-auto space-y-3">
             {faqs.map((item) => (
