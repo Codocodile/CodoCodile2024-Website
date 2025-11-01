@@ -37,10 +37,11 @@ interface AuthContextType {
   user: Challenger | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (phoneNumber: string, password: string) => Promise<void>;
   register: (data: any) => Promise<void>;
   logout: () => void;
   updateProfile: (data: any) => Promise<void>;
+  requestConfirmationCode: () => Promise<void>;
   confirmAccount: (code: string) => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   resetPassword: (
@@ -70,15 +71,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("auth.access");
       if (token) {
         try {
           const userData = await challengerAPI.getProfile();
           setUser(userData);
         } catch (error) {
           console.error("Failed to fetch user data:", error);
-          localStorage.removeItem("access_token");
-          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("auth.access");
+          localStorage.removeItem("auth.refresh");
         }
       }
       setIsLoading(false);
@@ -87,11 +88,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     initAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (phoneNumber: string, password: string) => {
     try {
-      const response = await authAPI.login(email, password);
-      localStorage.setItem("access_token", response.access);
-      localStorage.setItem("refresh_token", response.refresh);
+      const response = await authAPI.login(phoneNumber, password);
+      localStorage.setItem("auth.access", response.access);
+      localStorage.setItem("auth.refresh", response.refresh);
 
       const userData = await challengerAPI.getProfile();
       setUser(userData);
@@ -112,8 +113,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("auth.access");
+    localStorage.removeItem("auth.refresh");
     setUser(null);
   };
 
@@ -123,6 +124,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(updatedUser);
     } catch (error) {
       console.error("Profile update failed:", error);
+      throw error;
+    }
+  };
+
+  const requestConfirmationCode = async () => {
+    try {
+      await authAPI.requestConfirmationCode();
+    } catch (error) {
+      console.error("Confirmation code request failed:", error);
       throw error;
     }
   };
@@ -169,6 +179,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     register,
     logout,
     updateProfile,
+    requestConfirmationCode,
     confirmAccount,
     requestPasswordReset,
     resetPassword,

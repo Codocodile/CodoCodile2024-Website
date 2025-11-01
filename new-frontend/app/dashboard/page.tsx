@@ -32,13 +32,13 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="flex-1 flex flex-col bg-gradient-hero">
       <Header />
 
-      <main className="container-custom py-16">
+      <main className="flex-1 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Welcome Section */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 mt-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">
               خوش آمدید، {user?.first_name_persian} {user?.last_name_persian}
             </h1>
@@ -48,7 +48,7 @@ export default function Dashboard() {
           </div>
 
           {/* Status Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
             <div className="card p-6 text-center">
               <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📋</span>
@@ -62,16 +62,6 @@ export default function Dashboard() {
                 }`}
               >
                 {user?.is_confirmed ? "تایید شده" : "در انتظار تایید"}
-              </p>
-            </div>
-
-            <div className="card p-6 text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">👥</span>
-              </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">تیم</h3>
-              <p className="text-sm text-neutral-600">
-                هنوز تیمی تشکیل نداده‌اید
               </p>
             </div>
 
@@ -91,41 +81,24 @@ export default function Dashboard() {
           </div>
 
           {/* Quick Actions */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-1 gap-6">
             <div className="card p-8">
               <h3 className="text-xl font-bold text-foreground mb-4">
                 اقدامات سریع
               </h3>
               <div className="space-y-4">
-                <button className="btn btn-primary btn-md w-full">
-                  تشکیل تیم
-                </button>
-                <button className="btn btn-outline btn-md w-full">
-                  جستجوی هم‌تیمی
-                </button>
-                <button className="btn btn-outline btn-md w-full">
+                <a
+                  href="/dashboard/team"
+                  className="btn btn-primary btn-md w-full block text-center"
+                >
+                  مدیریت تیم
+                </a>
+                <a
+                  href="/profile"
+                  className="btn btn-outline btn-md w-full block text-center"
+                >
                   ویرایش پروفایل
-                </button>
-              </div>
-            </div>
-
-            <div className="card p-8">
-              <h3 className="text-xl font-bold text-foreground mb-4">
-                اطلاعات مسابقه
-              </h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600">تاریخ شروع:</span>
-                  <span className="font-medium">12 بهمن 1402</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600">مدت زمان:</span>
-                  <span className="font-medium">24 ساعت</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-neutral-600">تعداد مسائل:</span>
-                  <span className="font-medium">50+ مسئله</span>
-                </div>
+                </a>
               </div>
             </div>
           </div>

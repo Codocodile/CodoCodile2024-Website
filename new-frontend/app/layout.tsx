@@ -55,6 +55,18 @@ const iranSans = localFont({
   display: "swap",
 });
 
+const potk = localFont({
+  src: [
+    {
+      path: "../public/fonts/Potk.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-potk",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "کدوکدیل 2025 | مسابقه برنامه‌نویسی",
   description:
@@ -81,9 +93,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
-      <body className={`${iranSans.variable} antialiased`}>
-        <AuthProvider>{children}</AuthProvider>
+    <html lang="fa" dir="rtl" className="h-full">
+      <body
+        className={`${iranSans.variable} ${potk.variable} antialiased h-full flex flex-col`}
+      >
+        <AuthProvider>
+          <div className="flex-1 flex flex-col">{children}</div>
+        </AuthProvider>
       </body>
     </html>
   );

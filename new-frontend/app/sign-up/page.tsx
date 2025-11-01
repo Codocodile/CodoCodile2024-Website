@@ -63,10 +63,11 @@ export default function SignUp() {
       };
 
       await register(registrationData);
-      router.push("/sign-in?message=registration-success");
+      router.push("/");
     } catch (error: any) {
       setError(
         error.response?.data?.detail ||
+          error.response?.data?.errors?.[0]?.detail ||
           "خطا در ثبت‌نام. لطفاً دوباره تلاش کنید."
       );
     }
@@ -95,9 +96,9 @@ export default function SignUp() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="flex-1 flex flex-col bg-gradient-hero">
       <Header />
-      <div className="pt-16 lg:pt-20 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 pt-16 lg:pt-20 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Form Header */}
           <div className="text-center mb-8">

@@ -46,11 +46,13 @@ const Hero = () => {
             {/* Main Heading */}
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight w-full">
-                <span className="text-foreground">مسابقه</span>
-                <br />
-                <span className="text-gradient">کدوکدیل</span>
-                <br />
-                <span className="text-foreground">را از دست ندهید</span>
+                <span className="text-foreground block mb-4 font-potk">
+                  مسابقه
+                </span>
+                <span className="text-gradient font-potk ">کدوکدیل</span>
+                <span className="text-foreground block mt-4 font-potk">
+                  را از دست ندهید
+                </span>
               </h1>
 
               {/* Fixed Subtitle */}
