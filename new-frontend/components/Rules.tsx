@@ -128,7 +128,7 @@ const Rules = () => {
             قوانین و مقررات
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            قوانین <span className="text-gradient">مسابقه</span>
+            <span className="text-gradient font-potk">قوانین مسابقه</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
             برای شرکت در مسابقه کدوکدیل، لطفاً قوانین و مقررات زیر را به دقت

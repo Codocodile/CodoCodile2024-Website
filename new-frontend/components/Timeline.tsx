@@ -154,7 +154,7 @@ const Timeline = () => {
             زمان‌بندی مسابقه
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            برنامه <span className="text-gradient">زمانی</span>
+            <span className="text-gradient font-potk">برنامه زمانی</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
             مراحل مختلف مسابقه کدوکدیل و زمان‌بندی دقیق هر مرحله

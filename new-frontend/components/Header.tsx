@@ -56,10 +56,12 @@ const Header = () => {
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent-400 rounded-full animate-pulse"></div>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-gradient">کدوکدیل</span>
-              <span className="text-xs text-neutral-600 -mt-1">
-                CodoCodile 2025
+              <span className="text-2xl font-bold text-gradient font-potk">
+                کدوکدیل
               </span>
+              {/* <span className="text-xs text-neutral-600 -mt-1">
+                CodoCodile 2025
+              </span> */}
             </div>
           </Link>
 

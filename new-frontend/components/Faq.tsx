@@ -129,7 +129,7 @@ const Faq = () => {
             سوالات متداول
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            <span className="text-gradient">سوالات</span> متداول
+            <span className="text-gradient font-potk">سوالات متداول</span>
           </h2>
           <p className="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
             پاسخ سوالات رایج درباره مسابقه کدوکدیل

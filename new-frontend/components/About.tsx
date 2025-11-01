@@ -83,7 +83,7 @@ const About = () => {
             درباره مسابقه
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            مسابقه <span className="text-gradient">کدوکدیل</span>
+            <span className="text-gradient font-potk">مسابقه کدوکدیل</span>
           </h2>
           <p className="text-xl text-neutral-600 mx-auto leading-relaxed text-justify">
             مسابقه‌ی آموزشی کدوکدیل، رقابتی جذاب و فرصت‌ساز برای دانشجویان و

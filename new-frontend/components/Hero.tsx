@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronRightIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, PlayIcon } from "@heroicons/react/24/outline";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -78,13 +78,13 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/sign-up" className="btn btn-primary btn-lg group">
                 شروع مسابقه
-                <ChevronRightIcon className="w-5 h-5 mr-2 rtl:ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                <ChevronLeftIcon className="w-5 h-5 mr-2 rtl:ml-2 group-hover:-translate-x-2 transition-transform duration-200" />
               </Link>
 
-              <button className="btn btn-outline btn-lg group">
+              {/* <button className="btn btn-outline btn-lg group">
                 <PlayIcon className="w-5 h-5 mr-2 rtl:ml-2" />
                 تماشای ویدیو
-              </button>
+              </button> */}
             </div>
 
             {/* Stats */}
@@ -122,7 +122,7 @@ const Hero = () => {
                       <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                       <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                     </div>
-                    <div className="text-sm font-mono">CodoCodile 2025</div>
+                    <div className="text-sm font-potk">CodoCodile 2025</div>
                   </div>
 
                   {/* Code Preview */}
