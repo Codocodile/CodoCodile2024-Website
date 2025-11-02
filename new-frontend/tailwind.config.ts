@@ -85,6 +85,14 @@ const config: Config = {
         shimmer: "shimmer 2s infinite",
         gradient: "gradient 6s ease infinite",
         wiggle: "wiggle 1s ease-in-out infinite",
+        typing:
+          "typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite",
+        "slide-up-fade": "slideUpFade 0.5s ease-out forwards",
+        "code-glow": "codeGlow 2s ease-in-out infinite",
+        "rotate-slow": "rotateSlow 20s linear infinite",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
+        "bounce-slow": "bounceSlow 3s ease-in-out infinite",
+        "glow-pulse": "glowPulse 2s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -141,6 +149,43 @@ const config: Config = {
           "0%, 100%": { transform: "rotate(-3deg)" },
           "50%": { transform: "rotate(3deg)" },
         },
+        typing: {
+          "0%": { width: "0" },
+          "100%": { width: "100%" },
+        },
+        "blink-caret": {
+          "0%, 50%": { borderColor: "transparent" },
+          "51%, 100%": { borderColor: "currentColor" },
+        },
+        slideUpFade: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        codeGlow: {
+          "0%, 100%": { boxShadow: "0 0 5px rgba(144, 201, 100, 0.5)" },
+          "50%": {
+            boxShadow:
+              "0 0 20px rgba(144, 201, 100, 0.8), 0 0 30px rgba(144, 201, 100, 0.4)",
+          },
+        },
+        rotateSlow: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        pulseGlow: {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.8", transform: "scale(1.05)" },
+        },
+        bounceSlow: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        glowPulse: {
+          "0%, 100%": {
+            filter: "drop-shadow(0 0 5px rgba(144, 201, 100, 0.5))",
+          },
+          "50%": { filter: "drop-shadow(0 0 20px rgba(144, 201, 100, 0.8))" },
+        },
       },
       spacing: {
         "18": "4.5rem",
@@ -160,6 +205,8 @@ const config: Config = {
           "0 10px 40px -10px rgba(0, 0, 0, 0.1), 0 2px 10px -2px rgba(0, 0, 0, 0.04)",
         glow: "0 0 20px rgba(144, 201, 100, 0.3)",
         "glow-lg": "0 0 40px rgba(144, 201, 100, 0.4)",
+        "glow-primary": "0 0 30px rgba(50, 129, 77, 0.4)",
+        "glow-accent": "0 0 30px rgba(234, 179, 8, 0.4)",
       },
       backdropBlur: {
         xs: "2px",

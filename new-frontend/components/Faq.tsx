@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Faq = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -315,36 +316,54 @@ const Faq = () => {
           </div> */}
 
           <div className="max-w-3xl mx-auto space-y-3">
-            {faqs.map((item) => (
-              <div
+            {faqs.map((item, index) => (
+              <motion.div
                 key={item.id}
-                className="border border-neutral-200 rounded-2xl bg-white/90 backdrop-blur-sm"
+                className="border border-neutral-200 rounded-2xl bg-white/90 backdrop-blur-sm shadow-soft"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.01 }}
               >
-                <button
+                <motion.button
                   type="button"
                   onClick={() => toggle(item.id)}
-                  className="w-full flex items-center justify-between gap-4 px-4 sm:px-6 py-4 text-right"
+                  className="w-full flex items-center justify-between gap-4 px-4 sm:px-6 py-4 text-right hover:bg-neutral-50 rounded-2xl transition-colors"
                   aria-expanded={openId === item.id}
+                  whileHover={{ x: -5 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <span className="text-sm sm:text-base font-semibold text-foreground">
                     {item.question}
                   </span>
-                  <ChevronDownIcon
-                    className={`w-5 h-5 text-neutral-500 transition-transform duration-200 ${
-                      openId === item.id ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`px-4 sm:px-6 overflow-hidden transition-all duration-200 ${
-                    openId === item.id ? "max-h-64 pb-4" : "max-h-0"
-                  }`}
-                >
-                  <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                    {item.answer}
-                  </p>
-                </div>
-              </div>
+                  <motion.div
+                    animate={{ rotate: openId === item.id ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDownIcon className="w-5 h-5 text-neutral-500" />
+                  </motion.div>
+                </motion.button>
+                <AnimatePresence>
+                  {openId === item.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <motion.p
+                        className="px-4 sm:px-6 pb-4 text-sm sm:text-base text-neutral-700 leading-relaxed"
+                        initial={{ y: -10 }}
+                        animate={{ y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.answer}
+                      </motion.p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
         </div>

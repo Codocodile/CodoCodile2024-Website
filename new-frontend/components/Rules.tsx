@@ -6,6 +6,7 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Rules = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -140,29 +141,36 @@ const Rules = () => {
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
             {rules.map((rule, index) => (
-              <div
+              <motion.div
                 key={rule.id}
                 className={`card transition-all duration-300 ${
                   openRule === rule.id
-                    ? "shadow-medium"
+                    ? "shadow-medium ring-2 ring-primary-300"
                     : "shadow-soft hover:shadow-medium"
-                } ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                }`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.01, y: -2 }}
               >
-                <button
+                <motion.button
                   onClick={() => toggleRule(rule.id)}
                   className="w-full p-6 text-right flex items-center justify-between hover:bg-neutral-50 transition-colors duration-200"
+                  whileHover={{ x: -5 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                    <div
+                    <motion.div
                       className={`w-12 h-12 rounded-xl flex items-center justify-center ${
                         rule.important
                           ? "bg-red-100 text-red-600"
                           : "bg-primary-100 text-primary-600"
                       }`}
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
                     >
                       <rule.icon className="w-6 h-6" />
-                    </div>
+                    </motion.div>
                     <div className="text-right">
                       <h3 className="text-xl font-bold text-foreground mb-1">
                         {rule.title}
@@ -174,38 +182,57 @@ const Rules = () => {
                       )}
                     </div>
                   </div>
-                  <ChevronDownIcon
-                    className={`w-6 h-6 text-neutral-400 transition-transform duration-200 ${
-                      openRule === rule.id ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
+                  <motion.div
+                    animate={{ rotate: openRule === rule.id ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDownIcon className="w-6 h-6 text-neutral-400" />
+                  </motion.div>
+                </motion.button>
 
                 {/* Rule Content */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openRule === rule.id
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="px-6 pb-6 border-t border-neutral-200">
-                    <ul className="space-y-3 pt-4">
-                      {rule.content.map((item, itemIndex) => (
-                        <li
-                          key={itemIndex}
-                          className="flex items-start space-x-3 rtl:space-x-reverse"
-                        >
-                          <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-neutral-700 leading-relaxed">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                <AnimatePresence>
+                  {openRule === rule.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 border-t border-neutral-200">
+                        <ul className="space-y-3 pt-4">
+                          {rule.content.map((item, itemIndex) => (
+                            <motion.li
+                              key={itemIndex}
+                              className="flex items-start space-x-3 rtl:space-x-reverse"
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{
+                                duration: 0.3,
+                                delay: itemIndex * 0.05,
+                              }}
+                            >
+                              <motion.div
+                                className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{
+                                  duration: 0.2,
+                                  delay: itemIndex * 0.05,
+                                }}
+                              />
+                              <span className="text-neutral-700 leading-relaxed">
+                                {item}
+                              </span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
         </div>

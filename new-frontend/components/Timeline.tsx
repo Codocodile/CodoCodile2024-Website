@@ -6,6 +6,7 @@ import {
   ClockIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Timeline = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -164,70 +165,140 @@ const Timeline = () => {
         {/* Timeline */}
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute right-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary-300 to-primary-500 rounded-full"></div>
+            {/* Animated Timeline Line */}
+            <div className="absolute right-8 top-0 bottom-0 w-1 bg-neutral-200 rounded-full overflow-hidden">
+              <motion.div
+                className="absolute top-0 right-0 w-full bg-gradient-to-b from-primary-300 via-primary-400 to-primary-500 rounded-full"
+                initial={{ height: "0%" }}
+                animate={isVisible ? { height: "100%" } : {}}
+                transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+              />
+            </div>
 
             {/* Timeline Items */}
             <div className="space-y-8">
               {phases.map((phase, index) => (
-                <div
+                <motion.div
                   key={phase.id}
-                  className={`relative flex items-center ${
-                    isVisible ? "animate-fade-in-up" : "opacity-0"
-                  }`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="relative flex items-center"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  whileHover={{ x: 10 }}
                 >
                   {/* Timeline Dot */}
                   <div className="relative z-10 flex-shrink-0">
-                    <div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-br ${phase.color} flex items-center justify-center shadow-medium`}
+                    <motion.div
+                      className={`w-16 h-16 rounded-full bg-gradient-to-br ${phase.color} flex items-center justify-center shadow-glow`}
+                      initial={{ scale: 0 }}
+                      animate={isVisible ? { scale: 1 } : {}}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.15 + 0.3,
+                        type: "spring",
+                      }}
+                      whileHover={{ scale: 1.15, rotate: 360 }}
                     >
                       <phase.icon className="w-8 h-8 text-white" />
-                    </div>
+                    </motion.div>
                     {phase.status === "current" && (
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-300 to-primary-500 animate-ping"></div>
+                      <motion.div
+                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-300 to-primary-500"
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
                     )}
                   </div>
 
                   {/* Timeline Content */}
-                  <div className="mr-8 rtl:ml-8 flex-1">
-                    <div
-                      className={`card p-6 transition-all duration-300 hover:shadow-medium ${
+                  <motion.div
+                    className="mr-8 rtl:ml-8 flex-1"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.6, delay: index * 0.15 + 0.2 }}
+                  >
+                    <motion.div
+                      className={`card p-6 transition-all duration-300 ${
                         phase.status === "current"
-                          ? "ring-2 ring-primary-300 shadow-glow"
+                          ? "ring-2 ring-primary-300 shadow-glow-primary"
                           : ""
                       }`}
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={isVisible ? { y: 0, opacity: 1 } : {}}
+                      transition={{ duration: 0.5, delay: index * 0.15 + 0.4 }}
                     >
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
                         <div>
-                          <h3 className="text-xl font-bold text-foreground mb-2">
+                          <motion.h3
+                            className="text-xl font-bold text-foreground mb-2"
+                            initial={{ opacity: 0 }}
+                            animate={isVisible ? { opacity: 1 } : {}}
+                            transition={{
+                              duration: 0.5,
+                              delay: index * 0.15 + 0.5,
+                            }}
+                          >
                             {phase.title}
-                          </h3>
+                          </motion.h3>
                           <div className="flex items-center space-x-4 rtl:space-x-reverse text-sm text-neutral-600">
-                            <span className="flex items-center">
+                            <motion.span
+                              className="flex items-center"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                              transition={{
+                                duration: 0.4,
+                                delay: index * 0.15 + 0.6,
+                              }}
+                            >
                               <CalendarDaysIcon className="w-4 h-4 mr-1 rtl:ml-1" />
                               {phase.date}
-                            </span>
-                            <span className="flex items-center">
+                            </motion.span>
+                            <motion.span
+                              className="flex items-center"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                              transition={{
+                                duration: 0.4,
+                                delay: index * 0.15 + 0.7,
+                              }}
+                            >
                               <ClockIcon className="w-4 h-4 mr-1 rtl:ml-1" />
                               {phase.time}
-                            </span>
+                            </motion.span>
                           </div>
                         </div>
-                        <div className="mt-4 lg:mt-0">
+                        <motion.div
+                          className="mt-4 lg:mt-0"
+                          initial={{ scale: 0 }}
+                          animate={isVisible ? { scale: 1 } : {}}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.15 + 0.8,
+                            type: "spring",
+                          }}
+                        >
                           <span
                             className={`badge ${getStatusColor(phase.status)}`}
                           >
                             {getStatusText(phase.status)}
                           </span>
-                        </div>
+                        </motion.div>
                       </div>
-                      <p className="text-neutral-600 leading-relaxed">
+                      <motion.p
+                        className="text-neutral-600 leading-relaxed"
+                        initial={{ opacity: 0 }}
+                        animate={isVisible ? { opacity: 1 } : {}}
+                        transition={{
+                          duration: 0.5,
+                          delay: index * 0.15 + 0.9,
+                        }}
+                      >
                         {phase.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                      </motion.p>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </div>

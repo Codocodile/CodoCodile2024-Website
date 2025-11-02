@@ -3,13 +3,80 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeftIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { motion, useAnimation } from "framer-motion";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [codeIndex, setCodeIndex] = useState(0);
+  const [typedText, setTypedText] = useState("");
+
+  const codeSnippets = [
+    // DP: Longest Increasing Subsequence
+    `function lis(arr) {
+  const dp = Array(arr.length).fill(1);
+  for (let i = 1; i < arr.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (arr[i] > arr[j]) dp[i] = Math.max(dp[i], dp[j] + 1);
+    }
+  }
+  return Math.max(...dp);
+}`,
+
+    // BFS: Shortest Path in Graph
+    `from collections import deque
+
+def bfs(graph, start):
+    visited = set([start])
+    queue = deque([start])
+    while queue:
+        node = queue.popleft()
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)`,
+
+    // DFS: Connected Components (C++)
+    `void dfs(int v, vector<vector<int>>& adj, vector<bool>& visited) {
+    visited[v] = true;
+    for (int u : adj[v]) {
+        if (!visited[u]) dfs(u, adj, visited);
+    }
+}`,
+
+    // DP: 0/1 Knapsack (Python)
+    `def knapsack(W, wt, val, n):
+    dp = [[0]*(W+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        for w in range(W+1):
+            if wt[i-1] <= w:
+                dp[i][w] = max(val[i-1] + dp[i-1][w-wt[i-1]], dp[i-1][w])
+            else:
+                dp[i][w] = dp[i-1][w]
+    return dp[n][W]`,
+  ];
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  useEffect(() => {
+    const currentCode = codeSnippets[codeIndex];
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex < currentCode.length) {
+        setTypedText(currentCode.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          setCodeIndex((prev) => (prev + 1) % codeSnippets.length);
+          setTypedText("");
+        }, 2000);
+      }
+    }, 50);
+
+    return () => clearInterval(typingInterval);
+  }, [codeIndex]);
 
   return (
     <section
@@ -17,42 +84,164 @@ const Hero = () => {
       className="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Static Background Elements */}
-        <div className="absolute top-20 left-10 w-16 h-16 bg-primary-200/30 rounded-2xl rotate-12"></div>
-        <div className="absolute top-40 right-20 w-12 h-12 bg-accent-200/30 rounded-xl -rotate-12"></div>
-        <div className="absolute bottom-40 left-20 w-20 h-20 bg-primary-300/20 rounded-3xl rotate-45"></div>
-        <div className="absolute bottom-20 right-10 w-14 h-14 bg-accent-300/20 rounded-2xl -rotate-12"></div>
+      <div className="absolute inset-0 overflow-hidden grid-pattern">
+        {/* Animated Background Elements */}
+        <motion.div
+          className="absolute top-20 left-10 w-16 h-16 bg-primary-200/30 rounded-2xl"
+          animate={{
+            rotate: [12, 372, 12],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-40 right-20 w-12 h-12 bg-accent-200/30 rounded-xl"
+          animate={{
+            rotate: [-12, 348, -12],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-40 left-20 w-20 h-20 bg-primary-300/20 rounded-3xl"
+          animate={{
+            rotate: [45, 405, 45],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-14 h-14 bg-accent-300/20 rounded-2xl"
+          animate={{
+            rotate: [-12, 348, -12],
+            x: [0, 15, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-        {/* Static Gradient Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl"></div>
+        {/* Animated Gradient Orbs */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-200/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.35, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Contest-themed code brackets */}
+        <motion.div
+          className="absolute top-1/3 right-1/4 text-primary-300/10 text-9xl font-mono"
+          animate={{ opacity: [0.05, 0.15, 0.05] }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          {"{ }"}
+        </motion.div>
+        <motion.div
+          className="absolute bottom-1/3 left-1/4 text-accent-300/10 text-7xl font-mono"
+          animate={{ opacity: [0.05, 0.15, 0.05] }}
+          transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+        >
+          {"< / >"}
+        </motion.div>
       </div>
 
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
-          <div
-            className={`space-y-8 ${
-              isVisible ? "animate-fade-in-up" : "opacity-0"
-            }`}
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium">
-              <span className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2 animate-pulse"></span>
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium shadow-soft"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <motion.span
+                className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
               مسابقه 2025 - ثبت‌نام باز است
-            </div>
+            </motion.div>
 
             {/* Main Heading */}
-            <div className="space-y-4">
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight w-full">
-                <span className="text-foreground block mb-4 font-potk">
+                <motion.span
+                  className="text-foreground block mb-4 font-potk"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
                   مسابقه
-                </span>
-                <span className="text-gradient font-potk ">کدوکدیل</span>
-                <span className="text-foreground block mt-4 font-potk">
+                </motion.span>
+                <motion.span
+                  className="text-gradient font-potk inline-block"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  whileHover={{ scale: 1.05 }}
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, #32814d, #224335)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  کدوکدیل
+                </motion.span>
+                <motion.span
+                  className="text-foreground block mt-4 font-potk"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
                   را از دست ندهید
-                </span>
+                </motion.span>
               </h1>
 
               {/* Fixed Subtitle */}
@@ -65,27 +254,53 @@ const Hero = () => {
                   دانشگاه صنعتی شریف
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Description */}
-            <p className="text-lg text-neutral-600 leading-relaxed max-w-lg">
+            <motion.p
+              className="text-lg text-neutral-600 leading-relaxed max-w-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.65 }}
+            >
               در این مسابقه جذاب، مهارت‌های برنامه‌نویسی و حل مسئله خود را به
               چالش بکشید، با تیم‌های دیگر رقابت کنید و از فرصت‌های یادگیری و رشد
               بهره‌مند شوید.
-            </p>
+            </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/sign-up" className="btn btn-primary btn-lg group">
-                شروع مسابقه
-                <ChevronLeftIcon className="w-5 h-5 mr-2 rtl:ml-2 group-hover:-translate-x-2 transition-transform duration-200" />
-              </Link>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/sign-up"
+                  className="btn btn-primary btn-lg group relative overflow-hidden shadow-glow-primary"
+                >
+                  <motion.span
+                    className="absolute inset-0 bg-white/20"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <span className="relative z-10 flex items-center">
+                    شروع مسابقه
+                    <ChevronLeftIcon className="w-5 h-5 mr-2 rtl:ml-2 group-hover:-translate-x-2 transition-transform duration-200" />
+                  </span>
+                </Link>
+              </motion.div>
 
               {/* <button className="btn btn-outline btn-lg group">
                 <PlayIcon className="w-5 h-5 mr-2 rtl:ml-2" />
                 تماشای ویدیو
               </button> */}
-            </div>
+            </motion.div>
 
             {/* Stats */}
             {/* <div className="grid grid-cols-3 gap-8 pt-8">
@@ -102,91 +317,196 @@ const Hero = () => {
                 <div className="text-sm text-neutral-600">سطح مختلف</div>
               </div>
             </div> */}
-          </div>
+          </motion.div>
 
           {/* Right Content - Visual */}
-          <div
-            className={`relative ${
-              isVisible ? "animate-fade-in-right" : "opacity-0"
-            }`}
-            style={{ animationDelay: "0.3s" }}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, x: 50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div className="relative w-full h-96 lg:h-[500px]">
-              {/* Main Card */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-700 rounded-3xl shadow-glow-lg transform rotate-3 hover:rotate-0 transition-transform duration-500">
+              {/* Main Card - Terminal Window */}
+              <motion.div
+                className="absolute inset-0 terminal-window shadow-2xl"
+                initial={{ rotate: 3, scale: 0.9 }}
+                animate={isVisible ? { rotate: 0, scale: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                whileHover={{ rotate: 0, scale: 1.02, y: -5 }}
+              >
                 <div className="p-8 h-full flex flex-col justify-between text-white">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                      <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                      <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                  {/* Terminal Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <motion.div
+                        className="w-3 h-3 bg-red-400 rounded-full"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <motion.div
+                        className="w-3 h-3 bg-yellow-400 rounded-full"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: 0.2,
+                        }}
+                      />
+                      <motion.div
+                        className="w-3 h-3 bg-green-400 rounded-full"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: 0.4,
+                        }}
+                      />
                     </div>
-                    <div className="text-sm font-potk">CodoCodile 2025</div>
+                    <motion.div
+                      className="text-sm font-mono text-green-400"
+                      animate={{ opacity: [0.7, 1, 0.7] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      CodoCodile 2025
+                    </motion.div>
                   </div>
 
-                  {/* Code Preview */}
-                  <div className="space-y-4" style={{ direction: "ltr" }}>
-                    <div className="text-2xl font-bold">function solve() </div>
-                    <div className="space-y-2 text-sm font-mono opacity-90">
-                      <div className="flex items-center">
-                        <span className="text-accent-300 mr-2 rtl:ml-2">
-                          //
-                        </span>
-                        <span>مسئله الگوریتمی</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-accent-300 mr-2 rtl:ml-2">
-                          const
-                        </span>
-                        <span className="text-accent-400">result</span>
-                        <span className="text-white">=</span>
-                        <span className="text-accent-400">algorithm</span>
-                        <span className="text-white">();</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-accent-300 mr-2 rtl:ml-2">
-                          return
-                        </span>
-                        <span className="text-accent-400">result</span>
-                        <span className="text-white">;</span>
+                  {/* Code Preview with Typing Animation */}
+                  <div
+                    className="space-y-4 flex-1 flex flex-col justify-center"
+                    style={{ direction: "ltr" }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-accent-400 text-lg font-bold">
+                        $
+                      </span>
+                      <span className="text-white text-lg font-mono">
+                        coder@codocodile
+                      </span>
+                      <motion.span
+                        className="text-primary-400"
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      >
+                        ▊
+                      </motion.span>
+                    </div>
+                    <div className="space-y-2 text-sm font-mono opacity-90 bg-neutral-800/50 p-4 rounded-lg border border-primary-500/20">
+                      <pre className="text-xs text-green-400">
+                        ✓ Compiling...
+                      </pre>
+                      <pre className="text-xs text-yellow-400">
+                        ✓ Running tests...
+                      </pre>
+                      <div className="mt-4">
+                        <pre className="text-accent-300 whitespace-pre-wrap">
+                          {typedText}
+                          <motion.span
+                            className="inline-block w-2 h-4 bg-accent-400 ml-1"
+                            animate={{ opacity: [1, 0, 1] }}
+                            transition={{ duration: 0.8, repeat: Infinity }}
+                          />
+                        </pre>
                       </div>
                     </div>
-                    <div className="text-2xl font-bold"></div>
                   </div>
 
-                  {/* Footer */}
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm opacity-75">Status: Ready</div>
-                    <div className="flex space-x-2 rtl:space-x-reverse">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                      <div className="text-xs">Online</div>
+                  {/* Footer with Contest Stats */}
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-700">
+                    <div className="flex items-center gap-4">
+                      <div className="text-xs opacity-75 font-mono">
+                        <span className="text-green-400">Status:</span> Ready
+                      </div>
+                      <div className="text-xs opacity-75 font-mono">
+                        <span className="text-blue-400">Problems:</span> 12
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <motion.div
+                        className="w-2 h-2 bg-green-400 rounded-full"
+                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.7, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                      <div className="text-xs font-mono text-green-400">
+                        Online
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-accent-400 rounded-2xl shadow-medium animate-float"></div>
-              <div
-                className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary-300 rounded-xl shadow-medium animate-float"
-                style={{ animationDelay: "1s" }}
-              ></div>
-              <div
-                className="absolute top-1/2 -left-8 w-8 h-8 bg-accent-500 rounded-lg shadow-medium animate-float"
-                style={{ animationDelay: "2s" }}
-              ></div>
+              {/* Floating Contest Elements */}
+              <motion.div
+                className="absolute -top-4 -right-4 w-16 h-16 bg-accent-400 rounded-2xl shadow-glow-accent flex items-center justify-center text-white font-bold text-xl"
+                animate={{
+                  y: [0, -15, 0],
+                  rotate: [0, 5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                ✓
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary-300 rounded-xl shadow-glow flex items-center justify-center text-white font-bold"
+                animate={{
+                  y: [0, 15, 0],
+                  rotate: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: 1,
+                  ease: "easeInOut",
+                }}
+              >
+                #
+              </motion.div>
+              <motion.div
+                className="absolute top-1/2 -left-8 w-8 h-8 bg-accent-500 rounded-lg shadow-medium flex items-center justify-center text-white text-xs font-mono"
+                animate={{
+                  x: [0, -10, 0],
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  delay: 2,
+                  ease: "easeInOut",
+                }}
+              >
+                {"{ }"}
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary-300 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"></div>
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 border-2 border-primary-400 rounded-full flex justify-center relative group cursor-pointer">
+          <motion.div
+            className="w-1 h-3 bg-primary-500 rounded-full mt-2"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+          <motion.span
+            className="absolute -bottom-6 text-primary-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Scroll
+          </motion.span>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

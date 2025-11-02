@@ -9,6 +9,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useAuth } from "@/contexts/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,12 +50,30 @@ const Header = () => {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow">
+            <motion.div
+              className="relative"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <motion.div
+                className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow"
+                animate={{
+                  boxShadow: [
+                    "0 0 20px rgba(144, 201, 100, 0.3)",
+                    "0 0 30px rgba(144, 201, 100, 0.5)",
+                    "0 0 20px rgba(144, 201, 100, 0.3)",
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 <span className="text-white font-bold text-xl">C</span>
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent-400 rounded-full animate-pulse"></div>
-            </div>
+              </motion.div>
+              <motion.div
+                className="absolute -top-1 -right-1 w-4 h-4 bg-accent-400 rounded-full"
+                animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.div>
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-gradient font-potk">
                 کدوکدیل
@@ -67,15 +86,26 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
-            {navigation.map((item) => (
-              <Link
+            {navigation.map((item, index) => (
+              <motion.div
                 key={item.name}
-                href={item.href}
-                className="text-neutral-700 hover:text-primary-600 font-medium transition-colors duration-200 relative group"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-500 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
+                <Link
+                  href={item.href}
+                  className="text-neutral-700 hover:text-primary-600 font-medium transition-colors duration-200 relative group"
+                >
+                  <motion.span whileHover={{ y: -2 }}>{item.name}</motion.span>
+                  <motion.span
+                    className="absolute -bottom-1 left-0 h-0.5 bg-primary-500"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </Link>
+              </motion.div>
             ))}
           </div>
 
@@ -83,33 +113,62 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-4 rtl:space-x-reverse">
             {isAuthenticated ? (
               <>
-                <Link href="/dashboard" className="btn btn-ghost btn-md">
-                  داشبورد
-                </Link>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="/dashboard" className="btn btn-ghost btn-md">
+                    داشبورد
+                  </Link>
+                </motion.div>
+                <motion.div
+                  className="flex items-center space-x-2 rtl:space-x-reverse"
+                  whileHover={{ scale: 1.05 }}
+                >
                   <UserCircleIcon className="w-6 h-6 text-primary-600" />
                   <span className="text-sm font-medium text-foreground">
                     {user?.first_name_persian}
                   </span>
-                </div>
-                <button
+                </motion.div>
+                <motion.button
                   onClick={() => {
                     logout();
                     router.push("/");
                   }}
                   className="btn btn-outline btn-md"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   خروج
-                </button>
+                </motion.button>
               </>
             ) : (
               <>
-                <Link href="/sign-in" className="btn btn-ghost btn-md">
-                  ورود
-                </Link>
-                <Link href="/sign-up" className="btn btn-primary btn-md">
-                  ثبت‌نام
-                </Link>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link href="/sign-in" className="btn btn-ghost btn-md">
+                    ورود
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/sign-up"
+                    className="btn btn-primary btn-md relative overflow-hidden"
+                  >
+                    <motion.span
+                      className="absolute inset-0 bg-white/20"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    <span className="relative z-10">ثبت‌نام</span>
+                  </Link>
+                </motion.div>
               </>
             )}
           </div>

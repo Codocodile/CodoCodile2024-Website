@@ -7,6 +7,7 @@ import {
   TrophyIcon,
   AcademicCapIcon,
 } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -73,19 +74,44 @@ const About = () => {
     >
       <div className="container-custom">
         {/* Section Header */}
-        <div
-          className={`text-center mb-16 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium mb-6">
-            <span className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2 animate-pulse"></span>
+          <motion.div
+            className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium mb-6 shadow-soft"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={isVisible ? { scale: 1, opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <motion.span
+              className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2"
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
             درباره مسابقه
-          </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            <span className="text-gradient font-potk">مسابقه کدوکدیل</span>
-          </h2>
-          <p className="text-xl text-neutral-600 mx-auto leading-relaxed text-justify">
+          </motion.div>
+          <motion.h2
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.span
+              className="text-gradient font-potk inline-block"
+              whileHover={{ scale: 1.05 }}
+            >
+              مسابقه کدوکدیل
+            </motion.span>
+          </motion.h2>
+          <motion.p
+            className="text-xl text-neutral-600 mx-auto leading-relaxed text-justify max-w-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             مسابقه‌ی آموزشی کدوکدیل، رقابتی جذاب و فرصت‌ساز برای دانشجویان و
             دانش‌آموزان علاقه‌مند به علوم کامپیوتر و برنامه‌نویسی است. این
             مسابقه در سه سطح Senior ،Junior و Pro برگزار می‌شود. دانشجویان
@@ -102,8 +128,47 @@ const About = () => {
             هم‌تیمی مناسب خود را پیدا کنید. شرکت در مرحله‌ی انتخابی آنلاین
             رایگان است و تیم‌های برتر مسابقه‌ی حضوری علاوه‌بر جوایز نقدی،
             هدایایی نیز دریافت خواهند کرد.
-          </p>
-        </div>
+          </motion.p>
+
+          {/* Animated Code Statistics */}
+          {/* <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            {[
+              { label: "C++", value: "40%" },
+              { label: "Python", value: "35%" },
+              { label: "Java", value: "20%" },
+              { label: "C", value: "5%" },
+            ].map((lang, index) => (
+              <motion.div
+                key={lang.label}
+                className="bg-white rounded-xl p-4 shadow-medium border border-neutral-200"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <div className="text-2xl font-bold text-gradient mb-2">
+                  {lang.value}
+                </div>
+                <div className="text-sm text-neutral-600 font-mono">
+                  {lang.label}
+                </div>
+                <div className="mt-2 h-2 bg-neutral-200 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={isVisible ? { width: lang.value } : {}}
+                    transition={{ duration: 1, delay: 1 + index * 0.1 }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </motion.div> */}
+        </motion.div>
 
         {/* Features Grid */}
         {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
@@ -236,27 +301,73 @@ const About = () => {
         </div> */}
 
         {/* Call to Action */}
-        <div
-          className={`text-center mt-16 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
+        <motion.div
+          className="text-center mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <div className="bg-gradient-to-r from-primary-500 to-primary-700 rounded-3xl p-8 lg:p-8 -mt-8 text-white">
-            <h3 className="text-3xl font-bold mb-4">آماده شروع هستید؟</h3>
-            <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              همین حالا در مسابقه کدوکدیل ثبت‌نام کنید و خود را برای چالشی بزرگ
-              آماده کنید
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn bg-white text-primary-700 hover:bg-neutral-100 btn-lg">
-                ثبت‌نام در مسابقه
-              </button>
-              <button className="btn border-2 border-white text-white hover:bg-white hover:text-primary-700 btn-lg">
-                اطلاعات بیشتر
-              </button>
+          <motion.div
+            className="bg-gradient-to-r from-primary-500 to-primary-700 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden shadow-glow-lg"
+            whileHover={{ scale: 1.02 }}
+          >
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.1) 10px, rgba(255,255,255,.1) 20px)`,
+                }}
+              />
             </div>
-          </div>
-        </div>
+            <div className="relative z-10">
+              <motion.h3
+                className="text-3xl font-bold mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1 }}
+              >
+                آماده شروع هستید؟
+              </motion.h3>
+              <motion.p
+                className="text-xl opacity-90 mb-8 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1.1 }}
+              >
+                همین حالا در مسابقه کدوکدیل ثبت‌نام کنید و خود را برای چالشی
+                بزرگ آماده کنید
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1.2 }}
+              >
+                <motion.button
+                  className="btn bg-white text-primary-700 hover:bg-neutral-100 btn-lg relative overflow-hidden"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <motion.span
+                    className="absolute inset-0 bg-primary-100"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <span className="relative z-10">ثبت‌نام در مسابقه</span>
+                </motion.button>
+                <motion.button
+                  className="btn border-2 border-white text-white hover:bg-white hover:text-primary-700 btn-lg"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  اطلاعات بیشتر
+                </motion.button>
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

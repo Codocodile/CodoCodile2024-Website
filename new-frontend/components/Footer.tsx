@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -51,16 +52,26 @@ const Footer = () => {
       </div>
 
       {/* Back to Top Button */}
-      <button
+      <motion.button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-8 left-8 w-12 h-12 bg-primary-500 hover:bg-primary-400 text-white rounded-full shadow-large hover:shadow-glow transition-all duration-200 flex items-center justify-center z-50"
+        className="fixed bottom-8 left-8 w-12 h-12 bg-primary-500 text-white rounded-full shadow-large flex items-center justify-center z-50"
         title="بازگشت به بالا"
+        whileHover={{
+          scale: 1.1,
+          y: -5,
+          boxShadow: "0 0 30px rgba(144, 201, 100, 0.6)",
+        }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
       >
-        <svg
+        <motion.svg
           className="w-6 h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         >
           <path
             strokeLinecap="round"
@@ -68,8 +79,8 @@ const Footer = () => {
             strokeWidth={2}
             d="M5 10l7-7m0 0l7 7m-7-7v18"
           />
-        </svg>
-      </button>
+        </motion.svg>
+      </motion.button>
     </footer>
   );
 };
