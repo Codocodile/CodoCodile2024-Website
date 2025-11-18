@@ -19,13 +19,13 @@ services:
     build:
       context: ./new-frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://185.204.171.106:8000}
     container_name: codocodile_frontend
     ports:
       - "3000:3000"
     networks:
       - codocodile_network
-    environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://185.204.171.106:8000}
 
 networks:
   codocodile_network:
