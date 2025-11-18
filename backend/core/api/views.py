@@ -121,11 +121,16 @@ class GroupAPIView(views.APIView):
             group = Membership.objects.filter(
                 challenger__user=self.request.user, status='A').get().group
         except Membership.DoesNotExist:
-            raise Http404
+            return None
         return group
 
     def get(self, request):
         group = self.get_object()
+        if group is None:
+            return Response(
+                {"detail": "No team found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
         serializer = GroupViewSerializer(group)
         return Response(serializer.data)
 
@@ -147,6 +152,11 @@ class GroupAPIView(views.APIView):
 
     def put(self, request):
         group = self.get_object()
+        if group is None:
+            return Response(
+                {"detail": "No team found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
         serializer = GroupSerializer(data=request.data)
         if not serializer.is_valid():
             raise serializers.ValidationError("Data is not valid.")

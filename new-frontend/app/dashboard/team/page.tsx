@@ -68,6 +68,10 @@ export default function TeamManagement() {
   const [searchError, setSearchError] = useState("");
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [isEditingTeam, setIsEditingTeam] = useState(false);
+  const [teamName, setTeamName] = useState("");
+  const [teamDescription, setTeamDescription] = useState("");
+  const [isUpdatingTeam, setIsUpdatingTeam] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
@@ -85,7 +89,15 @@ export default function TeamManagement() {
   const loadTeam = async () => {
     try {
       const teamData = await teamAPI.getTeam();
+      console.log("Team data loaded:", teamData);
+      console.log("Team members count:", teamData?.members?.length);
+      console.log("Team members:", teamData?.members);
       setTeam(teamData);
+      // Initialize edit form with current team data
+      if (teamData) {
+        setTeamName(teamData.name || "");
+        setTeamDescription(teamData.description || "");
+      }
     } catch (error: any) {
       if (error.response?.status !== 404) {
         setError("خطا در بارگذاری اطلاعات تیم");
@@ -93,6 +105,29 @@ export default function TeamManagement() {
       setTeam(null);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleUpdateTeam = async () => {
+    if (!team) return;
+
+    setIsUpdatingTeam(true);
+    setError("");
+    try {
+      const updatedTeam = await teamAPI.updateTeam({
+        name: teamName,
+        description: teamDescription,
+      });
+      setTeam(updatedTeam);
+      setIsEditingTeam(false);
+    } catch (error: any) {
+      setError(
+        error.response?.data?.detail ||
+          error.response?.data?.errors?.[0]?.detail ||
+          "خطا در بروزرسانی تیم"
+      );
+    } finally {
+      setIsUpdatingTeam(false);
     }
   };
 
@@ -125,8 +160,8 @@ export default function TeamManagement() {
   const handleAcceptInvitation = async (invitationId: number) => {
     try {
       await teamAPI.acceptInvitation(invitationId, "A");
-      await loadTeam();
-      await loadInvitations();
+      // Refresh team and invitations after accepting
+      await Promise.all([loadTeam(), loadInvitations()]);
     } catch (error: any) {
       setError(
         error.response?.data?.detail ||
@@ -168,12 +203,21 @@ export default function TeamManagement() {
     setIsSearching(true);
     setSearchError("");
     try {
+      console.log("Searching for:", name);
       const results = await challengerAPI.searchChallenger(name);
-      setSearchResults(
-        Array.isArray(results) ? results : results.results || []
-      );
+      console.log("Search results:", results);
+      const searchResultsArray = Array.isArray(results)
+        ? results
+        : results.results || [];
+      console.log("Processed results:", searchResultsArray);
+      setSearchResults(searchResultsArray);
     } catch (error: any) {
-      setSearchError("خطا در جستجو");
+      console.error("Search error:", error);
+      setSearchError(
+        error.response?.data?.detail ||
+          error.response?.data?.errors?.[0]?.detail ||
+          "خطا در جستجو"
+      );
       setSearchResults([]);
     } finally {
       setIsSearching(false);
@@ -199,6 +243,24 @@ export default function TeamManagement() {
 
   const handleSendInvitation = async (challengerId: number) => {
     try {
+      // If no team exists, create one first
+      if (!team) {
+        try {
+          const newTeam = await teamAPI.createTeam();
+          setTeam(newTeam);
+          // Wait a moment for team to be fully created
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        } catch (createError: any) {
+          setError(
+            createError.response?.data?.detail ||
+              createError.response?.data?.errors?.[0]?.detail ||
+              "خطا در ایجاد تیم"
+          );
+          return;
+        }
+      }
+
+      // Now send the invitation
       await teamAPI.sendInvitation(challengerId);
       setError("");
       // Refresh team to show updated state
@@ -225,7 +287,27 @@ export default function TeamManagement() {
     );
   }
 
-  const canCreateTeam = !team && user?.national_code && user?.is_confirmed;
+  // Check if profile is complete - national_code must be non-empty and user must be confirmed
+  // national_code can be null, undefined, or empty string - all are invalid
+  const nationalCode = user?.national_code;
+  const hasNationalCode =
+    nationalCode !== null &&
+    nationalCode !== undefined &&
+    typeof nationalCode === "string" &&
+    nationalCode.trim() !== "";
+  const isProfileComplete = hasNationalCode && user?.is_confirmed === true;
+  const canCreateTeam = !team && isProfileComplete;
+
+  // Debug: Log profile status (remove in production)
+  if (user && !team) {
+    console.log("Profile check:", {
+      hasNationalCode,
+      isConfirmed: user.is_confirmed,
+      nationalCode: nationalCode,
+      isProfileComplete,
+      canCreateTeam,
+    });
+  }
 
   return (
     <div className="flex-1 flex flex-col bg-gradient-hero">
@@ -247,18 +329,35 @@ export default function TeamManagement() {
             </div>
           )}
 
-          {!canCreateTeam && !team && (
+          {!canCreateTeam && !team && user && (
             <div className="card p-6 mb-6">
-              <div className="text-center">
-                {!user?.is_confirmed && (
-                  <p className="text-red-600 mb-2">
-                    لطفاً ابتدا ایمیل خود را تایید کنید
-                  </p>
+              <div className="text-center space-y-3">
+                {!user.is_confirmed && (
+                  <div>
+                    <p className="text-red-600 mb-2">
+                      لطفاً ابتدا ایمیل خود را تایید کنید
+                    </p>
+                    <p className="text-sm text-neutral-600">
+                      برای تایید ایمیل، به ایمیل خود مراجعه کنید و کد تایید را
+                      وارد کنید
+                    </p>
+                  </div>
                 )}
-                {!user?.national_code && (
-                  <p className="text-red-600 mb-2">
-                    لطفاً ابتدا پروفایل خود را تکمیل کنید
-                  </p>
+                {!hasNationalCode && (
+                  <div>
+                    <p className="text-red-600 mb-2">
+                      لطفاً ابتدا پروفایل خود را تکمیل کنید
+                    </p>
+                    <p className="text-sm text-neutral-600 mb-3">
+                      برای تشکیل تیم، باید کد ملی خود را در پروفایل وارد کنید
+                    </p>
+                    <a
+                      href="/profile"
+                      className="btn btn-primary btn-sm inline-block"
+                    >
+                      رفتن به پروفایل
+                    </a>
+                  </div>
                 )}
               </div>
             </div>
@@ -274,15 +373,36 @@ export default function TeamManagement() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      نام تیم
-                    </label>
-                    <input
-                      type="text"
-                      value={team.name}
-                      disabled
-                      className="input"
-                    />
+                    <div className="flex justify-between items-center mb-2">
+                      <label className="block text-sm font-medium text-foreground">
+                        نام تیم
+                      </label>
+                      {!isEditingTeam && (
+                        <button
+                          type="button"
+                          onClick={() => setIsEditingTeam(true)}
+                          className="btn btn-outline btn-sm"
+                        >
+                          ویرایش
+                        </button>
+                      )}
+                    </div>
+                    {isEditingTeam ? (
+                      <input
+                        type="text"
+                        value={teamName}
+                        onChange={(e) => setTeamName(e.target.value)}
+                        className="input"
+                        placeholder="نام تیم"
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        value={team.name}
+                        disabled
+                        className="input"
+                      />
+                    )}
                   </div>
 
                   {team.judge_username && team.judge_password && (
@@ -338,66 +458,118 @@ export default function TeamManagement() {
                     <label className="block text-sm font-medium text-foreground mb-2">
                       توضیحات
                     </label>
-                    <textarea
-                      value={team.description}
-                      disabled
-                      rows={4}
-                      className="input"
-                    />
+                    {isEditingTeam ? (
+                      <textarea
+                        value={teamDescription}
+                        onChange={(e) => setTeamDescription(e.target.value)}
+                        rows={4}
+                        className="input"
+                        placeholder="توضیحات تیم"
+                      />
+                    ) : (
+                      <textarea
+                        value={team.description}
+                        disabled
+                        rows={4}
+                        className="input"
+                      />
+                    )}
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={handleOpenJudge}
-                    className="btn btn-primary w-full"
-                  >
-                    رفتن به Online Judge
-                  </button>
+                  {isEditingTeam ? (
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={handleUpdateTeam}
+                        disabled={isUpdatingTeam}
+                        className="btn btn-primary flex-1"
+                      >
+                        {isUpdatingTeam ? (
+                          <div className="flex items-center justify-center">
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 rtl:ml-2"></div>
+                            در حال ذخیره...
+                          </div>
+                        ) : (
+                          "ذخیره تغییرات"
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsEditingTeam(false);
+                          setTeamName(team.name || "");
+                          setTeamDescription(team.description || "");
+                        }}
+                        className="btn btn-outline flex-1"
+                      >
+                        انصراف
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleOpenJudge}
+                      className="btn btn-primary w-full"
+                    >
+                      رفتن به Online Judge
+                    </button>
+                  )}
                 </div>
               </div>
 
               {/* Team Members */}
               <div className="card p-8">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
-                  اعضای تیم
+                  اعضای تیم ({team.members.length} نفر)
                 </h2>
                 <div className="space-y-4">
-                  {team.members.map((member, index) => (
-                    <div
-                      key={index}
-                      className="p-4 bg-neutral-50 rounded-xl border border-neutral-200"
-                    >
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="font-medium text-foreground">
-                            {member.challenger.first_name_persian}{" "}
-                            {member.challenger.last_name_persian}
-                          </p>
-                          <p className="text-sm text-neutral-600">
-                            {member.challenger.university || "—"}
-                          </p>
-                          <p className="text-sm text-neutral-600">
-                            سطح:{" "}
-                            {member.challenger.status === "J"
-                              ? "Junior"
-                              : member.challenger.status === "S"
-                              ? "Senior"
-                              : "Pro"}
-                          </p>
+                  {team.members && team.members.length > 0 ? (
+                    team.members.map((member) => (
+                      <div
+                        key={member.challenger.id}
+                        className="p-4 bg-neutral-50 rounded-xl border border-neutral-200"
+                      >
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium text-foreground">
+                              {member.challenger.first_name_persian}{" "}
+                              {member.challenger.last_name_persian}
+                            </p>
+                            <p className="text-sm text-neutral-600">
+                              {member.challenger.university || "—"}
+                            </p>
+                            <p className="text-sm text-neutral-600">
+                              سطح:{" "}
+                              {member.challenger.status === "J"
+                                ? "Junior"
+                                : member.challenger.status === "S"
+                                ? "Senior"
+                                : "Pro"}
+                            </p>
+                          </div>
+                          {member.role === "L" && (
+                            <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+                              رهبر تیم
+                            </span>
+                          )}
+                          {member.role === "M" && (
+                            <span className="px-3 py-1 bg-neutral-100 text-neutral-700 rounded-full text-sm font-medium">
+                              عضو
+                            </span>
+                          )}
                         </div>
-                        {member.role === "L" && (
-                          <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
-                            رهبر تیم
-                          </span>
-                        )}
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p className="text-neutral-600 text-center py-4">
+                      هیچ عضوی در تیم وجود ندارد
+                    </p>
+                  )}
                 </div>
               </div>
 
               {/* Search and Invite Section - Only show if team has less than 2 members */}
-              {team.members.length < 2 && (
+              {team.members && team.members.length < 2 && (
                 <div className="card p-8">
                   <h2 className="text-2xl font-bold text-foreground mb-6">
                     جستجو و دعوت هم‌تیمی
@@ -537,31 +709,123 @@ export default function TeamManagement() {
                 </div>
               )}
 
-              {/* Create Team */}
+              {/* Search and Invite Section - Show when no team but profile is complete */}
               {canCreateTeam && (
                 <div className="card p-8">
                   <h2 className="text-2xl font-bold text-foreground mb-6">
-                    تشکیل تیم جدید
+                    جستجو و دعوت هم‌تیمی
                   </h2>
                   <p className="text-neutral-600 mb-6">
-                    با کلیک روی دکمه زیر، یک تیم جدید تشکیل دهید. پس از تشکیل
-                    تیم، می‌توانید به دیگران دعوت ارسال کنید.
+                    ابتدا یک تیم تشکیل دهید یا هم‌تیمی خود را پیدا کنید. در صورت
+                    ارسال دعوت به کسی که تیم ندارد، تیم به صورت خودکار ایجاد
+                    می‌شود.
                   </p>
-                  <button
-                    type="button"
-                    onClick={handleCreateTeam}
-                    disabled={isCreating}
-                    className="btn btn-primary btn-lg w-full"
-                  >
-                    {isCreating ? (
-                      <div className="flex items-center justify-center">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 rtl:ml-2"></div>
-                        در حال ایجاد...
+
+                  {searchError && (
+                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                      {searchError}
+                    </div>
+                  )}
+
+                  <div className="mb-6">
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      جستجوی شرکت‌کننده (حداقل ۳ کاراکتر)
+                    </label>
+                    <input
+                      type="text"
+                      value={searchName}
+                      onChange={(e) => {
+                        setSearchName(e.target.value);
+                        debouncedSearch(e.target.value);
+                      }}
+                      className="input w-full"
+                      placeholder="نام یا نام خانوادگی..."
+                    />
+                  </div>
+
+                  {isSearching && (
+                    <div className="text-center py-4">
+                      <div className="w-6 h-6 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                    </div>
+                  )}
+
+                  {searchResults.length > 0 && (
+                    <div className="space-y-3 mb-6">
+                      <h3 className="text-lg font-semibold text-foreground">
+                        نتایج جستجو:
+                      </h3>
+                      {searchResults.map((challenger) => (
+                        <div
+                          key={challenger.id}
+                          className="p-4 bg-neutral-50 rounded-xl border border-neutral-200 flex justify-between items-center"
+                        >
+                          <div>
+                            <p className="font-medium text-foreground">
+                              {challenger.first_name_persian}{" "}
+                              {challenger.last_name_persian}
+                            </p>
+                            <p className="text-sm text-neutral-600">
+                              {challenger.user.first_name}{" "}
+                              {challenger.user.last_name}
+                            </p>
+                            <p className="text-sm text-neutral-600">
+                              {challenger.university || "—"}
+                            </p>
+                            <div className="flex gap-1 mt-1">
+                              <span className="text-xs">⭐</span>
+                              {challenger.status === "S" && (
+                                <span className="text-xs">⭐</span>
+                              )}
+                              {challenger.status === "P" && (
+                                <>
+                                  <span className="text-xs">⭐</span>
+                                  <span className="text-xs">⭐</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleSendInvitation(challenger.id)}
+                            className="btn btn-primary btn-sm flex items-center gap-2"
+                          >
+                            <UserPlusIcon className="w-5 h-5" />
+                            ارسال دعوت
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {searchName.length >= 3 &&
+                    !isSearching &&
+                    searchResults.length === 0 && (
+                      <div className="text-center py-4 text-neutral-600 mb-6">
+                        نتیجه‌ای یافت نشد
                       </div>
-                    ) : (
-                      "تشکیل تیم"
                     )}
-                  </button>
+
+                  {/* Create Team Button */}
+                  <div className="border-t border-neutral-200 pt-6 mt-6">
+                    <p className="text-neutral-600 mb-4 text-center">
+                      یا می‌توانید ابتدا تیم خود را تشکیل دهید:
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleCreateTeam}
+                      disabled={isCreating}
+                      className="btn btn-primary btn-lg w-full"
+                    >
+                      {isCreating ? (
+                        <div className="flex items-center justify-center">
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 rtl:ml-2"></div>
+                          در حال ایجاد...
+                        </div>
+                      ) : (
+                        "تشکیل تیم"
+                      )}
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

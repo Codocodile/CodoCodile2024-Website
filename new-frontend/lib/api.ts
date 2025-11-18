@@ -139,7 +139,9 @@ export const challengerAPI = {
   },
 
   searchChallenger: async (name: string) => {
-    const response = await api.get(`/search-challenger/?name=${name}`);
+    // Encode the name parameter to handle Persian/Farsi characters correctly
+    const encodedName = encodeURIComponent(name);
+    const response = await api.get(`/search-challenger/?name=${encodedName}`);
     return response.data;
   },
 };
