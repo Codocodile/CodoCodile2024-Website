@@ -10,7 +10,7 @@ type Member = {
   id: string;
   fullName: string;
   team: string;
-  role: string; // نقش
+  role?: string; // نقش
   isHead: boolean; // هد تیم
   specialRole: SpecialRole; // دبیر | نایب دبیر | null
   avatarUrl?: string;
@@ -20,51 +20,389 @@ type Member = {
 const members: Member[] = [
   {
     id: "1",
-    fullName: "علی رضایی",
-    team: "فنی",
-    role: "توسعه‌دهنده فرانت‌اند",
-    isHead: true,
-    specialRole: null,
+    fullName: "علی مقدسی",
+    team: "",
+    role: "دبیر",
+    isHead: false,
+    specialRole: "دبیر",
+    avatarUrl: "/staff-pics/ali-moghadasi.jpg",
   },
   {
     id: "2",
-    fullName: "مریم احمدی",
-    team: "روابط عمومی",
-    role: "مدیر شبکه‌های اجتماعی",
+    fullName: "پارسا فرج‌پور",
+    team: "",
+    role: "نایب دبیر",
     isHead: false,
-    specialRole: null,
+    specialRole: "نایب دبیر",
+    avatarUrl: "/staff-pics/parsa-farajpour.jpg",
   },
   {
     id: "3",
-    fullName: "پویا صادقی",
-    team: "فناوری",
-    role: "DevOps",
-    isHead: true,
+    fullName: "کیمیا قدیر",
+    team: "اجرایی",
+    isHead: false,
     specialRole: null,
+    avatarUrl: "/staff-pics/kimia-ghadir.jpg",
   },
   {
     id: "4",
-    fullName: "نگین محمدی",
-    team: "فنی",
-    role: "تولید محتوا",
+    fullName: "آیین کریمیان",
+    team: "اسپانسرشیپ",
     isHead: false,
     specialRole: null,
+    avatarUrl: "/staff-pics/aeen-karimian.jpg",
   },
   {
     id: "5",
-    fullName: "علی مقدسی",
-    team: "",
-    role: "دبیر رویداد",
-    isHead: false,
-    specialRole: "دبیر",
+    fullName: "علیرضا رحیمی",
+    team: "علمی",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/alireza-rahimi.jpg",
   },
   {
     id: "6",
-    fullName: "پارسا فرج‌پور",
-    team: "",
-    role: "نایب دبیر رویداد",
+    fullName: "امیرحسین ملک",
+    team: "مدیا",
     isHead: false,
-    specialRole: "نایب دبیر",
+    specialRole: null,
+    avatarUrl: "/staff-pics/amir-hossein-maleck.jpg",
+  },
+  {
+    id: "7",
+    fullName: "امیر وحیدی‌تبار",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/amir-vahidi-tabar.jpg",
+  },
+  {
+    id: "8",
+    fullName: "امیرحسین فرخنده‌فر",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/amirhosein-farkhondehfar.jpg",
+  },
+  {
+    id: "9",
+    fullName: "آرش اکبری",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/arash-akbari.jpg",
+  },
+  {
+    id: "10",
+    fullName: "ارقوان تاجیک",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/arqavan-tajik.jpg",
+  },
+  {
+    id: "11",
+    fullName: "آریانا زال‌نژاد",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/aryana-zalnejad.jpg",
+  },
+  {
+    id: "12",
+    fullName: "بهار برقبانی",
+    team: "اسپانسرشیپ",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/bahar-barghbani.jpg",
+  },
+  {
+    id: "13",
+    fullName: "فراز تهرانی",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/faraz-tehrani.jpg",
+  },
+  {
+    id: "14",
+    fullName: "فواد خیرآبادی",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/foad-kheirabady.jpg",
+  },
+  {
+    id: "15",
+    fullName: "هادی عمادی",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/hadi-emadi.jpg",
+  },
+  {
+    id: "16",
+    fullName: "حامد علینژاد",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/hamed-alinezhad.jpg",
+  },
+  {
+    id: "17",
+    fullName: "حسین خوانسری",
+    team: "مدیا",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/hosein-khansari.jpg",
+  },
+  {
+    id: "18",
+    fullName: "حسنا شاه حیدری",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/hosna-shah-heidari.jpg",
+  },
+  {
+    id: "19",
+    fullName: "ایلیا سردار",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/Ilia-sardar.jpg",
+  },
+  {
+    id: "20",
+    fullName: "خورشید باهوش",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/khorshid-bahoosh.jpg",
+  },
+  {
+    id: "21",
+    fullName: "کیارش صانعی",
+    team: "اجرایی",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/kiarash-sanei.jpg",
+  },
+  {
+    id: "22",
+    fullName: "مائده حیدری",
+    team: "فنی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/maedeh-heidari.jpg",
+  },
+  {
+    id: "23",
+    fullName: "مهدی آبوطالبی",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/mahdi-abootalebi.jpg",
+  },
+  {
+    id: "24",
+    fullName: "مهدیار مستشار",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/mahdyar-mostashar.jpg",
+  },
+  {
+    id: "25",
+    fullName: "محمدحسین سورانی",
+    team: "مدیا",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/mohammad-hossein-surani.jpg",
+  },
+  {
+    id: "26",
+    fullName: "محسن صالح",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/mohsen-salah.jpg",
+  },
+  {
+    id: "27",
+    fullName: "مشتاق معتضدیان",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/moshtagh-motazedian.jpg",
+  },
+  {
+    id: "28",
+    fullName: "نازنین غفاری",
+    team: "مدیا",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/nazanin-ghaffari.jpg",
+  },
+  {
+    id: "29",
+    fullName: "پریسا جلالی",
+    team: "مدیا",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/parisa-jalali.jpg",
+  },
+  {
+    id: "30",
+    fullName: "پارسا عدل‌پروار",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/parsa-adlparvar.jpg",
+  },
+  {
+    id: "31",
+    fullName: "پارسا حاجی‌قاسمی",
+    team: "فنی",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/parsa-hajighasemi.jpg",
+  },
+  {
+    id: "32",
+    fullName: "پارسا ملکیان",
+    team: "مدیا",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/parsa-malekian.jpg",
+  },
+  {
+    id: "33",
+    fullName: "رادین جریره",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/radin-jarireh.jpg",
+  },
+  {
+    id: "34",
+    fullName: "رایا جنت‌آبادی",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/raya-jannat.jpg",
+  },
+  {
+    id: "35",
+    fullName: "سارا قضاوی",
+    team: "مالی",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/sara-ghazavi.jpg",
+  },
+  {
+    id: "36",
+    fullName: "سپهر رمضانی",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/sepehr-ramezani.jpg",
+  },
+  {
+    id: "37",
+    fullName: "سبحان آقاسی‌زاده",
+    team: "مدیا",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/sobhan-aghasi.jpg",
+  },
+  {
+    id: "38",
+    fullName: "سهیل محمدخانی",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/soheil-mohammadkhani.jpg",
+  },
+  {
+    id: "39",
+    fullName: "سروش داوران",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/soroosh-davaran.jpg",
+  },
+  {
+    id: "40",
+    fullName: "سروش حامدی‌فر",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/soroosh-hamedifar.jpg",
+  },
+  {
+    id: "41",
+    fullName: "یاسمن کاویان‌پور",
+    team: "اسپانسرشیپ",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/yasaman-kavianpour.jpg",
+  },
+  {
+    id: "42",
+    fullName: "زهرا قصابی",
+    team: "سوشال",
+    isHead: true,
+    specialRole: null,
+    avatarUrl: "/staff-pics/zahra-ghassabi.jpg",
+  },
+  {
+    id: "43",
+    fullName: "پارسا علی‌زاده",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/parsa-alizadeh.jpg",
+  },
+  {
+    id: "44",
+    fullName: "امیرمحمد شاه‌رضایی",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/amir-mohammad-shah-rezai.jpg",
+  },
+  {
+    id: "45",
+    fullName: "سپهر کاردل",
+    team: "سوشال",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/sepehr-kardel.jpg",
+  },
+  {
+    id: "46",
+    fullName: "علیرضا صمیمی",
+    team: "فنی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/alireza-samimi.jpg",
+  },
+  {
+    id: "47",
+    fullName: "علی صفر",
+    team: "علمی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/ali-safar.jpg",
+  },
+  {
+    id: "48",
+    fullName: "رایان حدیدی",
+    team: "اجرایی",
+    isHead: false,
+    specialRole: null,
+    avatarUrl: "/staff-pics/rayan-hadidi.jpg",
   },
 ];
 
@@ -115,9 +453,8 @@ function Avatar({
   const isDeputy = member.specialRole === "نایب دبیر";
   const isHead = member.isHead && !isSecretary && !isDeputy;
 
-  // For now, use ali-moghadasi.jpg for all members
-  // Later you can map member.id to specific image files
-  const imageSrc = "/staff-pics/ali-moghadasi.jpg";
+  // Use member's avatarUrl if available, otherwise fallback to default
+  const imageSrc = member.avatarUrl || "/staff-pics/ali-moghadasi.jpg";
 
   return (
     <div
@@ -189,13 +526,15 @@ function TeamCard({ member }: { member: Member }) {
             />
           </div>
           <div className="mt-1 text-sm text-neutral-600">
-            <span className="font-medium text-neutral-800">نقش: </span>
+            {member.role && (
+              <span className="font-medium text-neutral-800">نقش: </span>
+            )}
             {member.role}
           </div>
-          <div className="mt-1 text-sm text-neutral-600">
+          {/* <div className="mt-1 text-sm text-neutral-600">
             <span className="font-medium text-neutral-800">تیم: </span>
             {member.team || "—"}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

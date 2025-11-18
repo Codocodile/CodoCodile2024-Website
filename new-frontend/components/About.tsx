@@ -8,6 +8,9 @@ import {
   AcademicCapIcon,
 } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
+import Link from "next/link";
+
+const MotionLink = motion(Link);
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -344,7 +347,8 @@ const About = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1.2 }}
               >
-                <motion.button
+                <MotionLink
+                  href="/sign-up"
                   className="btn bg-white text-primary-700 hover:bg-neutral-100 btn-lg relative overflow-hidden"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -356,14 +360,14 @@ const About = () => {
                     transition={{ duration: 0.5 }}
                   />
                   <span className="relative z-10">ثبت‌نام در مسابقه</span>
-                </motion.button>
-                <motion.button
+                </MotionLink>
+                {/* <motion.button
                   className="btn border-2 border-white text-white hover:bg-white hover:text-primary-700 btn-lg"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   اطلاعات بیشتر
-                </motion.button>
+                </motion.button> */}
               </motion.div>
             </div>
           </motion.div>
