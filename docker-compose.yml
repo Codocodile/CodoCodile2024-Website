@@ -18,11 +18,18 @@ services:
   frontend:
     build:
       context: ./new-frontend
+      dockerfile: Dockerfile.dev
     container_name: codocodile_frontend
     ports:
       - "3000:3000"
+    volumes:
+      - ./new-frontend:/app
+      - /app/node_modules
+      - /app/.next
     networks:
       - codocodile_network
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
 
 networks:
   codocodile_network:

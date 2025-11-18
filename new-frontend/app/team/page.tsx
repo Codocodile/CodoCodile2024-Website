@@ -362,7 +362,7 @@ const members: Member[] = [
     team: "علمی",
     isHead: false,
     specialRole: null,
-    avatarUrl: "/staff-pics/parsa-alizadeh.jpg",
+    avatarUrl: "https://api.dicebear.com/9.x/identicon/svg",
   },
   {
     id: "44",
@@ -370,7 +370,7 @@ const members: Member[] = [
     team: "علمی",
     isHead: false,
     specialRole: null,
-    avatarUrl: "/staff-pics/amir-mohammad-shah-rezai.jpg",
+    avatarUrl: "/staff-pics/amir-mohammad-shahrezaei.jpg",
   },
   {
     id: "45",
@@ -394,7 +394,7 @@ const members: Member[] = [
     team: "علمی",
     isHead: false,
     specialRole: null,
-    avatarUrl: "/staff-pics/ali-safar.jpg",
+    avatarUrl: "/staff-pics/ali-safari.jpg",
   },
   {
     id: "48",
@@ -454,7 +454,7 @@ function Avatar({
   const isHead = member.isHead && !isSecretary && !isDeputy;
 
   // Use member's avatarUrl if available, otherwise fallback to default
-  const imageSrc = member.avatarUrl || "/staff-pics/ali-moghadasi.jpg";
+  const imageSrc = member.avatarUrl || "";
 
   return (
     <div
