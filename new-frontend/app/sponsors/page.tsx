@@ -126,7 +126,7 @@ export default function SponsorsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-16 lg:pt-20">
+      <main className="">
         <section className="container-custom py-16 lg:py-24">
           {/* Header */}
           <motion.header
@@ -135,7 +135,7 @@ export default function SponsorsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-4">
+            <h1 className="text-4xl sm:text-5xl font-potk text-foreground mb-4">
               معرفی حامیان رویداد
             </h1>
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
