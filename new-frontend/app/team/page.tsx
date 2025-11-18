@@ -94,7 +94,7 @@ const members: Member[] = [
   },
   {
     id: "10",
-    fullName: "ارقوان تاجیک",
+    fullName: "ارغوان تاجیک",
     team: "اجرایی",
     isHead: false,
     specialRole: null,
@@ -390,7 +390,7 @@ const members: Member[] = [
   },
   {
     id: "47",
-    fullName: "علی صفر",
+    fullName: "علی صفری",
     team: "علمی",
     isHead: false,
     specialRole: null,
