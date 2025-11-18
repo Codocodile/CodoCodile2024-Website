@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -56,23 +57,27 @@ const Header = () => {
               whileTap={{ scale: 0.9 }}
             >
               <motion.div
-                className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow"
+                className="w-12 h-12 flex items-center justify-center"
                 animate={{
-                  boxShadow: [
-                    "0 0 20px rgba(144, 201, 100, 0.3)",
-                    "0 0 30px rgba(144, 201, 100, 0.5)",
-                    "0 0 20px rgba(144, 201, 100, 0.3)",
-                  ],
+                  scale: [1, 1.03, 1],
+                  rotate: [0, 2, -2, 0],
                 }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{ duration: 4, repeat: Infinity }}
               >
-                <span className="text-white font-bold text-xl">C</span>
+                <Image
+                  src="/Logo.svg"
+                  alt="لوگوی کدوکدیل"
+                  width={90}
+                  height={62}
+                  priority
+                  className="w-12 h-auto"
+                />
               </motion.div>
-              <motion.div
+              {/* <motion.div
                 className="absolute -top-1 -right-1 w-4 h-4 bg-accent-400 rounded-full"
                 animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
-              />
+              /> */}
             </motion.div>
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-gradient font-potk">

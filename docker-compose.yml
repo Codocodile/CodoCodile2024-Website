@@ -1,5 +1,4 @@
 ---
-
 services:
   backend:
     build:
@@ -18,13 +17,12 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./new-frontend
     container_name: codocodile_frontend
     ports:
-      - "5173:5173"
+      - "3000:3000"
     networks:
       - codocodile_network
-
 
 networks:
   codocodile_network:

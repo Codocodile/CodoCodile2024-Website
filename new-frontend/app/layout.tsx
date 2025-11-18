@@ -85,6 +85,11 @@ export const metadata: Metadata = {
       "رقابتی جذاب و فرصت‌ساز برای علاقه‌مندان به برنامه‌نویسی و الگوریتم",
     type: "website",
   },
+  icons: {
+    icon: "/Logo.svg",
+    shortcut: "/Logo.svg",
+    apple: "/Logo.svg",
+  },
 };
 
 export default function RootLayout({
