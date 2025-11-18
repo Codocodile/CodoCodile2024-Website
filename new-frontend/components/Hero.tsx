@@ -81,7 +81,7 @@ def bfs(graph, start):
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero"
+      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero pt-16 lg:pt-20"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden grid-pattern">
@@ -178,8 +178,8 @@ def bfs(graph, start):
         </motion.div>
       </div>
 
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container-custom relative z-10 py-8 lg:py-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             className="space-y-8"
@@ -321,12 +321,12 @@ def bfs(graph, start):
 
           {/* Right Content - Visual */}
           <motion.div
-            className="relative"
+            className="relative mb-8 lg:mb-0"
             initial={{ opacity: 0, x: 50 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="relative w-full h-96 lg:h-[500px]">
+            <div className="relative w-full h-64 sm:h-80 lg:h-[500px] hidden lg:block">
               {/* Main Card - Terminal Window */}
               <motion.div
                 className="absolute inset-0 terminal-window shadow-2xl"
@@ -438,7 +438,7 @@ def bfs(graph, start):
 
               {/* Floating Contest Elements */}
               <motion.div
-                className="absolute -top-4 -right-4 w-16 h-16 bg-accent-400 rounded-2xl shadow-glow-accent flex items-center justify-center text-white font-bold text-xl"
+                className="absolute -top-2 -right-2 lg:-top-4 lg:-right-4 w-12 h-12 lg:w-16 lg:h-16 bg-accent-400 rounded-2xl shadow-glow-accent flex items-center justify-center text-white font-bold text-lg lg:text-xl"
                 animate={{
                   y: [0, -15, 0],
                   rotate: [0, 5, 0],
@@ -452,7 +452,7 @@ def bfs(graph, start):
                 ✓
               </motion.div>
               <motion.div
-                className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary-300 rounded-xl shadow-glow flex items-center justify-center text-white font-bold"
+                className="absolute -bottom-2 -left-2 lg:-bottom-4 lg:-left-4 w-10 h-10 lg:w-12 lg:h-12 bg-primary-300 rounded-xl shadow-glow flex items-center justify-center text-white font-bold text-sm lg:text-base"
                 animate={{
                   y: [0, 15, 0],
                   rotate: [0, -5, 0],
@@ -467,7 +467,7 @@ def bfs(graph, start):
                 #
               </motion.div>
               <motion.div
-                className="absolute top-1/2 -left-8 w-8 h-8 bg-accent-500 rounded-lg shadow-medium flex items-center justify-center text-white text-xs font-mono"
+                className="hidden lg:flex absolute top-1/2 -left-8 w-8 h-8 bg-accent-500 rounded-lg shadow-medium items-center justify-center text-white text-xs font-mono"
                 animate={{
                   x: [0, -10, 0],
                   y: [0, -10, 0],

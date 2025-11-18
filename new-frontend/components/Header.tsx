@@ -33,12 +33,13 @@ const Header = () => {
     { name: "قوانین", href: "/#rules" },
     { name: "زمان‌بندی", href: "/#timeline" },
     { name: "سوالات متداول", href: "/#faq" },
-    { name: "تیم", href: "/team" },
+    { name: "حامیان", href: "/sponsors" },
+    { name: "تیم ما", href: "/team" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-soft border-b border-neutral-200"
           : "bg-transparent"
@@ -192,64 +193,102 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-md rounded-2xl mt-2 shadow-large border border-neutral-200">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-4 py-3 text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-xl font-medium transition-all duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="pt-4 border-t border-neutral-200">
-                <div className="flex flex-col space-y-2 px-4">
-                  {isAuthenticated ? (
-                    <>
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              className="lg:hidden fixed inset-0 z-[110]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {/* Backdrop */}
+              <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+
+              {/* Menu Panel - slides from right (RTL) */}
+              <motion.div
+                className="absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex flex-col h-full">
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-4 border-b border-neutral-200">
+                    <span className="text-xl font-bold text-gradient font-potk">
+                      منو
+                    </span>
+                    <button
+                      onClick={() => setIsMenuOpen(false)}
+                      className="p-2 rounded-xl text-neutral-700 hover:bg-neutral-100 transition-colors duration-200"
+                    >
+                      <XMarkIcon className="w-6 h-6" />
+                    </button>
+                  </div>
+
+                  {/* Navigation Items */}
+                  <div className="flex-1 overflow-y-auto px-2 pt-4 pb-4 space-y-1">
+                    {navigation.map((item) => (
                       <Link
-                        href="/dashboard"
-                        className="btn btn-ghost btn-md w-full justify-center"
+                        key={item.name}
+                        href={item.href}
+                        className="block px-4 py-3 text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-xl font-medium transition-all duration-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        داشبورد
+                        {item.name}
                       </Link>
-                      <button
-                        onClick={() => {
-                          logout();
-                          router.push("/");
-                          setIsMenuOpen(false);
-                        }}
-                        className="btn btn-outline btn-md w-full justify-center"
-                      >
-                        خروج
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        href="/sign-in"
-                        className="btn btn-ghost btn-md w-full justify-center"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        ورود
-                      </Link>
-                      <Link
-                        href="/sign-up"
-                        className="btn btn-primary btn-md w-full justify-center"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        ثبت‌نام
-                      </Link>
-                    </>
-                  )}
+                    ))}
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="p-4 border-t border-neutral-200 space-y-2">
+                    {isAuthenticated ? (
+                      <>
+                        <Link
+                          href="/dashboard"
+                          className="btn btn-ghost btn-md w-full justify-center"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          داشبورد
+                        </Link>
+                        <button
+                          onClick={() => {
+                            logout();
+                            router.push("/");
+                            setIsMenuOpen(false);
+                          }}
+                          className="btn btn-outline btn-md w-full justify-center"
+                        >
+                          خروج
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          href="/sign-in"
+                          className="btn btn-ghost btn-md w-full justify-center"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          ورود
+                        </Link>
+                        <Link
+                          href="/sign-up"
+                          className="btn btn-primary btn-md w-full justify-center"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          ثبت‌نام
+                        </Link>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
