@@ -186,7 +186,7 @@ export default function Profile() {
     const certUrl = encodeURIComponent(
       `${API_URL}/api/get-cert/?user_id=${user.id}`
     );
-    const url = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=2nd+Codocodile+Contest&organizationId=98884196&issueYear=2024&issueMonth=11&certUrl=${certUrl}`;
+    const url = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=3rd+Codocodile+Contest&organizationId=98884196&issueYear=2025&issueMonth=11`;
     window.open(url, "_blank");
   };
 
