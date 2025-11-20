@@ -4,8 +4,8 @@ services:
     build:
       context: ./backend
     container_name: codocodile_backend
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - frontend
     volumes:
@@ -19,13 +19,29 @@ services:
     build:
       context: ./new-frontend
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://185.204.171.106:8000}
+      # args:
+      #   NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://codocodile.ir}
     container_name: codocodile_frontend
-    ports:
-      - "443:3000"
+    expose:
+      - "3000"
     networks:
       - codocodile_network
+  
+  nginx:
+    image: nginx
+    container_name: codocodile_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/codocodile.ir/fullchain.pem:/etc/nginx/ssl/codocodile.ir.crt:ro
+      - /etc/letsencrypt/live/codocodile.ir/privkey.pem:/etc/nginx/ssl/codocodile.ir.key:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - codocodile_network
+    depends_on:
+      - backend
+      - frontend
 
 networks:
   codocodile_network:

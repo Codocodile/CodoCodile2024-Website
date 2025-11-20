@@ -64,7 +64,7 @@ class ChallengerConfirmAPIView(views.APIView):
             'Codocodile Confirmation Code',
             'Your Codocodile confirmation code is {0}. Ignore this email if you\'re not a particpant.'.format(
                 challenger.confirmation_code),
-            settings.EMAIL_HOST_USER,
+            settings.DEFAULT_FROM_EMAIL,
             [challenger.user.email],
         )
         return Response(
@@ -247,7 +247,7 @@ class PasswordResetAPIView(views.APIView):
         send_mail(
             'Codocodile Password Reset',
             f'Your Codocodile password reset link is: https://codocodile.ir/password-reset/{challenger.password_reset_code}',
-            settings.EMAIL_HOST_USER,
+            settings.DEFAULT_FROM_EMAIL,
             [challenger.user.email],
         )
         return Response(
