@@ -30,7 +30,6 @@ interface Challenger {
   national_code?: string;
   is_confirmed: boolean;
   cv_file?: string;
-  shirt_size?: string;
 }
 
 interface AuthContextType {

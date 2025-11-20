@@ -120,7 +120,6 @@ export const challengerAPI = {
     bio: string;
     national_code: string;
     university: string;
-    shirt_size: "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
   }) => {
     const response = await api.put("/update-challenger/", data);
     return response.data;

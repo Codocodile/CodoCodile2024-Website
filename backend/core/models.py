@@ -12,14 +12,14 @@ class Challenger(models.Model):
         ("M", "Male"),
         ("F", "Female"),
     )
-    SHIRT_SIZE_CHOICES = (
-        ("S", "Small"),
-        ("M", "Medium"),
-        ("L", "Large"),
-        ("XL", "Extra Large"),
-        ("XXL", "Extra Extra Large"),
-        ("XXXL", "Extra Extra Extra Large"),
-    )
+    # SHIRT_SIZE_CHOICES = (
+    #     ("S", "Small"),
+    #     ("M", "Medium"),
+    #     ("L", "Large"),
+    #     ("XL", "Extra Large"),
+    #     ("XXL", "Extra Extra Large"),
+    #     ("XXXL", "Extra Extra Extra Large"),
+    # )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name_persian = models.CharField(max_length=50)
@@ -37,7 +37,7 @@ class Challenger(models.Model):
     is_confirmed = models.BooleanField(default=False)
     password_reset_code = models.CharField(max_length=20, blank=True)
     cv_file = models.FileField(upload_to='cv_uploads/', blank=True)
-    shirt_size = models.CharField(max_length=4, choices=SHIRT_SIZE_CHOICES, blank=True)
+    # shirt_size = models.CharField(max_length=4, choices=SHIRT_SIZE_CHOICES, blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} {self.get_status_display()}'

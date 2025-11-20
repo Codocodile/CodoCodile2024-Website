@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
+import RulesModal from "@/components/RulesModal";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ export default function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
   const { register, isLoading } = useAuth();
   const router = useRouter();
 
@@ -63,7 +65,7 @@ export default function SignUp() {
       };
 
       await register(registrationData);
-      router.push("/");
+      router.push("/sign-in");
     } catch (error: any) {
       setError(
         error.response?.data?.detail ||
@@ -474,7 +476,18 @@ export default function SignUp() {
                       htmlFor="terms"
                       className="mr-2 rtl:ml-2 block text-sm text-neutral-700"
                     >
-                      قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم
+                      <span>قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم</span>
+                      {" "}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsRulesModalOpen(true);
+                        }}
+                        className="text-primary-600 hover:text-primary-700 underline font-medium"
+                      >
+                        (مطالعه قوانین)
+                      </button>
                     </label>
                   </div>
                 </div>
@@ -520,6 +533,10 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+      <RulesModal
+        isOpen={isRulesModalOpen}
+        onClose={() => setIsRulesModalOpen(false)}
+      />
     </div>
   );
 }

@@ -150,7 +150,7 @@ const members: Member[] = [
   },
   {
     id: "17",
-    fullName: "حسین خوانسری",
+    fullName: "حسین خوانساری",
     team: "مدیا",
     isHead: true,
     specialRole: null,
@@ -198,7 +198,7 @@ const members: Member[] = [
   },
   {
     id: "23",
-    fullName: "مهدی آبوطالبی",
+    fullName: "مهدی ابوطالبی",
     team: "اجرایی",
     isHead: false,
     specialRole: null,
@@ -589,13 +589,9 @@ export default function TeamPage() {
       <main className="pt-16 lg:pt-20">
         <section className="container-custom py-16">
           <header className="mb-10">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">
+            <h1 className="text-3xl sm:text-4xl font-potk text-foreground text-center">
               تیم برگزارکننده
             </h1>
-            <p className="mt-3 text-neutral-600">
-              اعضای تیم‌های مختلف کدوکدیل به همراه نقش‌ها. دبیر و نایب دبیر به
-              صورت ویژه نمایش داده شده‌اند.
-            </p>
           </header>
 
           {/* ویژه: دبیر و نایب دبیر */}

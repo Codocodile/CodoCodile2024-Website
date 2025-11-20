@@ -247,7 +247,7 @@ def bfs(graph, start):
               {/* Fixed Subtitle */}
               <div className="h-16 flex items-center">
                 <span className="text-xl sm:text-2xl lg:text-3xl text-neutral-600 w-full">
-                  در بزرگترین{" "}
+                  بزرگترین{" "}
                   <span className="text-gradient font-semibold">
                     مسابقه برنامه‌نویسی
                   </span>{" "}

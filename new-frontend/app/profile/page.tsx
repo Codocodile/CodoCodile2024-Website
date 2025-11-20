@@ -31,7 +31,6 @@ export default function Profile() {
     bio: "",
     university: "",
     national_code: "",
-    shirt_size: "" as "" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL",
   });
 
   const [confirmationCode, setConfirmationCode] = useState("");
@@ -61,7 +60,6 @@ export default function Profile() {
         bio: user.bio || "",
         university: user.university || "",
         national_code: user.national_code || "",
-        shirt_size: (user.shirt_size as any) || "",
       });
       setCvUploaded(!!user.cv_file);
     }
@@ -163,7 +161,6 @@ export default function Profile() {
         bio: formData.bio,
         national_code: formData.national_code,
         university: formData.university,
-        shirt_size: formData.shirt_size || undefined,
       };
 
       await updateProfile(updateData);
@@ -424,26 +421,6 @@ export default function Profile() {
                     <option value="F">زن</option>
                   </select>
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  سایز پیراهن
-                </label>
-                <select
-                  name="shirt_size"
-                  value={formData.shirt_size}
-                  onChange={handleInputChange}
-                  className="input"
-                >
-                  <option value="">انتخاب کنید</option>
-                  <option value="S">S</option>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
-                  <option value="XXL">XXL</option>
-                  <option value="XXXL">XXXL</option>
-                </select>
               </div>
 
               <div className="border-t pt-6 space-y-4">

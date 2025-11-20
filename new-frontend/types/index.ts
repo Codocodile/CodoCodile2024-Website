@@ -22,7 +22,6 @@ export interface Challenger {
   phone_number: string;
   national_code?: string;
   university?: string;
-  shirt_size?: string;
   is_confirmed: boolean;
   cv_file?: string;
 }
