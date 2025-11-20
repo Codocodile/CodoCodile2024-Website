@@ -184,6 +184,30 @@ export default function TeamManagement() {
     }
   };
 
+  const handleLeaveTeam = async () => {
+    if (!team) return;
+
+    // Confirm before leaving
+    const confirmed = window.confirm(
+      "آیا مطمئن هستید که می‌خواهید از تیم خارج شوید؟"
+    );
+    if (!confirmed) return;
+
+    try {
+      await teamAPI.deleteTeam();
+      setTeam(null);
+      setError("");
+      // Refresh invitations in case there are new ones
+      await loadInvitations();
+    } catch (error: any) {
+      setError(
+        error.response?.data?.detail ||
+          error.response?.data?.errors?.[0]?.detail ||
+          "خطا در خروج از تیم"
+      );
+    }
+  };
+
   const handleOpenJudge = () => {
     window.open("https://judge.codocodile.ir/login", "_blank");
   };
@@ -565,6 +589,22 @@ export default function TeamManagement() {
                       هیچ عضوی در تیم وجود ندارد
                     </p>
                   )}
+                </div>
+              </div>
+
+              {/* Leave Team Button */}
+              <div className="card p-8 border-red-200 bg-red-50/50">
+                <div className="flex flex-col items-center space-y-4">
+                  <p className="text-neutral-700 text-center font-medium">
+                    می‌خواهید از تیم خارج شوید؟
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleLeaveTeam}
+                    className="btn border-2 border-red-500 text-red-600 hover:bg-red-500 hover:text-white focus:ring-red-500 w-full md:w-auto px-6 py-3"
+                  >
+                    خروج از تیم
+                  </button>
                 </div>
               </div>
 

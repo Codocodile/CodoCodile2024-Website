@@ -490,6 +490,17 @@ export default function Profile() {
               </button>
             </form>
           </div>
+
+          {/* Dashboard Button */}
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={() => router.push("/dashboard")}
+              className="btn btn-primary btn-lg w-full"
+            >
+              ورود به داشبورد
+            </button>
+          </div>
         </div>
       </main>
       <Footer />
