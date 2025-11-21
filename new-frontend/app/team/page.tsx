@@ -254,7 +254,7 @@ const members: Member[] = [
   },
   {
     id: "30",
-    fullName: "پارسا عدل‌پروار",
+    fullName: "پارسا عدل‌پرور",
     team: "علمی",
     isHead: false,
     specialRole: null,

@@ -1,7 +1,11 @@
 "use client";
 
 import { Fragment } from "react";
-import { XMarkIcon, CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Rule {
@@ -63,10 +67,9 @@ const RulesModal = ({ isOpen, onClose }: RulesModalProps) => {
       title: "سطح‌بندی مسابقه",
       icon: CheckCircleIcon,
       content: [
-        "سطح Junior: برای مبتدیان و دانش‌آموزان",
-        "سطح Senior: برای دانشجویان ترم‌های اول و دوم",
-        "سطح Pro: برای دانشجویان ترم‌های بالاتر و حرفه‌ای‌ها",
-        "انتخاب سطح بر اساس تجربه و مهارت انجام می‌شود",
+        "سطح Junior: برای دانش‌آموز‌ها",
+        "سطح Senior: برای دانشجو‌ها",
+        "سطح Pro: برای المپیادی‌ها",
         "تغییر سطح بعد از ثبت‌نام امکان‌پذیر نیست",
       ],
       important: false,
@@ -246,4 +249,3 @@ const RulesModal = ({ isOpen, onClose }: RulesModalProps) => {
 };
 
 export default RulesModal;
-

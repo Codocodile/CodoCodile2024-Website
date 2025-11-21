@@ -355,11 +355,9 @@ export default function SignUp() {
                       onChange={handleInputChange}
                       className="input"
                     >
-                      <option value="J">Junior - دانش‌آموز</option>
-                      <option value="S">
-                        Senior - دانشجوی ترم‌های اول و دوم
-                      </option>
-                      <option value="P">Pro - دانشجوی ترم‌های بالاتر</option>
+                      <option value="J">Junior - دانش‌آموز‌ها</option>
+                      <option value="S">Senior - دانشجو‌ها</option>
+                      <option value="P">Pro - المپیادی‌ها</option>
                     </select>
                   </div>
 
@@ -476,8 +474,9 @@ export default function SignUp() {
                       htmlFor="terms"
                       className="mr-2 rtl:ml-2 block text-sm text-neutral-700"
                     >
-                      <span>قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم</span>
-                      {" "}
+                      <span>
+                        قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم
+                      </span>{" "}
                       <button
                         type="button"
                         onClick={(e) => {
