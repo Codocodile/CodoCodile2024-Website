@@ -24,7 +24,6 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
   const { register, isLoading } = useAuth();
   const router = useRouter();
@@ -75,28 +74,6 @@ export default function SignUp() {
     }
   };
 
-  const nextStep = () => {
-    if (currentStep < 3) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const steps = [
-    {
-      number: 1,
-      title: "اطلاعات شخصی",
-      description: "نام، ایمیل و شماره تلفن",
-    },
-    { number: 2, title: "اطلاعات تحصیلی", description: "دانشگاه و سطح تحصیلی" },
-    { number: 3, title: "تایید اطلاعات", description: "بررسی و تکمیل ثبت‌نام" },
-  ];
-
   return (
     <div className="flex-1 flex flex-col bg-gradient-hero">
       <Header />
@@ -118,42 +95,6 @@ export default function SignUp() {
             </p>
           </div>
 
-          {/* Progress Steps */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse">
-              {steps.map((step, index) => (
-                <div key={step.number} className="flex items-center">
-                  <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${
-                      currentStep >= step.number
-                        ? "bg-primary-500 text-white"
-                        : "bg-neutral-200 text-neutral-600"
-                    }`}
-                  >
-                    {step.number}
-                  </div>
-                  <div className="mr-4 rtl:ml-4">
-                    <div className="text-sm font-medium text-foreground">
-                      {step.title}
-                    </div>
-                    <div className="text-xs text-neutral-600">
-                      {step.description}
-                    </div>
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-16 h-1 rounded-full ${
-                        currentStep > step.number
-                          ? "bg-primary-500"
-                          : "bg-neutral-200"
-                      }`}
-                    ></div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Form */}
           <div className="card p-8">
             {error && (
@@ -163,184 +104,182 @@ export default function SignUp() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Step 1: Personal Information */}
-              {currentStep === 1 && (
-                <div className="space-y-6">
-                  <h3 className="text-xl font-bold text-foreground mb-4">
-                    اطلاعات شخصی
-                  </h3>
+              {/* Personal Information Section */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  اطلاعات شخصی
+                </h3>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="firstName"
-                        className="block text-sm font-medium text-foreground mb-2"
-                      >
-                        نام
-                      </label>
-                      <input
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        required
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        className="input"
-                        placeholder="نام خود را وارد کنید"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="lastName"
-                        className="block text-sm font-medium text-foreground mb-2"
-                      >
-                        نام خانوادگی
-                      </label>
-                      <input
-                        id="lastName"
-                        name="lastName"
-                        type="text"
-                        required
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        className="input"
-                        placeholder="نام خانوادگی خود را وارد کنید"
-                      />
-                    </div>
-                  </div>
-
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="firstName"
                       className="block text-sm font-medium text-foreground mb-2"
                     >
-                      ایمیل
+                      نام
                     </label>
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
+                      id="firstName"
+                      name="firstName"
+                      type="text"
                       required
-                      value={formData.email}
+                      value={formData.firstName}
                       onChange={handleInputChange}
                       className="input"
-                      placeholder="ایمیل خود را وارد کنید"
+                      placeholder="نام خود را وارد کنید"
                     />
                   </div>
-
                   <div>
                     <label
-                      htmlFor="phoneNumber"
+                      htmlFor="lastName"
                       className="block text-sm font-medium text-foreground mb-2"
                     >
-                      شماره تلفن
+                      نام خانوادگی
                     </label>
                     <input
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      type="tel"
+                      id="lastName"
+                      name="lastName"
+                      type="text"
                       required
-                      value={formData.phoneNumber}
+                      value={formData.lastName}
                       onChange={handleInputChange}
                       className="input"
-                      placeholder="09xxxxxxxxx"
+                      placeholder="نام خانوادگی خود را وارد کنید"
                     />
                   </div>
+                </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="password"
-                        className="block text-sm font-medium text-foreground mb-2"
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    ایمیل
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="input"
+                    placeholder="ایمیل خود را وارد کنید"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="phoneNumber"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    شماره تلفن
+                  </label>
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    className="input"
+                    placeholder="09xxxxxxxxx"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-foreground mb-2"
+                    >
+                      رمز عبور
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        required
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        className="input pr-10"
+                        placeholder="رمز عبور خود را وارد کنید"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                       >
-                        رمز عبور
-                      </label>
-                      <div className="relative">
-                        <input
-                          id="password"
-                          name="password"
-                          type={showPassword ? "text" : "password"}
-                          required
-                          value={formData.password}
-                          onChange={handleInputChange}
-                          className="input pr-10"
-                          placeholder="رمز عبور خود را وارد کنید"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
-                        >
-                          {showPassword ? (
-                            <EyeSlashIcon className="w-5 h-5" />
-                          ) : (
-                            <EyeIcon className="w-5 h-5" />
-                          )}
-                        </button>
-                      </div>
+                        {showPassword ? (
+                          <EyeSlashIcon className="w-5 h-5" />
+                        ) : (
+                          <EyeIcon className="w-5 h-5" />
+                        )}
+                      </button>
                     </div>
-                    <div>
-                      <label
-                        htmlFor="confirmPassword"
-                        className="block text-sm font-medium text-foreground mb-2"
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="confirmPassword"
+                      className="block text-sm font-medium text-foreground mb-2"
+                    >
+                      تایید رمز عبور
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        required
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        className="input pr-10"
+                        placeholder="رمز عبور را مجدداً وارد کنید"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                       >
-                        تایید رمز عبور
-                      </label>
-                      <div className="relative">
-                        <input
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          type={showConfirmPassword ? "text" : "password"}
-                          required
-                          value={formData.confirmPassword}
-                          onChange={handleInputChange}
-                          className="input pr-10"
-                          placeholder="رمز عبور را مجدداً وارد کنید"
-                        />
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setShowConfirmPassword(!showConfirmPassword)
-                          }
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
-                        >
-                          {showConfirmPassword ? (
-                            <EyeSlashIcon className="w-5 h-5" />
-                          ) : (
-                            <EyeIcon className="w-5 h-5" />
-                          )}
-                        </button>
-                      </div>
+                        {showConfirmPassword ? (
+                          <EyeSlashIcon className="w-5 h-5" />
+                        ) : (
+                          <EyeIcon className="w-5 h-5" />
+                        )}
+                      </button>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
 
-              {/* Step 2: Educational Information */}
-              {currentStep === 2 && (
-                <div className="space-y-6">
-                  <h3 className="text-xl font-bold text-foreground mb-4">
-                    اطلاعات تحصیلی
-                  </h3>
+              {/* Educational Information Section */}
+              <div className="space-y-6 pt-6 border-t border-neutral-200">
+                <h3 className="text-xl font-bold text-foreground mb-4">
+                  اطلاعات تحصیلی
+                </h3>
 
-                  <div>
-                    <label
-                      htmlFor="university"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      دانشگاه
-                    </label>
-                    <input
-                      id="university"
-                      name="university"
-                      type="text"
-                      value={formData.university}
-                      onChange={handleInputChange}
-                      className="input"
-                      placeholder="نام دانشگاه خود را وارد کنید"
-                    />
-                  </div>
+                <div>
+                  <label
+                    htmlFor="university"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    دانشگاه
+                  </label>
+                  <input
+                    id="university"
+                    name="university"
+                    type="text"
+                    value={formData.university}
+                    onChange={handleInputChange}
+                    className="input"
+                    placeholder="نام دانشگاه خود را وارد کنید"
+                  />
+                </div>
 
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label
                       htmlFor="status"
@@ -379,154 +318,74 @@ export default function SignUp() {
                       <option value="F">زن</option>
                     </select>
                   </div>
-
-                  <div>
-                    <label
-                      htmlFor="nationalCode"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      کد ملی (اختیاری)
-                    </label>
-                    <input
-                      id="nationalCode"
-                      name="nationalCode"
-                      type="text"
-                      value={formData.nationalCode}
-                      onChange={handleInputChange}
-                      className="input"
-                      placeholder="کد ملی خود را وارد کنید"
-                    />
-                  </div>
                 </div>
-              )}
 
-              {/* Step 3: Confirmation */}
-              {currentStep === 3 && (
-                <div className="space-y-6">
-                  <h3 className="text-xl font-bold text-foreground mb-4">
-                    تایید اطلاعات
-                  </h3>
-
-                  <div className="bg-neutral-50 rounded-xl p-6 space-y-4">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          نام:
-                        </span>
-                        <p className="text-foreground">
-                          {formData.firstName} {formData.lastName}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          ایمیل:
-                        </span>
-                        <p className="text-foreground">{formData.email}</p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          تلفن:
-                        </span>
-                        <p className="text-foreground">
-                          {formData.phoneNumber}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          دانشگاه:
-                        </span>
-                        <p className="text-foreground">
-                          {formData.university || "وارد نشده"}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          سطح:
-                        </span>
-                        <p className="text-foreground">
-                          {formData.status === "J"
-                            ? "Junior"
-                            : formData.status === "S"
-                            ? "Senior"
-                            : "Pro"}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-neutral-600">
-                          جنسیت:
-                        </span>
-                        <p className="text-foreground">
-                          {formData.gender === "M" ? "مرد" : "زن"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <input
-                      id="terms"
-                      name="terms"
-                      type="checkbox"
-                      required
-                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="mr-2 rtl:ml-2 block text-sm text-neutral-700"
-                    >
-                      <span>
-                        قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم
-                      </span>{" "}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setIsRulesModalOpen(true);
-                        }}
-                        className="text-primary-600 hover:text-primary-700 underline font-medium"
-                      >
-                        (مطالعه قوانین)
-                      </button>
-                    </label>
-                  </div>
+                <div>
+                  <label
+                    htmlFor="nationalCode"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    کد ملی (اختیاری)
+                  </label>
+                  <input
+                    id="nationalCode"
+                    name="nationalCode"
+                    type="text"
+                    value={formData.nationalCode}
+                    onChange={handleInputChange}
+                    className="input"
+                    placeholder="کد ملی خود را وارد کنید"
+                  />
                 </div>
-              )}
+              </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-between pt-6">
+              {/* Terms and Conditions */}
+              <div className="pt-6 border-t border-neutral-200">
+                <div className="flex items-center">
+                  <input
+                    id="terms"
+                    name="terms"
+                    type="checkbox"
+                    required
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="mr-2 rtl:ml-2 block text-sm text-neutral-700"
+                  >
+                    <span>
+                      قوانین و مقررات مسابقه را مطالعه کرده و می‌پذیرم
+                    </span>{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsRulesModalOpen(true);
+                      }}
+                      className="text-primary-600 hover:text-primary-700 underline font-medium"
+                    >
+                      (مطالعه قوانین)
+                    </button>
+                  </label>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex justify-end pt-6">
                 <button
-                  type="button"
-                  onClick={prevStep}
-                  disabled={currentStep === 1}
-                  className="btn btn-outline btn-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="submit"
+                  disabled={isLoading}
+                  className="btn btn-primary btn-md w-full md:w-auto"
                 >
-                  مرحله قبل
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 rtl:ml-2"></div>
+                      در حال ثبت‌نام...
+                    </div>
+                  ) : (
+                    "تکمیل ثبت‌نام"
+                  )}
                 </button>
-
-                {currentStep < 3 ? (
-                  <button
-                    type="button"
-                    onClick={nextStep}
-                    className="btn btn-primary btn-md"
-                  >
-                    مرحله بعد
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="btn btn-primary btn-md"
-                  >
-                    {isLoading ? (
-                      <div className="flex items-center">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 rtl:ml-2"></div>
-                        در حال ثبت‌نام...
-                      </div>
-                    ) : (
-                      "تکمیل ثبت‌نام"
-                    )}
-                  </button>
-                )}
               </div>
             </form>
           </div>
