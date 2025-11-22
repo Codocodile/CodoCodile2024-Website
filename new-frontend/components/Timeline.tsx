@@ -34,8 +34,8 @@ const Timeline = () => {
     {
       id: 1,
       title: "شروع ثبت‌نام",
-      date: "01 آذر 1404",
-      time: "10:00 صبح",
+      date: "30 آبان 1404",
+      time: "10:00",
       description: "شروع ثبت‌نام آنلاین در وب‌سایت مسابقه",
       status: "current",
       icon: CheckCircleIcon,
@@ -47,8 +47,8 @@ const Timeline = () => {
     {
       id: 2,
       title: "پایان ثبت‌نام",
-      date: "04 آذر 1404",
-      time: "23:59 شب",
+      date: "06 آذر 1404",
+      time: "23:59",
       description: "آخرین مهلت ثبت‌نام و تشکیل تیم",
       status: "upcoming",
       icon: ClockIcon,
@@ -60,8 +60,8 @@ const Timeline = () => {
     {
       id: 3,
       title: "آزمون اولیه",
-      date: "06 آذر 1404",
-      time: "10:00 صبح",
+      date: "07 آذر 1404",
+      time: "18:00",
       description: "آزمون آنلاین برای تعیین سطح شرکت‌کنندگان",
       status: "upcoming",
       icon: CalendarDaysIcon,
