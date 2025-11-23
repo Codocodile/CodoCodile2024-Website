@@ -9,7 +9,7 @@ from core.models import Group, Challenger, Membership, Visit
 
 from django.core.mail import send_mail
 from django.db.models.functions import Concat
-from django.db.models import Value as V
+from django.db.models import Value as V, Count
 from django.db.models import Q
 from django.db.models import Exists, OuterRef
 
@@ -300,3 +300,23 @@ class CertAPIView(views.APIView):
         response = FileResponse(open(file_path, 'rb'), content_type='image/jpeg')
         response['Content-Disposition'] = 'inline'
         return response
+
+
+class StatisticsAPIView(views.APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        # Count total challengers
+        total = Challenger.objects.count()
+        
+        # Count by status
+        senior = Challenger.objects.filter(status='S').count()
+        pro = Challenger.objects.filter(status='P').count()
+        junior = Challenger.objects.filter(status='J').count()
+        
+        return Response({
+            'total': total,
+            'senior': senior,
+            'pro': pro,
+            'junior': junior,
+        }, status=status.HTTP_200_OK)

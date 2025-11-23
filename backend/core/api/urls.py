@@ -47,4 +47,5 @@ urlpatterns = [
     ),
     path("visit/", views.VisitCreateAPIView.as_view(), name="visit"),
     path("get-cert/", views.CertAPIView.as_view(), name="get-cert"),
+    path("statistics/", views.StatisticsAPIView.as_view(), name="statistics"),
 ]

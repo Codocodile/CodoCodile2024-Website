@@ -200,3 +200,10 @@ export const certAPI = {
     return response.data;
   },
 };
+
+export const statisticsAPI = {
+  getStatistics: async () => {
+    const response = await api.get("/statistics/");
+    return response.data;
+  },
+};
