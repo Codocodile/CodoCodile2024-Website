@@ -109,20 +109,7 @@ const StatisticsPage = () => {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const numberVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        type: "spring",
-        stiffness: 100,
+        ease: "easeOut" as const,
       },
     },
   };
@@ -160,10 +147,14 @@ const StatisticsPage = () => {
 
     return (
       <motion.span
-        variants={numberVariants}
-        initial="hidden"
-        animate="visible"
-        custom={delay}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.6,
+          type: "spring" as const,
+          stiffness: 100,
+          delay: delay,
+        }}
       >
         {displayValue.toLocaleString("fa-IR")}
       </motion.span>
