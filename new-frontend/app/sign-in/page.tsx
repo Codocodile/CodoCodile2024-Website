@@ -149,7 +149,7 @@ export default function SignIn() {
 
                 <div className="text-sm">
                   <Link
-                    href="/forgot-password"
+                    href="/forget-password"
                     className="font-medium text-primary-600 hover:text-primary-500"
                   >
                     رمز عبور را فراموش کرده‌اید؟

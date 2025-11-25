@@ -30,6 +30,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserViewSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=False)
+
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email")
@@ -177,6 +179,18 @@ class ChallengerUpdateSerializer(serializers.ModelSerializer):
         user = User.objects.get(username=self.context["request"].user.username)
         user.first_name = user_data["first_name"]
         user.last_name = user_data["last_name"]
+
+        # Allow email update only if account is not confirmed
+        if "email" in user_data:
+            if instance.is_confirmed:
+                raise serializers.ValidationError(
+                    "Email cannot be changed after account confirmation."
+                )
+            user.email = user_data["email"]
+            # Reset confirmation status when email is changed
+            instance.is_confirmed = False
+            instance.confirmation_code = ""
+
         user.save()
         instance.first_name_persian = validated_data["first_name_persian"]
         instance.last_name_persian = validated_data["last_name_persian"]

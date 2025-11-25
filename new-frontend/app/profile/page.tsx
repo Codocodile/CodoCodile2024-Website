@@ -149,7 +149,7 @@ export default function Profile() {
     setIsLoading(true);
 
     try {
-      const updateData = {
+      const updateData: any = {
         user: {
           first_name: formData.first_name,
           last_name: formData.last_name,
@@ -163,9 +163,16 @@ export default function Profile() {
         university: formData.university,
       };
 
+      // Only include email if account is not confirmed
+      if (user && !user.is_confirmed && formData.email !== user.user?.email) {
+        updateData.user.email = formData.email;
+      }
+
       await updateProfile(updateData);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
+      // Reload user data to get updated confirmation status
+      window.location.reload();
     } catch (error: any) {
       setError(
         error.response?.data?.detail ||
@@ -295,9 +302,16 @@ export default function Profile() {
                 <div className="flex gap-2">
                   <input
                     type="email"
+                    name="email"
                     value={formData.email}
-                    disabled
-                    className="input flex-1"
+                    onChange={handleInputChange}
+                    disabled={user.is_confirmed}
+                    className={`input flex-1 ${
+                      user.is_confirmed
+                        ? "bg-neutral-100 cursor-not-allowed"
+                        : ""
+                    }`}
+                    placeholder="ایمیل خود را وارد کنید"
                   />
                   {!user.is_confirmed && (
                     <button
@@ -330,6 +344,11 @@ export default function Profile() {
                 {user.is_confirmed && (
                   <p className="mt-2 text-sm text-green-600">
                     ✓ ایمیل شما تایید شده است
+                  </p>
+                )}
+                {!user.is_confirmed && (
+                  <p className="mt-2 text-sm text-neutral-500">
+                    می‌توانید ایمیل خود را قبل از تایید تغییر دهید
                   </p>
                 )}
               </div>
