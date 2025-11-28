@@ -209,7 +209,7 @@ export default function TeamManagement() {
   };
 
   const handleOpenJudge = () => {
-    window.open("https://judge.codocodile.ir/login", "_blank");
+    window.open("https://codocodile.ir/contest/", "_blank");
   };
 
   const copyToClipboard = (text: string, fieldName: string) => {
