@@ -303,7 +303,7 @@ const About = () => {
           </div>
         </div> */}
 
-        {/* Call to Action */}
+        {/* مسابقه تمام شده - لینک دیدن نتایج */}
         <motion.div
           className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
@@ -330,7 +330,7 @@ const About = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1 }}
               >
-                آماده شروع هستید؟
+                فاز آنلاین مسابقه به پایان رسید!
               </motion.h3>
               <motion.p
                 className="text-xl opacity-90 mb-8 max-w-2xl mx-auto"
@@ -338,8 +338,8 @@ const About = () => {
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1.1 }}
               >
-                همین حالا در مسابقه کدوکدیل ثبت‌نام کنید و خود را برای چالشی
-                بزرگ آماده کنید
+                از مشارکت شما در مسابقه کدوکدیل متشکریم. برای مشاهده نتایج
+                مسابقه روی دکمه زیر کلیک کنید.
               </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -348,7 +348,7 @@ const About = () => {
                 transition={{ duration: 0.6, delay: 1.2 }}
               >
                 <MotionLink
-                  href="/sign-up"
+                  href="/contest/public"
                   className="btn bg-white text-primary-700 hover:bg-neutral-100 btn-lg relative overflow-hidden"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -359,15 +359,10 @@ const About = () => {
                     whileHover={{ x: "100%" }}
                     transition={{ duration: 0.5 }}
                   />
-                  <span className="relative z-10">ثبت‌نام در مسابقه</span>
+                  <span className="relative z-10">
+                    مشاهده نتایج اولیه مسابقه
+                  </span>
                 </MotionLink>
-                {/* <motion.button
-                  className="btn border-2 border-white text-white hover:bg-white hover:text-primary-700 btn-lg"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  اطلاعات بیشتر
-                </motion.button> */}
               </motion.div>
             </div>
           </motion.div>

@@ -189,18 +189,18 @@ def bfs(graph, start):
           >
             {/* Badge */}
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium shadow-soft"
+              className="inline-flex items-center px-4 py-2 bg-neutral-100 text-neutral-500 rounded-full text-sm font-medium shadow-soft"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isVisible ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ scale: 1.05 }}
             >
               <motion.span
-                className="w-2 h-2 bg-primary-500 rounded-full mr-2 rtl:ml-2"
+                className="w-2 h-2 bg-neutral-400 rounded-full mr-2 rtl:ml-2"
                 animate={{ opacity: [1, 0.3, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              مسابقه 2025 - ثبت‌نام باز است
+              مهلت ثبت‌نام تمام شده است
             </motion.div>
 
             {/* Main Heading */}
